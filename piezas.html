@@ -15,7 +15,6 @@
 
 <title>Partes - IllicitSpeed XS</title>
 
-
 <style>
 
 /* =========================================================
@@ -31,18 +30,11 @@ html,
 body{
     margin:0;
     padding:0;
-
     width:100%;
     height:100%;
-
     overflow:hidden;
-
     background:transparent;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
@@ -53,7 +45,7 @@ body{
 
 
 /* =========================================================
-   CONTENEDOR
+   CONTENEDOR GENERAL
 ========================================================= */
 
 .stage{
@@ -70,13 +62,12 @@ body{
     );
 
     overflow:hidden;
-
     user-select:none;
 }
 
 
 /* =========================================================
-   FICHA GIRADA HACIA LA DERECHA
+   TARJETA GIRADA A LA DERECHA
 ========================================================= */
 
 .card{
@@ -104,7 +95,6 @@ body{
 
 .background-image{
     position:absolute;
-
     inset:0;
 
     width:100%;
@@ -116,41 +106,89 @@ body{
     user-select:none;
 
     z-index:1;
-}
 
-
-/* =========================================================
-   PIEZA TRANSPARENTE
-
-   El wrapper hace la flotación.
-   La imagen interior puede hacer el pulso al tocar.
-========================================================= */
-
-.part-float-wrap{
-    position:absolute;
-
-    inset:0;
-
-    width:100%;
-    height:100%;
-
-    z-index:3;
-
-    pointer-events:none;
-
+    /*
+       Palpito muy sutil.
+       No cambia la posición del fondo,
+       solo su intensidad luminosa.
+    */
     animation:
-        floatingPart
-        3.2s
+        backgroundHeartbeat
+        3.6s
         ease-in-out
         infinite;
 }
 
 
+/* Palpito doble suave */
+
+@keyframes backgroundHeartbeat{
+
+    0%,
+    7%,
+    13%,
+    20%,
+    100%{
+        filter:
+            brightness(1)
+            saturate(1);
+    }
+
+    4%{
+        filter:
+            brightness(1.055)
+            saturate(1.045);
+    }
+
+    10%{
+        filter:
+            brightness(1.035)
+            saturate(1.025);
+    }
+}
+
+
+/* =========================================================
+   PIEZA FLOTANTE
+
+   IMPORTANTE:
+   Ya NO ocupa toda la imagen.
+   Solo vive dentro de la zona central.
+========================================================= */
+
+.part-float-wrap{
+    position:absolute;
+
+    left:23%;
+    top:20%;
+
+    width:54%;
+    height:34%;
+
+    z-index:3;
+
+    pointer-events:none;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    animation:
+        floatingPart
+        3.1s
+        ease-in-out
+        infinite;
+}
+
+
+/* Pieza propiamente dicha */
+
 .part-image{
     width:100%;
     height:100%;
 
-    object-fit:fill;
+    object-fit:contain;
+    object-position:center;
 
     pointer-events:none;
     user-select:none;
@@ -159,23 +197,24 @@ body{
 
     filter:
         drop-shadow(
-            0 5px 6px rgba(0,0,0,.18)
+            0 5px 8px
+            rgba(0,0,0,.32)
         );
 }
 
 
-/* Flotación.
+/* =========================================================
+   FLOTACIÓN
 
-   Como toda la tarjeta está rotada -90°,
-   el eje X local se percibe como movimiento
-   vertical en la interfaz final.
-*/
+   Debido al giro de la tarjeta,
+   translateX se percibe verticalmente.
+========================================================= */
 
 @keyframes floatingPart{
 
     0%{
         transform:
-            translateX(0px);
+            translateX(-3px);
     }
 
     50%{
@@ -185,21 +224,20 @@ body{
 
     100%{
         transform:
-            translateX(0px);
+            translateX(-3px);
     }
-
 }
 
 
-/* Pequeña reacción al tocar la pieza */
+/* =========================================================
+   PULSO AL TOCAR LA PIEZA
+========================================================= */
 
 .part-image.pulse{
-
     animation:
         partPulse
-        .28s
+        .30s
         ease-out;
-
 }
 
 
@@ -207,35 +245,26 @@ body{
 
     0%{
         transform:scale(1);
-        filter:
-            drop-shadow(
-                0 5px 6px rgba(0,0,0,.18)
-            );
     }
 
     45%{
-        transform:scale(1.035);
+        transform:scale(1.055);
 
         filter:
             drop-shadow(
-                0 0 10px rgba(255,255,255,.65)
+                0 0 13px
+                rgba(255,255,255,.72)
             );
     }
 
     100%{
         transform:scale(1);
-
-        filter:
-            drop-shadow(
-                0 5px 6px rgba(0,0,0,.18)
-            );
     }
-
 }
 
 
 /* =========================================================
-   ZONAS TÁCTILES
+   BOTONES INVISIBLES
 ========================================================= */
 
 .tap{
@@ -244,7 +273,6 @@ body{
     z-index:10;
 
     border:0;
-
     background:transparent;
 
     margin:0;
@@ -257,95 +285,105 @@ body{
 /* Flecha izquierda */
 
 .arrow-left{
-
     left:0%;
     bottom:3%;
 
     width:22%;
     height:19%;
-
 }
 
 
 /* Flecha derecha */
 
 .arrow-right{
-
     right:0%;
     bottom:3%;
 
     width:22%;
     height:19%;
-
 }
 
 
-/* Zona central de la pieza */
+/* Pieza */
 
 .part-touch{
-
     left:20%;
-    top:15%;
+    top:14%;
 
     width:60%;
     height:45%;
-
 }
 
 
 /* Historia */
 
 .history-touch{
-
     left:0%;
     top:34%;
 
     width:22%;
     height:22%;
-
 }
 
 
 /* Usos */
 
 .uses-touch{
-
     right:0%;
     top:34%;
 
     width:22%;
     height:22%;
+}
 
+
+/* =========================================================
+   FLECHAS BLOQUEADAS
+
+   Como las flechas están dibujadas en el fondo,
+   añadimos una sombra encima cuando están desactivadas.
+========================================================= */
+
+.arrow-left:disabled::after,
+.arrow-right:disabled::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        rgba(0,0,0,.48);
+
+    border-radius:10px;
 }
 
 
 /* =========================================================
    CANDADO
 
-   Debido al giro -90°, esta posición queda
-   visualmente en la zona superior derecha.
+   right + bottom, debido al giro -90º,
+   aparece visualmente ARRIBA A LA DERECHA.
 ========================================================= */
 
 .lock-button{
-
     position:absolute;
 
-    left:3%;
-    top:3%;
+    right:3%;
+    bottom:3%;
 
-    z-index:40;
+    z-index:45;
 
-    width:11%;
+    width:10.5%;
     aspect-ratio:1 / 1;
 
     border:
         2px solid
-        rgba(255,255,255,.50);
+        rgba(255,255,255,.55);
 
     border-radius:50%;
 
     background:
-        rgba(0,0,0,.45);
+        rgba(8,12,18,.62);
 
     color:white;
 
@@ -357,64 +395,48 @@ body{
 
     font-size:
         clamp(
-            18px,
-            4vw,
-            38px
+            17px,
+            3.8vw,
+            36px
         );
 
     box-shadow:
-        0 3px 10px
-        rgba(0,0,0,.45),
+        0 3px 12px
+        rgba(0,0,0,.6),
+
         inset 0 0 12px
         rgba(255,255,255,.08);
 
     transition:
-        transform .18s ease,
-        background .18s ease,
-        box-shadow .18s ease;
+        transform .16s ease,
+        background .2s ease,
+        box-shadow .2s ease;
 
     touch-action:manipulation;
 }
 
 
 .lock-button:active{
-
-    transform:scale(.90);
-
+    transform:
+        scale(.88);
 }
 
 
 .lock-button.locked{
-
     background:
-        rgba(20,80,35,.68);
+        rgba(15,75,35,.78);
 
     box-shadow:
         0 0 10px
-        rgba(130,255,160,.75),
-        0 0 20px
-        rgba(130,255,160,.30);
+        rgba(110,255,145,.78),
 
+        0 0 22px
+        rgba(110,255,145,.32);
 }
 
 
 .lock-button.hidden{
-
     display:none;
-
-}
-
-
-/* =========================================================
-   ESTADO DE FLECHAS BLOQUEADAS
-========================================================= */
-
-.arrow-left:disabled,
-.arrow-right:disabled{
-
-    pointer-events:none;
-    cursor:default;
-
 }
 
 
@@ -423,7 +445,6 @@ body{
 ========================================================= */
 
 .counter{
-
     position:absolute;
 
     right:1%;
@@ -441,30 +462,20 @@ body{
     color:white;
 
     font-size:42px;
-
     font-weight:900;
     font-style:italic;
 
     text-shadow:
-
-        0 3px 2px
-        rgba(0,0,0,.90),
-
-        0 0 8px
-        rgba(255,255,255,.80),
-
-        0 0 16px
-        rgba(255,255,255,.35);
+        0 3px 2px rgba(0,0,0,.90),
+        0 0 8px rgba(255,255,255,.80),
+        0 0 16px rgba(255,255,255,.35);
 
     pointer-events:none;
-
 }
 
 
 .counter.hidden{
-
     display:none;
-
 }
 
 
@@ -473,9 +484,7 @@ body{
 ========================================================= */
 
 .modal{
-
     position:absolute;
-
     inset:0;
 
     z-index:1000;
@@ -488,31 +497,26 @@ body{
     padding:5%;
 
     background:
-        rgba(0,0,0,.82);
+        rgba(0,0,0,.83);
 
     touch-action:none;
-
 }
 
 
 .modal.show{
-
     display:flex;
-
 }
 
 
 /* =========================================================
-   CAJA
+   CAJA DEL MODAL
 ========================================================= */
 
 .modal-box{
-
     position:relative;
 
     width:92%;
     height:86%;
-
     max-height:86%;
 
     display:flex;
@@ -527,7 +531,6 @@ body{
         rgba(255,255,255,.28);
 
     background:
-
         linear-gradient(
             180deg,
             rgba(40,46,55,.98),
@@ -535,17 +538,12 @@ body{
         );
 
     box-shadow:
-
-        0 12px 35px
-        rgba(0,0,0,.70),
-
-        inset 0 0 25px
-        rgba(255,255,255,.04);
+        0 12px 35px rgba(0,0,0,.70),
+        inset 0 0 25px rgba(255,255,255,.04);
 
     color:white;
 
     touch-action:none;
-
 }
 
 
@@ -554,7 +552,6 @@ body{
 ========================================================= */
 
 .modal-top{
-
     position:relative;
 
     flex:0 0 auto;
@@ -568,22 +565,18 @@ body{
     border-bottom:
         1px solid
         rgba(255,255,255,.18);
-
 }
 
 
-/* =========================================================
-   TÍTULO
-========================================================= */
+/* Título */
 
 .modal-title{
-
     margin:0;
 
     font-size:
         clamp(
             16px,
-            2.2vw,
+            2.25vw,
             24px
         );
 
@@ -591,16 +584,12 @@ body{
     font-style:italic;
 
     line-height:1.08;
-
 }
 
 
-/* =========================================================
-   DATOS
-========================================================= */
+/* Datos */
 
 .modal-data{
-
     margin-top:7px;
 
     color:#d1d8df;
@@ -608,7 +597,7 @@ body{
     font-size:
         clamp(
             11px,
-            1.5vw,
+            1.55vw,
             15px
         );
 
@@ -617,16 +606,14 @@ body{
     line-height:1.35;
 
     white-space:pre-line;
-
 }
 
 
 /* =========================================================
-   CERRAR
+   BOTÓN CERRAR
 ========================================================= */
 
 .close{
-
     position:absolute;
 
     right:9px;
@@ -662,16 +649,14 @@ body{
     z-index:20;
 
     touch-action:manipulation;
-
 }
 
 
 /* =========================================================
-   TEXTO
+   TEXTO DEL MODAL
 ========================================================= */
 
 .modal-text{
-
     position:relative;
 
     flex:1 1 0;
@@ -681,7 +666,7 @@ body{
     padding:
         15px
         16px
-        24px;
+        25px;
 
     overflow-y:auto;
     overflow-x:hidden;
@@ -692,125 +677,94 @@ body{
 
     touch-action:none;
 
-    /*
-       Texto un poco más grande que antes.
-       Nunca bajaremos a menos de 8px.
-    */
-
     font-size:
         clamp(
             12px,
-            1.7vw,
-            16px
+            1.75vw,
+            16.5px
         );
 
-    line-height:1.43;
+    line-height:1.45;
 
     white-space:pre-line;
 
     user-select:text;
-
 }
 
 
 .modal-text::-webkit-scrollbar{
-
     width:7px;
-
 }
 
 
 .modal-text::-webkit-scrollbar-track{
-
     background:
         rgba(255,255,255,.04);
-
 }
 
 
 .modal-text::-webkit-scrollbar-thumb{
-
     background:
         rgba(255,255,255,.30);
 
     border-radius:10px;
-
 }
 
 
 /* =========================================================
-   CELULARES
+   CELULAR
 ========================================================= */
 
 @media(max-height:600px){
 
     .modal{
-
         padding:4%;
-
     }
 
 
     .modal-box{
-
         width:94%;
         height:88%;
-
         max-height:88%;
-
     }
 
 
     .modal-top{
-
         padding:
             11px
             45px
             7px
             11px;
-
     }
 
 
     .modal-title{
-
         font-size:15px;
-
     }
 
 
     .modal-data{
-
         margin-top:5px;
 
         font-size:10px;
 
-        line-height:1.26;
-
+        line-height:1.27;
     }
 
 
     .modal-text{
-
-        /*
-           Antes estaba en 10.5.
-           Ahora subimos un punto.
-        */
-
         font-size:11.5px;
 
-        line-height:1.37;
+        line-height:1.39;
 
         padding:
             11px
             12px
-            18px;
-
+            19px;
     }
 
 
     .close{
-
         width:29px;
         height:29px;
 
@@ -818,95 +772,72 @@ body{
         top:7px;
 
         font-size:18px;
-
     }
 
 
     .counter{
-
         font-size:27px;
-
     }
-
 }
 
 
-/* Pantallas extremadamente pequeñas */
+/* Pantallas todavía más pequeñas */
 
 @media(max-height:430px){
 
     .modal-top{
-
         padding:
             8px
             40px
             6px
             10px;
-
     }
 
 
     .modal-title{
-
         font-size:13px;
-
     }
 
 
     .modal-data{
-
         font-size:9px;
-
     }
 
 
+    /*
+       Nunca baja de 8.
+    */
+
     .modal-text{
-
-        /*
-           En ningún caso baja de 8.
-        */
-
         font-size:10.5px;
-
-        line-height:1.32;
-
+        line-height:1.33;
     }
 
 
     .close{
-
         width:26px;
         height:26px;
 
         font-size:16px;
-
     }
 
 
     .counter{
-
         font-size:23px;
-
     }
-
 }
 
 
 /* =========================================================
-   USUARIOS QUE PREFIEREN MENOS ANIMACIÓN
+   ACCESIBILIDAD
 ========================================================= */
 
-@media(
-    prefers-reduced-motion:
-    reduce
-){
+@media(prefers-reduced-motion:reduce){
 
-    .part-float-wrap{
-
+    .part-float-wrap,
+    .background-image{
         animation:none;
-
     }
-
 }
 
 </style>
@@ -930,9 +861,7 @@ body{
     >
 
 
-        <!-- ===============================================
-             FONDO
-        ================================================ -->
+        <!-- FONDO -->
 
         <img
             id="backgroundImage"
@@ -942,9 +871,7 @@ body{
         >
 
 
-        <!-- ===============================================
-             PIEZA TRANSPARENTE
-        ================================================ -->
+        <!-- PIEZA TRANSPARENTE -->
 
         <div
             id="partFloatWrap"
@@ -962,9 +889,7 @@ body{
         </div>
 
 
-        <!-- ===============================================
-             CANDADO
-        ================================================ -->
+        <!-- CANDADO -->
 
         <button
             id="lockButton"
@@ -975,9 +900,7 @@ body{
         </button>
 
 
-        <!-- ===============================================
-             FLECHAS
-        ================================================ -->
+        <!-- FLECHAS -->
 
         <button
             id="prev"
@@ -995,9 +918,7 @@ body{
         </button>
 
 
-        <!-- ===============================================
-             INFORMACIÓN
-        ================================================ -->
+        <!-- INFORMACIÓN -->
 
         <button
             id="partInfo"
@@ -1007,9 +928,7 @@ body{
         </button>
 
 
-        <!-- ===============================================
-             HISTORIA
-        ================================================ -->
+        <!-- HISTORIA -->
 
         <button
             id="history"
@@ -1019,9 +938,7 @@ body{
         </button>
 
 
-        <!-- ===============================================
-             USOS
-        ================================================ -->
+        <!-- USOS -->
 
         <button
             id="uses"
@@ -1031,9 +948,7 @@ body{
         </button>
 
 
-        <!-- ===============================================
-             CONTADOR
-        ================================================ -->
+        <!-- CONTADOR -->
 
         <div
             id="counter"
@@ -1042,9 +957,7 @@ body{
         </div>
 
 
-        <!-- ===============================================
-             MODAL
-        ================================================ -->
+        <!-- MODAL -->
 
         <div
             id="modal"
@@ -1058,9 +971,7 @@ body{
             >
 
 
-                <div
-                    class="modal-top"
-                >
+                <div class="modal-top">
 
 
                     <button
@@ -1112,54 +1023,37 @@ body{
 <script>
 
 /* =========================================================
-   BASE DE DATOS
+   PIEZAS
 ========================================================= */
 
 const piezas = [
 
-
-/* =========================================================
-   NINGUNA
-========================================================= */
-
 {
-
     id:"ninguna",
-
     nombre:"NINGUNA",
 
     fondo:"./piezas/F15.png",
-
     pieza:null,
 
     empresa:"",
-
     precio:"",
-
     durabilidad:"",
 
     max:null,
 
     reglas:"",
-
     historia:""
-
 },
 
 
-/* =========================================================
-   1. LLANTAS DRIFTING
-   F8 + A8
-========================================================= */
+/* DRIFTING - F8 / A8 */
 
 {
-
     id:"drifting",
 
     nombre:"LLANTAS DRIFTING",
 
     fondo:"./piezas/F8.png",
-
     pieza:"./piezas/A8.png",
 
     empresa:"DesertTail",
@@ -1169,7 +1063,6 @@ const piezas = [
     durabilidad:"4 daños evitados",
 
     max:4,
-
 
     reglas:
 `Cuando una curva vaya a causarte daño por haber avanzado más espacios de los permitidos, puedes activar Llantas Drifting.
@@ -1184,7 +1077,6 @@ Para activarla debes disponer tanto de la energía como de la durabilidad necesa
 
 Cuando haya evitado un total de 4 daños, la pieza se destruye.`,
 
-
     historia:
 `Esta tecnología fue desarrollada para adaptarse al estilo de conducción de los corredores de DesertTail, quienes suelen mantener velocidades altas y asumir mayores riesgos al entrar en las curvas.
 
@@ -1195,23 +1087,17 @@ El material modifica temporalmente la adherencia de la rueda y permite que el ve
 Esto permite tomar curvas a velocidades que normalmente provocarían daños graves en la suspensión.
 
 Sin embargo, el recubrimiento se degrada progresivamente con cada maniobra extrema.`
-
 },
 
 
-/* =========================================================
-   2. ÓXIDO NITROSO
-   F5 + A5
-========================================================= */
+/* ÓXIDO - F5 / A5 */
 
 {
-
     id:"nitro",
 
     nombre:"ÓXIDO NITROSO",
 
     fondo:"./piezas/F5.png",
-
     pieza:"./piezas/A5.png",
 
     empresa:"Lynx Spirit",
@@ -1221,7 +1107,6 @@ Sin embargo, el recubrimiento se degrada progresivamente con cada maniobra extre
     durabilidad:"3 usos",
 
     max:3,
-
 
     reglas:
 `Durante tu movimiento puedes gastar 2E y 1 uso de Óxido Nitroso para aumentar tu movimiento según la marcha actual.
@@ -1240,7 +1125,6 @@ Esta subida es adicional al cambio realizado al inicio del turno y nunca permite
 
 Después del tercer uso, la pieza se destruye.`,
 
-
     historia:
 `A pesar de su nombre comercial, el Óxido Nitroso utilizado en las carreras no corresponde exactamente al compuesto conocido antiguamente por los humanos.
 
@@ -1251,23 +1135,17 @@ Durante unos segundos, el compuesto es inyectado en el Tri-Phase Core, provocand
 Esta reacción aumenta momentáneamente la actividad del Core y genera un impulso inmediato y controlado en el vehículo.
 
 El piloto puede decidir cuándo utilizarlo, pero el sistema de inyección se deteriora rápidamente con cada activación.`
-
 },
 
 
-/* =========================================================
-   3. LLANTAS TODO TERRENO
-   F1 + A1
-========================================================= */
+/* TODO TERRENO - F1 / A1 */
 
 {
-
     id:"todoterreno",
 
     nombre:"LLANTAS TODO TERRENO",
 
     fondo:"./piezas/F1.png",
-
     pieza:"./piezas/A1.png",
 
     empresa:"IronHorn",
@@ -1277,7 +1155,6 @@ El piloto puede decidir cuándo utilizarlo, pero el sistema de inyección se det
     durabilidad:"4 usos",
 
     max:4,
-
 
     reglas:
 `Cuando uno o más vehículos impidan que realices un adelantamiento por los espacios normales de la carretera, puedes gastar 1 uso de Llantas Todo Terreno para realizar la maniobra por fuera de la pista.
@@ -1290,7 +1167,6 @@ No elimina otros efectos especiales provocados por el terreno, el clima o el tra
 
 Después del cuarto uso, la pieza se destruye.`,
 
-
     historia:
 `Las Llantas Todo Terreno no sustituyen las ruedas originales del vehículo.
 
@@ -1301,23 +1177,17 @@ Durante la conducción normal, sus canales permanecen comprimidos para no afecta
 Cuando el vehículo entra en superficies más complicadas, el recubrimiento se expande, aumentando el área de contacto y ayudando a absorber los impactos del terreno.
 
 Esta tecnología fue desarrollada por Orion, quien buscaba permitir que un vehículo pudiera abandonar temporalmente la carretera sin castigar innecesariamente su estructura.`
-
 },
 
 
-/* =========================================================
-   4. SENSOR DE IMPULSO
-   F2 + A2
-========================================================= */
+/* SENSOR - F2 / A2 */
 
 {
-
     id:"sensor",
 
     nombre:"SENSOR DE IMPULSO",
 
     fondo:"./piezas/F2.png",
-
     pieza:"./piezas/A2.png",
 
     empresa:"SharkWave",
@@ -1327,7 +1197,6 @@ Esta tecnología fue desarrollada por Orion, quien buscaba permitir que un vehí
     durabilidad:"Ilimitada",
 
     max:Infinity,
-
 
     reglas:
 `Al finalizar tu movimiento, si un vehículo se encuentra a 1 o 2 espacios delante de ti, puedes gastar 1E para activar el Sensor de Impulso.
@@ -1340,7 +1209,6 @@ Si el dado no mostró Rebufo, no puedes pagar energía para generar un Rebufo ad
 
 La pieza tiene usos ilimitados.`,
 
-
     historia:
 `El Sensor de Impulso está inspirado en la extraordinaria sensibilidad eléctrica de los tiburones para detectar presas cercanas.
 
@@ -1351,23 +1219,17 @@ Cuando localiza un objetivo cercano, analiza la turbulencia dejada a su paso y a
 El resultado es un impulso breve que permite alcanzar rápidamente al corredor que va delante.
 
 Si las condiciones son adecuadas, el piloto puede convertir ese acercamiento en un Rebufo.`
-
 },
 
 
-/* =========================================================
-   5. SOBORNO
-   F14 + A14
-========================================================= */
+/* SOBORNO - F14 / A14 */
 
 {
-
     id:"soborno",
 
     nombre:"SOBORNO",
 
     fondo:"./piezas/F14.png",
-
     pieza:"./piezas/A14.png",
 
     empresa:"TuskForce",
@@ -1377,7 +1239,6 @@ Si las condiciones son adecuadas, el piloto puede convertir ese acercamiento en 
     durabilidad:"1 uso",
 
     max:1,
-
 
     reglas:
 `Cuando una unidad de policía consiga alcanzarte y vaya a aplicar una detención o sanción, puedes gastar 3E para activar Soborno.
@@ -1390,7 +1251,6 @@ Soborno tiene un único uso.
 
 Después de utilizarlo, la pieza se destruye.`,
 
-
     historia:
 `Oficialmente, esta pieza no existe.
 
@@ -1401,23 +1261,17 @@ El dispositivo transmite durante unos segundos una autorización fraudulenta al 
 La unidad interpreta que la persecución ha sido cancelada desde la central y abandona inmediatamente la intervención.
 
 El código solo funciona una vez antes de ser identificado y bloqueado por la red de TuskForce.`
-
 },
 
 
-/* =========================================================
-   6. TURBO
-   F6 + A6
-========================================================= */
+/* TURBO - F6 / A6 */
 
 {
-
     id:"turbo",
 
     nombre:"TURBO",
 
     fondo:"./piezas/F6.png",
-
     pieza:"./piezas/A6.png",
 
     empresa:"Lupus Dominion",
@@ -1427,7 +1281,6 @@ El código solo funciona una vez antes de ser identificado y bloqueado por la re
     durabilidad:"Ilimitada",
 
     max:Infinity,
-
 
     reglas:
 `Cuando el dado de movimiento muestre el símbolo de llama, Turbo se activa automáticamente.
@@ -1446,7 +1299,6 @@ Después de completar tu movimiento puedes subir opcionalmente 1 marcha.
 
 Turbo no consume energía y tiene usos ilimitados.`,
 
-
     historia:
 `El Turbo moderno fue desarrollado por Tim después de la muerte de su esposa.
 
@@ -1459,23 +1311,17 @@ El Turbo canaliza esos excedentes cuando aparecen.
 Por esta razón es extremadamente potente, pero también impredecible: el conductor no decide exactamente cuándo se activa.
 
 El Core produce el impulso por sí mismo y el Turbo simplemente está preparado para aprovecharlo.`
-
 },
 
 
-/* =========================================================
-   7. FORZAR MARCHA
-   F4 + A4
-========================================================= */
+/* FORZAR MARCHA - F4 / A4 */
 
 {
-
     id:"forzar",
 
     nombre:"PALANCA DE FORZAR MARCHA",
 
     fondo:"./piezas/F4.png",
-
     pieza:"./piezas/A4.png",
 
     empresa:"AetherWing",
@@ -1485,7 +1331,6 @@ El Core produce el impulso por sí mismo y el Turbo simplemente está preparado 
     durabilidad:"3 usos",
 
     max:3,
-
 
     reglas:
 `Al inicio de tu turno, cuando vayas a realizar tu cambio de marcha, puedes gastar 2E y 1 uso de Palanca de Forzar Marcha.
@@ -1506,7 +1351,6 @@ No permite bajar marchas ni superar la 6.ª.
 
 Después del tercer uso, la pieza se destruye.`,
 
-
     historia:
 `Los conductores de AetherWing tienen una conocida tendencia a intentar tomar la delantera desde los primeros tramos de una carrera.
 
@@ -1517,23 +1361,17 @@ Palanca de Forzar Marcha nació como respuesta a este problema.
 El sistema sincroniza temporalmente la transmisión, el motor y el Core para permitir que el vehículo salte una relación de marcha de manera controlada.
 
 Así, los pilotos de AetherWing pudieron conservar su agresivo estilo de salida sin destruir sus vehículos antes de tiempo.`
-
 },
 
 
-/* =========================================================
-   8. BATERÍA
-   F3 + A3
-========================================================= */
+/* BATERÍA - F3 / A3 */
 
 {
-
     id:"bateria",
 
     nombre:"BATERÍA DE RESPALDO",
 
     fondo:"./piezas/F3.png",
-
     pieza:"./piezas/A3.png",
 
     empresa:"Kitsume",
@@ -1543,7 +1381,6 @@ Así, los pilotos de AetherWing pudieron conservar su agresivo estilo de salida 
     durabilidad:"4E almacenadas",
 
     max:4,
-
 
     reglas:
 `La Batería de Respaldo contiene una reserva independiente de 4E.
@@ -1558,7 +1395,6 @@ La energía que no utilices permanece almacenada para turnos posteriores.
 
 Cuando sus 4E hayan sido utilizadas, la pieza se destruye.`,
 
-
     historia:
 `La Batería de Respaldo es una pieza pensada para conductores astutos y previsores.
 
@@ -1571,23 +1407,17 @@ Su desarrollo se aceleró como respuesta a Toshio, pues existía preocupación d
 La batería no pretende igualar esa potencia.
 
 Su ventaja está en permitir que cada corredor decida cuándo necesita un poco más.`
-
 },
 
 
-/* =========================================================
-   9. VOLANTE DE FLUJO
-   F10 + A10
-========================================================= */
+/* VOLANTE - F10 / A10 */
 
 {
-
     id:"volante",
 
     nombre:"VOLANTE DE FLUJO",
 
     fondo:"./piezas/F10.png",
-
     pieza:"./piezas/A10.png",
 
     empresa:"Chizue",
@@ -1597,7 +1427,6 @@ Su ventaja está en permitir que cada corredor decida cuándo necesita un poco m
     durabilidad:"4 usos",
 
     max:4,
-
 
     reglas:
 `Durante tu movimiento puedes gastar 1E y 1 uso de Volante de Flujo.
@@ -1614,7 +1443,6 @@ La pieza no concede espacios adicionales de movimiento.
 
 Después del cuarto uso, se destruye.`,
 
-
     historia:
 `Esta tecnología nació de la necesidad de Chizue de conseguir que un automóvil pudiera zigzaguear con una agilidad similar a la de una lagartija.
 
@@ -1623,23 +1451,17 @@ Los cambios violentos de dirección normalmente someten los ejes, la suspensión
 Volante de Flujo utiliza un sistema de compensación que redistribuye estas cargas durante unos instantes.
 
 Gracias a ello, el piloto puede abandonar su trayectoria, cambiar de carril y regresar rápidamente al punto original realizando movimientos imposibles para la mayoría de los vehículos.`
-
 },
 
 
-/* =========================================================
-   10. FREEZING
-   F7 + A7
-========================================================= */
+/* FREEZING - F7 / A7 */
 
 {
-
     id:"freezing",
 
     nombre:"FREEZING",
 
     fondo:"./piezas/F7.png",
-
     pieza:"./piezas/A7.png",
 
     empresa:"Noctua",
@@ -1649,7 +1471,6 @@ Gracias a ello, el piloto puede abandonar su trayectoria, cambiar de carril y re
     durabilidad:"2 usos",
 
     max:2,
-
 
     reglas:
 `Cuando llegue tu turno puedes gastar 1 uso de Freezing para retrasar voluntariamente tu actuación dentro de esa ronda.
@@ -1663,7 +1484,6 @@ Debes realizar tu turno antes de que termine la ronda.
 No puedes guardar el turno para la ronda siguiente.
 
 Después del segundo uso, la pieza se destruye.`,
-
 
     historia:
 `Freezing nació como respuesta a la inmediatez.
@@ -1679,23 +1499,17 @@ Los pilotos que utilizan Freezing convierten la paciencia en una herramienta de 
 La pieza no hace que el automóvil sea más rápido.
 
 Permite elegir un mejor momento para moverse.`
-
 },
 
 
-/* =========================================================
-   11. LUCES ALTAS
-   F13 + A13
-========================================================= */
+/* LUCES - F13 / A13 */
 
 {
-
     id:"luces",
 
     nombre:"LUCES ALTAS",
 
     fondo:"./piezas/F13.png",
-
     pieza:"./piezas/A13.png",
 
     empresa:"Raccoon Motors",
@@ -1705,7 +1519,6 @@ Permite elegir un mejor momento para moverse.`
     durabilidad:"4 usos",
 
     max:4,
-
 
     reglas:
 `Puedes gastar 2E y 1 uso de Luces Altas para afectar exclusivamente al vehículo que se encuentre inmediatamente delante de ti.
@@ -1717,7 +1530,6 @@ Si el vehículo situado inmediatamente delante es una unidad de policía, esa un
 El efecto desaparece después de aplicarse una vez.
 
 Después del cuarto uso, la pieza se destruye.`,
-
 
     historia:
 `Estas luces fueron creadas originalmente para competir en pistas oscuras, túneles y zonas de visibilidad reducida.
@@ -1731,23 +1543,17 @@ Orientadas correctamente, podían saturar momentáneamente los sensores de un ve
 Contra los robots policiales, la intensidad podía incluso obligar a sus sistemas ópticos a detenerse para recalibrar.
 
 Desde entonces, pocos pilotos consideran estas luces únicamente un sistema de iluminación.`
-
 },
 
 
-/* =========================================================
-   12. DEFENSA ANTI-CHOQUES
-   F11 + A11
-========================================================= */
+/* DEFENSA - F11 / A11 */
 
 {
-
     id:"defensa",
 
     nombre:"DEFENSA ANTI-CHOQUES",
 
     fondo:"./piezas/F11.png",
-
     pieza:"./piezas/A11.png",
 
     empresa:"CrownKat",
@@ -1757,7 +1563,6 @@ Desde entonces, pocos pilotos consideran estas luces únicamente un sistema de i
     durabilidad:"2 daños",
 
     max:2,
-
 
     reglas:
 `Defensa Anti-choques puede absorber un total de 2 puntos de daño provocados por choques.
@@ -1769,7 +1574,6 @@ Cada daño absorbido reduce en 1 su durabilidad.
 Si un choque produce más daño del que la pieza puede absorber, tu vehículo recibe el daño restante.
 
 Después de absorber un total de 2 daños, se destruye.`,
-
 
     historia:
 `Esta defensa fue creada como respuesta a los extraordinarios reflejos felinos de Salem.
@@ -1783,23 +1587,17 @@ Los ingenieros desarrollaron entonces un sistema que detecta una colisión insta
 La defensa no evita el choque.
 
 Evita que produzca más daño del necesario.`
-
 },
 
 
-/* =========================================================
-   13. AMORTIGUADOR DE SALTO
-   F12 + A12
-========================================================= */
+/* SALTO - F12 / A12 */
 
 {
-
     id:"salto",
 
     nombre:"AMORTIGUADOR DE SALTO",
 
     fondo:"./piezas/F12.png",
-
     pieza:"./piezas/A12.png",
 
     empresa:"EcoMiska",
@@ -1809,7 +1607,6 @@ Evita que produzca más daño del necesario.`
     durabilidad:"2 usos",
 
     max:2,
-
 
     reglas:
 `Cuando un vehículo situado directamente delante de ti impida tu avance, puedes gastar 2E y 1 uso de Amortiguador de Salto.
@@ -1826,7 +1623,6 @@ Cada activación permite saltar solamente 1 vehículo.
 
 Después del segundo uso, la pieza se destruye.`,
 
-
     historia:
 `La idea fue propuesta por Yuuky, quien siempre ha defendido que los automóviles deberían ser capaces de realizar adelantamientos aéreos.
 
@@ -1841,23 +1637,17 @@ No está diseñado para realizar grandes saltos.
 Su objetivo es superar a un único vehículo cuando este bloquea completamente el camino.
 
 Yuuky descubrió además que el sistema podía permitir un adelantamiento incluso cuando un Rebufo generaba suficiente velocidad pero no existía un espacio lateral disponible.`
-
 },
 
 
-/* =========================================================
-   14. TRIPHASE CORE
-   F9 + A9
-========================================================= */
+/* TRIPHASE - F9 / A9 */
 
 {
-
     id:"triphase",
 
     nombre:"HACK TRIPHASE CORE",
 
     fondo:"./piezas/F9.png",
-
     pieza:"./piezas/A9.png",
 
     empresa:"Fusion Future",
@@ -1867,7 +1657,6 @@ Yuuky descubrió además que el sistema podía permitir un adelantamiento inclus
     durabilidad:"2 usos",
 
     max:2,
-
 
     reglas:
 `Al inicio de cualquiera de tus turnos puedes gastar 1 uso de Hack Triphase Core.
@@ -1879,7 +1668,6 @@ Todos los efectos que dependan de tu marcha consideran que te encuentras en 6.ª
 Al finalizar el turno vuelves automáticamente a la marcha que tenías antes de activar el Hack.
 
 Después del segundo uso, la pieza se destruye.`,
-
 
     historia:
 `Hack Triphase Core es una programación especial diseñada para engañar temporalmente al Tri-Phase Core.
@@ -1893,11 +1681,9 @@ También es una de las que menos recomienda utilizar de forma excesiva.
 Después de varias activaciones, el Core comienza a reconocer las inconsistencias entre la información recibida y el estado real del vehículo.
 
 Sus propios sistemas de seguridad terminan bloqueando el procedimiento.`
-
 }
 
 ];
-
 
 
 /* =========================================================
@@ -1917,14 +1703,10 @@ piezas.forEach(function(p){
         p.max !== null &&
         p.max !== Infinity
     ){
-
-        contadores[p.id] =
-            p.max;
-
+        contadores[p.id] = p.max;
     }
 
 });
-
 
 
 /* =========================================================
@@ -1932,113 +1714,59 @@ piezas.forEach(function(p){
 ========================================================= */
 
 const backgroundImage =
-    document.getElementById(
-        "backgroundImage"
-    );
-
+    document.getElementById("backgroundImage");
 
 const partFloatWrap =
-    document.getElementById(
-        "partFloatWrap"
-    );
-
+    document.getElementById("partFloatWrap");
 
 const partImage =
-    document.getElementById(
-        "partImage"
-    );
-
+    document.getElementById("partImage");
 
 const counter =
-    document.getElementById(
-        "counter"
-    );
-
+    document.getElementById("counter");
 
 const prev =
-    document.getElementById(
-        "prev"
-    );
-
+    document.getElementById("prev");
 
 const next =
-    document.getElementById(
-        "next"
-    );
-
+    document.getElementById("next");
 
 const partInfo =
-    document.getElementById(
-        "partInfo"
-    );
-
+    document.getElementById("partInfo");
 
 const history =
-    document.getElementById(
-        "history"
-    );
-
+    document.getElementById("history");
 
 const uses =
-    document.getElementById(
-        "uses"
-    );
-
+    document.getElementById("uses");
 
 const lockButton =
-    document.getElementById(
-        "lockButton"
-    );
-
+    document.getElementById("lockButton");
 
 const modal =
-    document.getElementById(
-        "modal"
-    );
-
+    document.getElementById("modal");
 
 const modalBox =
-    document.getElementById(
-        "modalBox"
-    );
-
+    document.getElementById("modalBox");
 
 const modalTitle =
-    document.getElementById(
-        "modalTitle"
-    );
-
+    document.getElementById("modalTitle");
 
 const modalData =
-    document.getElementById(
-        "modalData"
-    );
-
+    document.getElementById("modalData");
 
 const modalText =
-    document.getElementById(
-        "modalText"
-    );
-
+    document.getElementById("modalText");
 
 const close =
-    document.getElementById(
-        "close"
-    );
-
+    document.getElementById("close");
 
 const card =
-    document.getElementById(
-        "card"
-    );
-
+    document.getElementById("card");
 
 
 /* =========================================================
-   SONIDOS
-
-   No requieren archivos MP3.
-   Se crean directamente con Web Audio.
+   AUDIO
 ========================================================= */
 
 let audioContext = null;
@@ -2061,19 +1789,13 @@ function obtenerAudio(){
         audioContext.state ===
         "suspended"
     ){
-
         audioContext.resume();
-
     }
 
 
     return audioContext;
-
 }
 
-
-
-/* Tono básico */
 
 function tono(
     frecuencia,
@@ -2142,37 +1864,32 @@ function tono(
 
         osc.start(inicio);
 
-        osc.stop(fin + 0.02);
+        osc.stop(
+            fin + 0.02
+        );
 
     }
 
-    catch(error){
-
-        /* Si un navegador bloquea sonido,
-           la interfaz sigue funcionando. */
-
-    }
+    catch(error){}
 
 }
 
 
-
-/* Flecha */
+/* Flechas */
 
 function sonidoFlecha(){
 
     tono(
         440,
         .045,
-        .045,
+        .04,
         "square"
     );
-
 
     tono(
         620,
         .055,
-        .035,
+        .032,
         "square",
         .045
     );
@@ -2180,29 +1897,26 @@ function sonidoFlecha(){
 }
 
 
-
-/* Abrir pieza */
+/* Abrir pieza / historia */
 
 function sonidoAbrir(){
 
     tono(
-        620,
+        610,
         .06,
         .035,
         "sine"
     );
 
-
     tono(
-        860,
+        870,
         .10,
-        .035,
+        .034,
         "sine",
         .045
     );
 
 }
-
 
 
 /* Bloquear */
@@ -2212,21 +1926,19 @@ function sonidoBloquear(){
     tono(
         260,
         .055,
-        .055,
+        .052,
         "square"
     );
 
-
     tono(
-        150,
-        .10,
-        .045,
+        145,
+        .11,
+        .046,
         "square",
         .055
     );
 
 }
-
 
 
 /* Desbloquear */
@@ -2236,21 +1948,19 @@ function sonidoDesbloquear(){
     tono(
         250,
         .055,
-        .045,
+        .043,
         "square"
     );
 
-
     tono(
-        520,
+        530,
         .11,
-        .040,
+        .038,
         "sine",
-        .050
+        .05
     );
 
 }
-
 
 
 /* Contador */
@@ -2260,14 +1970,13 @@ function sonidoContador(valor){
     if(valor === 0){
 
         tono(
-            185,
-            .14,
-            .05,
+            180,
+            .15,
+            .052,
             "square"
         );
 
         return;
-
     }
 
 
@@ -2281,11 +1990,8 @@ function sonidoContador(valor){
 }
 
 
-
 /* =========================================================
-   PRE-CARGAR IMÁGENES
-
-   Ayuda a evitar parpadeos al cambiar de pieza.
+   PRECARGAR IMÁGENES
 ========================================================= */
 
 function precargarImagenes(){
@@ -2317,9 +2023,8 @@ function precargarImagenes(){
 precargarImagenes();
 
 
-
 /* =========================================================
-   MOSTRAR
+   MOSTRAR PIEZA
 ========================================================= */
 
 function mostrar(){
@@ -2328,13 +2033,9 @@ function mostrar(){
         piezas[actual];
 
 
-    /* Fondo */
-
     backgroundImage.src =
         p.fondo;
 
-
-    /* Pieza */
 
     if(p.pieza){
 
@@ -2347,7 +2048,7 @@ function mostrar(){
 
 
         partFloatWrap.style.display =
-            "block";
+            "flex";
 
     }
 
@@ -2362,8 +2063,6 @@ function mostrar(){
 
     }
 
-
-    /* Ninguna */
 
     if(p.max === null){
 
@@ -2381,30 +2080,20 @@ function mostrar(){
         );
 
 
-        /*
-           NINGUNA siempre queda libre.
-        */
-
         bloqueado =
             false;
 
 
         actualizarBloqueo();
 
-
         return;
-
     }
 
-
-    /* Candado */
 
     lockButton.classList.remove(
         "hidden"
     );
 
-
-    /* Infinito */
 
     if(p.max === Infinity){
 
@@ -2436,9 +2125,8 @@ function mostrar(){
 }
 
 
-
 /* =========================================================
-   ESTADO DEL CANDADO
+   BLOQUEO
 ========================================================= */
 
 function actualizarBloqueo(){
@@ -2498,24 +2186,13 @@ function actualizarBloqueo(){
 }
 
 
-
-/* =========================================================
-   CANDADO
-========================================================= */
-
 function cambiarCandado(){
 
-    const p =
-        piezas[actual];
-
-
     if(
-        p.id ===
+        piezas[actual].id ===
         "ninguna"
     ){
-
         return;
-
     }
 
 
@@ -2541,22 +2218,17 @@ function cambiarCandado(){
 }
 
 
-
 /* =========================================================
-   PIEZA SIGUIENTE
+   CAMBIAR PIEZA
 ========================================================= */
 
 function siguiente(){
 
     if(
         bloqueado ||
-        modal.classList.contains(
-            "show"
-        )
+        modal.classList.contains("show")
     ){
-
         return;
-
     }
 
 
@@ -2564,20 +2236,11 @@ function siguiente(){
 
 
     if(
-        actual >=
-        piezas.length
+        actual >= piezas.length
     ){
-
-        actual =
-            0;
-
+        actual = 0;
     }
 
-
-    /*
-       Al cambiar de pieza,
-       el nuevo elemento comienza libre.
-    */
 
     bloqueado =
         false;
@@ -2588,22 +2251,13 @@ function siguiente(){
 }
 
 
-
-/* =========================================================
-   PIEZA ANTERIOR
-========================================================= */
-
 function anterior(){
 
     if(
         bloqueado ||
-        modal.classList.contains(
-            "show"
-        )
+        modal.classList.contains("show")
     ){
-
         return;
-
     }
 
 
@@ -2627,21 +2281,16 @@ function anterior(){
 }
 
 
-
 /* =========================================================
-   CONTADOR
+   USOS
 ========================================================= */
 
 function cambiarUsos(){
 
     if(
-        modal.classList.contains(
-            "show"
-        )
+        modal.classList.contains("show")
     ){
-
         return;
-
     }
 
 
@@ -2653,9 +2302,7 @@ function cambiarUsos(){
         p.max === null ||
         p.max === Infinity
     ){
-
         return;
-
     }
 
 
@@ -2681,9 +2328,7 @@ function cambiarUsos(){
         valor;
 
 
-    sonidoContador(
-        valor
-    );
+    sonidoContador(valor);
 
 
     mostrar();
@@ -2691,9 +2336,8 @@ function cambiarUsos(){
 }
 
 
-
 /* =========================================================
-   PULSO DE LA PIEZA
+   ANIMAR PIEZA
 ========================================================= */
 
 function animarPieza(){
@@ -2701,9 +2345,7 @@ function animarPieza(){
     if(
         !piezas[actual].pieza
     ){
-
         return;
-
     }
 
 
@@ -2711,11 +2353,6 @@ function animarPieza(){
         "pulse"
     );
 
-
-    /*
-       Fuerza al navegador a reiniciar
-       la animación.
-    */
 
     void partImage.offsetWidth;
 
@@ -2725,7 +2362,6 @@ function animarPieza(){
     );
 
 }
-
 
 
 /* =========================================================
@@ -2742,9 +2378,7 @@ function abrirReglas(){
         p.id ===
         "ninguna"
     ){
-
         return;
-
     }
 
 
@@ -2777,11 +2411,6 @@ function abrirReglas(){
         0;
 
 
-    /*
-       Retraso mínimo para que el pulso
-       se alcance a percibir antes del modal.
-    */
-
     setTimeout(
         function(){
 
@@ -2794,7 +2423,6 @@ function abrirReglas(){
     );
 
 }
-
 
 
 /* =========================================================
@@ -2811,9 +2439,7 @@ function abrirHistoria(){
         p.id ===
         "ninguna"
     ){
-
         return;
-
     }
 
 
@@ -2845,7 +2471,6 @@ function abrirHistoria(){
 }
 
 
-
 /* =========================================================
    CERRAR
 ========================================================= */
@@ -2859,9 +2484,8 @@ function cerrarModal(){
 }
 
 
-
 /* =========================================================
-   BOTONES DE NAVEGACIÓN
+   EVENTOS
 ========================================================= */
 
 prev.addEventListener(
@@ -2871,7 +2495,6 @@ prev.addEventListener(
         if(bloqueado){
             return;
         }
-
 
         sonidoFlecha();
 
@@ -2889,7 +2512,6 @@ next.addEventListener(
             return;
         }
 
-
         sonidoFlecha();
 
         siguiente();
@@ -2898,21 +2520,11 @@ next.addEventListener(
 );
 
 
-
-/* =========================================================
-   PIEZA
-========================================================= */
-
 partInfo.addEventListener(
     "click",
     abrirReglas
 );
 
-
-
-/* =========================================================
-   HISTORIA
-========================================================= */
 
 history.addEventListener(
     "click",
@@ -2920,21 +2532,11 @@ history.addEventListener(
 );
 
 
-
-/* =========================================================
-   USOS
-========================================================= */
-
 uses.addEventListener(
     "click",
     cambiarUsos
 );
 
-
-
-/* =========================================================
-   CANDADO
-========================================================= */
 
 lockButton.addEventListener(
     "click",
@@ -2948,11 +2550,6 @@ lockButton.addEventListener(
 );
 
 
-
-/* =========================================================
-   CERRAR MODAL
-========================================================= */
-
 close.addEventListener(
     "click",
     function(e){
@@ -2965,11 +2562,6 @@ close.addEventListener(
 );
 
 
-
-/* =========================================================
-   CERRAR TOCANDO FUERA
-========================================================= */
-
 modal.addEventListener(
     "click",
     function(e){
@@ -2977,9 +2569,7 @@ modal.addEventListener(
         if(
             e.target === modal
         ){
-
             cerrarModal();
-
         }
 
     }
@@ -2996,25 +2586,18 @@ modalBox.addEventListener(
 );
 
 
-
 /* =========================================================
    SCROLL TÁCTIL DEL TEXTO
-
-   Debido a la rotación -90°, aceptamos movimiento
-   horizontal o vertical y usamos el eje dominante.
 ========================================================= */
 
 let textoTouchX =
     0;
 
-
 let textoTouchY =
     0;
 
-
 let textoScrollInicial =
     0;
-
 
 
 modalText.addEventListener(
@@ -3024,9 +2607,7 @@ modalText.addEventListener(
         if(
             e.touches.length !== 1
         ){
-
             return;
-
         }
 
 
@@ -3055,7 +2636,6 @@ modalText.addEventListener(
 );
 
 
-
 modalText.addEventListener(
     "touchmove",
     function(e){
@@ -3063,9 +2643,7 @@ modalText.addEventListener(
         if(
             e.touches.length !== 1
         ){
-
             return;
-
         }
 
 
@@ -3074,13 +2652,11 @@ modalText.addEventListener(
 
 
         const dx =
-
             t.clientX -
             textoTouchX;
 
 
         const dy =
-
             t.clientY -
             textoTouchY;
 
@@ -3123,7 +2699,6 @@ modalText.addEventListener(
 );
 
 
-
 modalText.addEventListener(
     "touchend",
     function(e){
@@ -3137,23 +2712,8 @@ modalText.addEventListener(
 );
 
 
-
-modalText.addEventListener(
-    "touchcancel",
-    function(e){
-
-        e.stopPropagation();
-
-    },
-    {
-        passive:true
-    }
-);
-
-
-
 /* =========================================================
-   RUEDA DEL MOUSE / TRACKPAD
+   RUEDA DEL MOUSE
 ========================================================= */
 
 modalText.addEventListener(
@@ -3190,7 +2750,6 @@ modalText.addEventListener(
 );
 
 
-
 /* =========================================================
    SWIPE PARA CAMBIAR PIEZA
 ========================================================= */
@@ -3198,10 +2757,8 @@ modalText.addEventListener(
 let inicioX =
     0;
 
-
 let inicioY =
     0;
-
 
 
 card.addEventListener(
@@ -3210,13 +2767,9 @@ card.addEventListener(
 
         if(
             bloqueado ||
-            modal.classList.contains(
-                "show"
-            )
+            modal.classList.contains("show")
         ){
-
             return;
-
         }
 
 
@@ -3238,20 +2791,15 @@ card.addEventListener(
 );
 
 
-
 card.addEventListener(
     "touchend",
     function(e){
 
         if(
             bloqueado ||
-            modal.classList.contains(
-                "show"
-            )
+            modal.classList.contains("show")
         ){
-
             return;
-
         }
 
 
@@ -3260,13 +2808,11 @@ card.addEventListener(
 
 
         const dx =
-
             t.clientX -
             inicioX;
 
 
         const dy =
-
             t.clientY -
             inicioY;
 
@@ -3301,29 +2847,23 @@ card.addEventListener(
 );
 
 
-
 /* =========================================================
-   TECLADO EN PC
+   TECLADO PC
 ========================================================= */
 
 document.addEventListener(
     "keydown",
     function(e){
 
-
         if(
-            modal.classList.contains(
-                "show"
-            )
+            modal.classList.contains("show")
         ){
 
             if(
                 e.key ===
                 "Escape"
             ){
-
                 cerrarModal();
-
             }
 
 
@@ -3331,10 +2871,8 @@ document.addEventListener(
                 e.key ===
                 "ArrowDown"
             ){
-
                 modalText.scrollTop +=
                     60;
-
             }
 
 
@@ -3342,22 +2880,17 @@ document.addEventListener(
                 e.key ===
                 "ArrowUp"
             ){
-
                 modalText.scrollTop -=
                     60;
-
             }
 
 
             return;
-
         }
 
 
         if(bloqueado){
-
             return;
-
         }
 
 
@@ -3388,7 +2921,6 @@ document.addEventListener(
 );
 
 
-
 /* =========================================================
    INICIO
 ========================================================= */
@@ -3396,7 +2928,6 @@ document.addEventListener(
 mostrar();
 
 </script>
-
 
 </body>
 
