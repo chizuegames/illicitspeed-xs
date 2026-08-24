@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
 
 <meta
@@ -12,6 +14,7 @@
 >
 
 <title>Partes - IllicitSpeed XS</title>
+
 
 <style>
 
@@ -27,11 +30,19 @@
 html,
 body{
     margin:0;
+    padding:0;
+
     width:100%;
     height:100%;
+
     overflow:hidden;
+
     background:transparent;
-    font-family:Arial, Helvetica, sans-serif;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 }
 
 body{
@@ -42,24 +53,30 @@ body{
 
 
 /* =========================================================
-   CONTENEDOR GENERAL
+   CONTENEDOR
 ========================================================= */
 
 .stage{
     position:relative;
 
-    width:min(100vw, calc(100vh * 1.585));
-    height:min(100vh, calc(100vw / 1.585));
+    width:min(
+        100vw,
+        calc(100vh * 1.585)
+    );
+
+    height:min(
+        100vh,
+        calc(100vw / 1.585)
+    );
 
     overflow:hidden;
+
     user-select:none;
 }
 
 
 /* =========================================================
-   FICHA
-
-   Se gira hacia la derecha.
+   FICHA GIRADA HACIA LA DERECHA
 ========================================================= */
 
 .card{
@@ -80,7 +97,12 @@ body{
     overflow:hidden;
 }
 
-.card-image{
+
+/* =========================================================
+   FONDO
+========================================================= */
+
+.background-image{
     position:absolute;
 
     inset:0;
@@ -92,6 +114,123 @@ body{
 
     pointer-events:none;
     user-select:none;
+
+    z-index:1;
+}
+
+
+/* =========================================================
+   PIEZA TRANSPARENTE
+
+   El wrapper hace la flotación.
+   La imagen interior puede hacer el pulso al tocar.
+========================================================= */
+
+.part-float-wrap{
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    z-index:3;
+
+    pointer-events:none;
+
+    animation:
+        floatingPart
+        3.2s
+        ease-in-out
+        infinite;
+}
+
+
+.part-image{
+    width:100%;
+    height:100%;
+
+    object-fit:fill;
+
+    pointer-events:none;
+    user-select:none;
+
+    transform-origin:center;
+
+    filter:
+        drop-shadow(
+            0 5px 6px rgba(0,0,0,.18)
+        );
+}
+
+
+/* Flotación.
+
+   Como toda la tarjeta está rotada -90°,
+   el eje X local se percibe como movimiento
+   vertical en la interfaz final.
+*/
+
+@keyframes floatingPart{
+
+    0%{
+        transform:
+            translateX(0px);
+    }
+
+    50%{
+        transform:
+            translateX(5px);
+    }
+
+    100%{
+        transform:
+            translateX(0px);
+    }
+
+}
+
+
+/* Pequeña reacción al tocar la pieza */
+
+.part-image.pulse{
+
+    animation:
+        partPulse
+        .28s
+        ease-out;
+
+}
+
+
+@keyframes partPulse{
+
+    0%{
+        transform:scale(1);
+        filter:
+            drop-shadow(
+                0 5px 6px rgba(0,0,0,.18)
+            );
+    }
+
+    45%{
+        transform:scale(1.035);
+
+        filter:
+            drop-shadow(
+                0 0 10px rgba(255,255,255,.65)
+            );
+    }
+
+    100%{
+        transform:scale(1);
+
+        filter:
+            drop-shadow(
+                0 5px 6px rgba(0,0,0,.18)
+            );
+    }
+
 }
 
 
@@ -105,6 +244,7 @@ body{
     z-index:10;
 
     border:0;
+
     background:transparent;
 
     margin:0;
@@ -117,63 +257,173 @@ body{
 /* Flecha izquierda */
 
 .arrow-left{
+
     left:0%;
     bottom:3%;
 
     width:22%;
     height:19%;
+
 }
 
 
 /* Flecha derecha */
 
 .arrow-right{
+
     right:0%;
     bottom:3%;
 
     width:22%;
     height:19%;
+
 }
 
 
-/* Pieza central */
+/* Zona central de la pieza */
 
 .part-touch{
+
     left:20%;
     top:15%;
 
     width:60%;
     height:45%;
+
 }
 
 
 /* Historia */
 
 .history-touch{
+
     left:0%;
     top:34%;
 
     width:22%;
     height:22%;
+
 }
 
 
 /* Usos */
 
 .uses-touch{
+
     right:0%;
     top:34%;
 
     width:22%;
     height:22%;
+
 }
 
 
 /* =========================================================
-   CONTADOR DE USOS
+   CANDADO
+
+   Debido al giro -90°, esta posición queda
+   visualmente en la zona superior derecha.
+========================================================= */
+
+.lock-button{
+
+    position:absolute;
+
+    left:3%;
+    top:3%;
+
+    z-index:40;
+
+    width:11%;
+    aspect-ratio:1 / 1;
+
+    border:
+        2px solid
+        rgba(255,255,255,.50);
+
+    border-radius:50%;
+
+    background:
+        rgba(0,0,0,.45);
+
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    font-size:
+        clamp(
+            18px,
+            4vw,
+            38px
+        );
+
+    box-shadow:
+        0 3px 10px
+        rgba(0,0,0,.45),
+        inset 0 0 12px
+        rgba(255,255,255,.08);
+
+    transition:
+        transform .18s ease,
+        background .18s ease,
+        box-shadow .18s ease;
+
+    touch-action:manipulation;
+}
+
+
+.lock-button:active{
+
+    transform:scale(.90);
+
+}
+
+
+.lock-button.locked{
+
+    background:
+        rgba(20,80,35,.68);
+
+    box-shadow:
+        0 0 10px
+        rgba(130,255,160,.75),
+        0 0 20px
+        rgba(130,255,160,.30);
+
+}
+
+
+.lock-button.hidden{
+
+    display:none;
+
+}
+
+
+/* =========================================================
+   ESTADO DE FLECHAS BLOQUEADAS
+========================================================= */
+
+.arrow-left:disabled,
+.arrow-right:disabled{
+
+    pointer-events:none;
+    cursor:default;
+
+}
+
+
+/* =========================================================
+   CONTADOR
 ========================================================= */
 
 .counter{
+
     position:absolute;
 
     right:1%;
@@ -191,27 +441,39 @@ body{
     color:white;
 
     font-size:42px;
+
     font-weight:900;
     font-style:italic;
 
     text-shadow:
-        0 3px 2px rgba(0,0,0,.9),
-        0 0 8px rgba(255,255,255,.8),
-        0 0 16px rgba(255,255,255,.35);
+
+        0 3px 2px
+        rgba(0,0,0,.90),
+
+        0 0 8px
+        rgba(255,255,255,.80),
+
+        0 0 16px
+        rgba(255,255,255,.35);
 
     pointer-events:none;
+
 }
 
+
 .counter.hidden{
+
     display:none;
+
 }
 
 
 /* =========================================================
-   VENTANA DE INFORMACIÓN
+   MODAL
 ========================================================= */
 
 .modal{
+
     position:absolute;
 
     inset:0;
@@ -225,27 +487,32 @@ body{
 
     padding:5%;
 
-    background:rgba(0,0,0,.80);
+    background:
+        rgba(0,0,0,.82);
 
-    /*
-      Importante para móviles.
-      El propio contenido manejará el gesto.
-    */
     touch-action:none;
+
 }
+
 
 .modal.show{
+
     display:flex;
+
 }
 
 
-/* Caja */
+/* =========================================================
+   CAJA
+========================================================= */
 
 .modal-box{
+
     position:relative;
 
     width:92%;
     height:86%;
+
     max-height:86%;
 
     display:flex;
@@ -256,9 +523,11 @@ body{
     border-radius:18px;
 
     border:
-        2px solid rgba(255,255,255,.28);
+        2px solid
+        rgba(255,255,255,.28);
 
     background:
+
         linear-gradient(
             180deg,
             rgba(40,46,55,.98),
@@ -266,12 +535,17 @@ body{
         );
 
     box-shadow:
-        0 12px 35px rgba(0,0,0,.70),
-        inset 0 0 25px rgba(255,255,255,.04);
+
+        0 12px 35px
+        rgba(0,0,0,.70),
+
+        inset 0 0 25px
+        rgba(255,255,255,.04);
 
     color:white;
 
     touch-action:none;
+
 }
 
 
@@ -280,61 +554,79 @@ body{
 ========================================================= */
 
 .modal-top{
+
     position:relative;
 
     flex:0 0 auto;
 
     padding:
-        14px
+        15px
         54px
         10px
         16px;
 
     border-bottom:
-        1px solid rgba(255,255,255,.18);
+        1px solid
+        rgba(255,255,255,.18);
+
 }
 
 
-/* Título */
+/* =========================================================
+   TÍTULO
+========================================================= */
 
 .modal-title{
+
     margin:0;
 
     font-size:
-        clamp(15px, 2.1vw, 23px);
+        clamp(
+            16px,
+            2.2vw,
+            24px
+        );
 
     font-weight:900;
     font-style:italic;
 
     line-height:1.08;
 
-    padding-right:4px;
 }
 
 
-/* Datos */
+/* =========================================================
+   DATOS
+========================================================= */
 
 .modal-data{
+
     margin-top:7px;
 
     color:#d1d8df;
 
     font-size:
-        clamp(10px, 1.45vw, 14px);
+        clamp(
+            11px,
+            1.5vw,
+            15px
+        );
 
     font-weight:700;
 
     line-height:1.35;
 
     white-space:pre-line;
+
 }
 
 
 /* =========================================================
-   BOTÓN CERRAR
+   CERRAR
 ========================================================= */
 
 .close{
+
     position:absolute;
 
     right:9px;
@@ -346,7 +638,8 @@ body{
     padding:0;
 
     border:
-        2px solid rgba(255,255,255,.40);
+        2px solid
+        rgba(255,255,255,.40);
 
     border-radius:50%;
 
@@ -369,14 +662,16 @@ body{
     z-index:20;
 
     touch-action:manipulation;
+
 }
 
 
 /* =========================================================
-   TEXTO DESPLAZABLE
+   TEXTO
 ========================================================= */
 
 .modal-text{
+
     position:relative;
 
     flex:1 1 0;
@@ -384,7 +679,7 @@ body{
     min-height:0;
 
     padding:
-        14px
+        15px
         16px
         24px;
 
@@ -395,91 +690,127 @@ body{
 
     overscroll-behavior:contain;
 
-    /*
-      Permitimos desplazamiento mediante JS.
-      Esto evita conflictos causados por el giro 90º.
-    */
     touch-action:none;
 
-    font-size:
-        clamp(11px, 1.6vw, 15px);
+    /*
+       Texto un poco más grande que antes.
+       Nunca bajaremos a menos de 8px.
+    */
 
-    line-height:1.42;
+    font-size:
+        clamp(
+            12px,
+            1.7vw,
+            16px
+        );
+
+    line-height:1.43;
 
     white-space:pre-line;
 
     user-select:text;
+
 }
 
-
-/* Scrollbar en PC */
 
 .modal-text::-webkit-scrollbar{
+
     width:7px;
+
 }
+
 
 .modal-text::-webkit-scrollbar-track{
+
     background:
         rgba(255,255,255,.04);
+
 }
 
+
 .modal-text::-webkit-scrollbar-thumb{
+
     background:
         rgba(255,255,255,.30);
 
     border-radius:10px;
+
 }
 
 
 /* =========================================================
-   CELULARES / ALTURA PEQUEÑA
-
-   Como todo el panel está girado, al insertarlo en móvil
-   normalmente la altura disponible es el factor principal.
+   CELULARES
 ========================================================= */
 
 @media(max-height:600px){
 
     .modal{
+
         padding:4%;
+
     }
+
 
     .modal-box{
+
         width:94%;
         height:88%;
+
         max-height:88%;
+
     }
 
+
     .modal-top{
+
         padding:
-            10px
+            11px
             45px
             7px
             11px;
+
     }
+
 
     .modal-title{
-        font-size:14px;
-        line-height:1.05;
+
+        font-size:15px;
+
     }
+
 
     .modal-data{
+
         margin-top:5px;
-        font-size:9px;
-        line-height:1.25;
+
+        font-size:10px;
+
+        line-height:1.26;
+
     }
+
 
     .modal-text{
-        font-size:10.5px;
-        line-height:1.35;
+
+        /*
+           Antes estaba en 10.5.
+           Ahora subimos un punto.
+        */
+
+        font-size:11.5px;
+
+        line-height:1.37;
 
         padding:
-            10px
+            11px
             12px
             18px;
+
     }
 
+
     .close{
+
         width:29px;
         height:29px;
 
@@ -487,51 +818,101 @@ body{
         top:7px;
 
         font-size:18px;
+
     }
+
 
     .counter{
+
         font-size:27px;
+
     }
+
 }
 
+
+/* Pantallas extremadamente pequeñas */
 
 @media(max-height:430px){
 
     .modal-top{
+
         padding:
             8px
             40px
             6px
             10px;
+
     }
+
 
     .modal-title{
-        font-size:12px;
+
+        font-size:13px;
+
     }
+
 
     .modal-data{
-        font-size:8px;
+
+        font-size:9px;
+
     }
+
 
     .modal-text{
-        font-size:9.5px;
-        line-height:1.3;
+
+        /*
+           En ningún caso baja de 8.
+        */
+
+        font-size:10.5px;
+
+        line-height:1.32;
+
     }
 
+
     .close{
+
         width:26px;
         height:26px;
 
         font-size:16px;
+
     }
 
+
     .counter{
+
         font-size:23px;
+
     }
+
+}
+
+
+/* =========================================================
+   USUARIOS QUE PREFIEREN MENOS ANIMACIÓN
+========================================================= */
+
+@media(
+    prefers-reduced-motion:
+    reduce
+){
+
+    .part-float-wrap{
+
+        animation:none;
+
+    }
+
 }
 
 </style>
+
 </head>
+
 
 
 <body>
@@ -542,120 +923,187 @@ body{
     id="stage"
 >
 
+
     <div
         class="card"
         id="card"
     >
 
+
+        <!-- ===============================================
+             FONDO
+        ================================================ -->
+
         <img
-            id="partImage"
-            class="card-image"
-            src="./piezas/P15.png"
-            alt="Parte de vehículo"
+            id="backgroundImage"
+            class="background-image"
+            src="./piezas/F15.png"
+            alt=""
         >
 
 
-        <!-- FLECHAS -->
+        <!-- ===============================================
+             PIEZA TRANSPARENTE
+        ================================================ -->
+
+        <div
+            id="partFloatWrap"
+            class="part-float-wrap"
+            style="display:none;"
+        >
+
+            <img
+                id="partImage"
+                class="part-image"
+                src=""
+                alt=""
+            >
+
+        </div>
+
+
+        <!-- ===============================================
+             CANDADO
+        ================================================ -->
+
+        <button
+            id="lockButton"
+            class="lock-button hidden"
+            aria-label="Fijar pieza"
+        >
+            🔓
+        </button>
+
+
+        <!-- ===============================================
+             FLECHAS
+        ================================================ -->
 
         <button
             id="prev"
             class="tap arrow-left"
-            aria-label="Pieza anterior">
+            aria-label="Pieza anterior"
+        >
         </button>
 
 
         <button
             id="next"
             class="tap arrow-right"
-            aria-label="Siguiente pieza">
+            aria-label="Siguiente pieza"
+        >
         </button>
 
 
-        <!-- INFORMACIÓN -->
+        <!-- ===============================================
+             INFORMACIÓN
+        ================================================ -->
 
         <button
             id="partInfo"
             class="tap part-touch"
-            aria-label="Información de la pieza">
+            aria-label="Información de la pieza"
+        >
         </button>
 
 
-        <!-- HISTORIA -->
+        <!-- ===============================================
+             HISTORIA
+        ================================================ -->
 
         <button
             id="history"
             class="tap history-touch"
-            aria-label="Historia de la pieza">
+            aria-label="Historia de la pieza"
+        >
         </button>
 
 
-        <!-- USOS -->
+        <!-- ===============================================
+             USOS
+        ================================================ -->
 
         <button
             id="uses"
             class="tap uses-touch"
-            aria-label="Cambiar usos">
+            aria-label="Cambiar usos"
+        >
         </button>
 
 
-        <!-- CONTADOR -->
+        <!-- ===============================================
+             CONTADOR
+        ================================================ -->
 
         <div
             id="counter"
-            class="counter hidden">
+            class="counter hidden"
+        >
         </div>
 
 
-        <!-- =================================================
-             VENTANA
-        ================================================== -->
+        <!-- ===============================================
+             MODAL
+        ================================================ -->
 
         <div
             id="modal"
             class="modal"
         >
 
+
             <div
-                class="modal-box"
                 id="modalBox"
+                class="modal-box"
             >
+
 
                 <div
                     class="modal-top"
                 >
 
+
                     <button
                         id="close"
                         class="close"
-                        aria-label="Cerrar">
+                        aria-label="Cerrar"
+                    >
                         ×
                     </button>
 
 
                     <h2
                         id="modalTitle"
-                        class="modal-title">
+                        class="modal-title"
+                    >
                     </h2>
 
 
                     <div
                         id="modalData"
-                        class="modal-data">
+                        class="modal-data"
+                    >
                     </div>
+
 
                 </div>
 
 
                 <div
                     id="modalText"
-                    class="modal-text">
+                    class="modal-text"
+                >
                 </div>
+
 
             </div>
 
+
         </div>
 
+
     </div>
+
 
 </div>
 
@@ -664,7 +1112,7 @@ body{
 <script>
 
 /* =========================================================
-   PIEZAS
+   BASE DE DATOS
 ========================================================= */
 
 const piezas = [
@@ -675,11 +1123,14 @@ const piezas = [
 ========================================================= */
 
 {
+
     id:"ninguna",
 
     nombre:"NINGUNA",
 
-    imagen:"./piezas/P15.png",
+    fondo:"./piezas/F15.png",
+
+    pieza:null,
 
     empresa:"",
 
@@ -692,19 +1143,24 @@ const piezas = [
     reglas:"",
 
     historia:""
+
 },
 
 
 /* =========================================================
-   DRIFTING
+   1. LLANTAS DRIFTING
+   F8 + A8
 ========================================================= */
 
 {
+
     id:"drifting",
 
     nombre:"LLANTAS DRIFTING",
 
-    imagen:"./piezas/P8.png",
+    fondo:"./piezas/F8.png",
+
+    pieza:"./piezas/A8.png",
 
     empresa:"DesertTail",
 
@@ -739,19 +1195,24 @@ El material modifica temporalmente la adherencia de la rueda y permite que el ve
 Esto permite tomar curvas a velocidades que normalmente provocarían daños graves en la suspensión.
 
 Sin embargo, el recubrimiento se degrada progresivamente con cada maniobra extrema.`
+
 },
 
 
 /* =========================================================
-   ÓXIDO NITROSO
+   2. ÓXIDO NITROSO
+   F5 + A5
 ========================================================= */
 
 {
+
     id:"nitro",
 
     nombre:"ÓXIDO NITROSO",
 
-    imagen:"./piezas/P5.png",
+    fondo:"./piezas/F5.png",
+
+    pieza:"./piezas/A5.png",
 
     empresa:"Lynx Spirit",
 
@@ -790,19 +1251,24 @@ Durante unos segundos, el compuesto es inyectado en el Tri-Phase Core, provocand
 Esta reacción aumenta momentáneamente la actividad del Core y genera un impulso inmediato y controlado en el vehículo.
 
 El piloto puede decidir cuándo utilizarlo, pero el sistema de inyección se deteriora rápidamente con cada activación.`
+
 },
 
 
 /* =========================================================
-   LLANTAS TODO TERRENO
+   3. LLANTAS TODO TERRENO
+   F1 + A1
 ========================================================= */
 
 {
+
     id:"todoterreno",
 
     nombre:"LLANTAS TODO TERRENO",
 
-    imagen:"./piezas/P1.png",
+    fondo:"./piezas/F1.png",
+
+    pieza:"./piezas/A1.png",
 
     empresa:"IronHorn",
 
@@ -835,19 +1301,24 @@ Durante la conducción normal, sus canales permanecen comprimidos para no afecta
 Cuando el vehículo entra en superficies más complicadas, el recubrimiento se expande, aumentando el área de contacto y ayudando a absorber los impactos del terreno.
 
 Esta tecnología fue desarrollada por Orion, quien buscaba permitir que un vehículo pudiera abandonar temporalmente la carretera sin castigar innecesariamente su estructura.`
+
 },
 
 
 /* =========================================================
-   SENSOR DE IMPULSO
+   4. SENSOR DE IMPULSO
+   F2 + A2
 ========================================================= */
 
 {
+
     id:"sensor",
 
     nombre:"SENSOR DE IMPULSO",
 
-    imagen:"./piezas/P2.png",
+    fondo:"./piezas/F2.png",
+
+    pieza:"./piezas/A2.png",
 
     empresa:"SharkWave",
 
@@ -880,19 +1351,24 @@ Cuando localiza un objetivo cercano, analiza la turbulencia dejada a su paso y a
 El resultado es un impulso breve que permite alcanzar rápidamente al corredor que va delante.
 
 Si las condiciones son adecuadas, el piloto puede convertir ese acercamiento en un Rebufo.`
+
 },
 
 
 /* =========================================================
-   SOBORNO
+   5. SOBORNO
+   F14 + A14
 ========================================================= */
 
 {
+
     id:"soborno",
 
     nombre:"SOBORNO",
 
-    imagen:"./piezas/P14.png",
+    fondo:"./piezas/F14.png",
+
+    pieza:"./piezas/A14.png",
 
     empresa:"TuskForce",
 
@@ -925,19 +1401,24 @@ El dispositivo transmite durante unos segundos una autorización fraudulenta al 
 La unidad interpreta que la persecución ha sido cancelada desde la central y abandona inmediatamente la intervención.
 
 El código solo funciona una vez antes de ser identificado y bloqueado por la red de TuskForce.`
+
 },
 
 
 /* =========================================================
-   TURBO
+   6. TURBO
+   F6 + A6
 ========================================================= */
 
 {
+
     id:"turbo",
 
     nombre:"TURBO",
 
-    imagen:"./piezas/P6.png",
+    fondo:"./piezas/F6.png",
+
+    pieza:"./piezas/A6.png",
 
     empresa:"Lupus Dominion",
 
@@ -978,19 +1459,24 @@ El Turbo canaliza esos excedentes cuando aparecen.
 Por esta razón es extremadamente potente, pero también impredecible: el conductor no decide exactamente cuándo se activa.
 
 El Core produce el impulso por sí mismo y el Turbo simplemente está preparado para aprovecharlo.`
+
 },
 
 
 /* =========================================================
-   FORZAR MARCHA
+   7. FORZAR MARCHA
+   F4 + A4
 ========================================================= */
 
 {
+
     id:"forzar",
 
     nombre:"PALANCA DE FORZAR MARCHA",
 
-    imagen:"./piezas/P4.png",
+    fondo:"./piezas/F4.png",
+
+    pieza:"./piezas/A4.png",
 
     empresa:"AetherWing",
 
@@ -1031,19 +1517,24 @@ Palanca de Forzar Marcha nació como respuesta a este problema.
 El sistema sincroniza temporalmente la transmisión, el motor y el Core para permitir que el vehículo salte una relación de marcha de manera controlada.
 
 Así, los pilotos de AetherWing pudieron conservar su agresivo estilo de salida sin destruir sus vehículos antes de tiempo.`
+
 },
 
 
 /* =========================================================
-   BATERÍA
+   8. BATERÍA
+   F3 + A3
 ========================================================= */
 
 {
+
     id:"bateria",
 
     nombre:"BATERÍA DE RESPALDO",
 
-    imagen:"./piezas/P3.png",
+    fondo:"./piezas/F3.png",
+
+    pieza:"./piezas/A3.png",
 
     empresa:"Kitsume",
 
@@ -1080,19 +1571,24 @@ Su desarrollo se aceleró como respuesta a Toshio, pues existía preocupación d
 La batería no pretende igualar esa potencia.
 
 Su ventaja está en permitir que cada corredor decida cuándo necesita un poco más.`
+
 },
 
 
 /* =========================================================
-   VOLANTE DE FLUJO
+   9. VOLANTE DE FLUJO
+   F10 + A10
 ========================================================= */
 
 {
+
     id:"volante",
 
     nombre:"VOLANTE DE FLUJO",
 
-    imagen:"./piezas/P10.png",
+    fondo:"./piezas/F10.png",
+
+    pieza:"./piezas/A10.png",
 
     empresa:"Chizue",
 
@@ -1127,19 +1623,24 @@ Los cambios violentos de dirección normalmente someten los ejes, la suspensión
 Volante de Flujo utiliza un sistema de compensación que redistribuye estas cargas durante unos instantes.
 
 Gracias a ello, el piloto puede abandonar su trayectoria, cambiar de carril y regresar rápidamente al punto original realizando movimientos imposibles para la mayoría de los vehículos.`
+
 },
 
 
 /* =========================================================
-   FREEZING
+   10. FREEZING
+   F7 + A7
 ========================================================= */
 
 {
+
     id:"freezing",
 
     nombre:"FREEZING",
 
-    imagen:"./piezas/P7.png",
+    fondo:"./piezas/F7.png",
+
+    pieza:"./piezas/A7.png",
 
     empresa:"Noctua",
 
@@ -1178,19 +1679,24 @@ Los pilotos que utilizan Freezing convierten la paciencia en una herramienta de 
 La pieza no hace que el automóvil sea más rápido.
 
 Permite elegir un mejor momento para moverse.`
+
 },
 
 
 /* =========================================================
-   LUCES ALTAS
+   11. LUCES ALTAS
+   F13 + A13
 ========================================================= */
 
 {
+
     id:"luces",
 
     nombre:"LUCES ALTAS",
 
-    imagen:"./piezas/P13.png",
+    fondo:"./piezas/F13.png",
+
+    pieza:"./piezas/A13.png",
 
     empresa:"Raccoon Motors",
 
@@ -1225,19 +1731,24 @@ Orientadas correctamente, podían saturar momentáneamente los sensores de un ve
 Contra los robots policiales, la intensidad podía incluso obligar a sus sistemas ópticos a detenerse para recalibrar.
 
 Desde entonces, pocos pilotos consideran estas luces únicamente un sistema de iluminación.`
+
 },
 
 
 /* =========================================================
-   DEFENSA ANTI-CHOQUES
+   12. DEFENSA ANTI-CHOQUES
+   F11 + A11
 ========================================================= */
 
 {
+
     id:"defensa",
 
     nombre:"DEFENSA ANTI-CHOQUES",
 
-    imagen:"./piezas/P11.png",
+    fondo:"./piezas/F11.png",
+
+    pieza:"./piezas/A11.png",
 
     empresa:"CrownKat",
 
@@ -1272,19 +1783,24 @@ Los ingenieros desarrollaron entonces un sistema que detecta una colisión insta
 La defensa no evita el choque.
 
 Evita que produzca más daño del necesario.`
+
 },
 
 
 /* =========================================================
-   AMORTIGUADOR DE SALTO
+   13. AMORTIGUADOR DE SALTO
+   F12 + A12
 ========================================================= */
 
 {
+
     id:"salto",
 
     nombre:"AMORTIGUADOR DE SALTO",
 
-    imagen:"./piezas/P12.png",
+    fondo:"./piezas/F12.png",
+
+    pieza:"./piezas/A12.png",
 
     empresa:"EcoMiska",
 
@@ -1325,19 +1841,24 @@ No está diseñado para realizar grandes saltos.
 Su objetivo es superar a un único vehículo cuando este bloquea completamente el camino.
 
 Yuuky descubrió además que el sistema podía permitir un adelantamiento incluso cuando un Rebufo generaba suficiente velocidad pero no existía un espacio lateral disponible.`
+
 },
 
 
 /* =========================================================
-   TRIPHASE CORE
+   14. TRIPHASE CORE
+   F9 + A9
 ========================================================= */
 
 {
+
     id:"triphase",
 
     nombre:"HACK TRIPHASE CORE",
 
-    imagen:"./piezas/P9.png",
+    fondo:"./piezas/F9.png",
+
+    pieza:"./piezas/A9.png",
 
     empresa:"Fusion Future",
 
@@ -1372,6 +1893,7 @@ También es una de las que menos recomienda utilizar de forma excesiva.
 Después de varias activaciones, el Core comienza a reconocer las inconsistencias entre la información recibida y el estado real del vehículo.
 
 Sus propios sistemas de seguridad terminan bloqueando el procedimiento.`
+
 }
 
 ];
@@ -1384,6 +1906,8 @@ Sus propios sistemas de seguridad terminan bloqueando el procedimiento.`
 
 let actual = 0;
 
+let bloqueado = false;
+
 const contadores = {};
 
 
@@ -1393,7 +1917,10 @@ piezas.forEach(function(p){
         p.max !== null &&
         p.max !== Infinity
     ){
-        contadores[p.id] = p.max;
+
+        contadores[p.id] =
+            p.max;
+
     }
 
 });
@@ -1404,87 +1931,613 @@ piezas.forEach(function(p){
    ELEMENTOS
 ========================================================= */
 
-const image =
-    document.getElementById("partImage");
+const backgroundImage =
+    document.getElementById(
+        "backgroundImage"
+    );
+
+
+const partFloatWrap =
+    document.getElementById(
+        "partFloatWrap"
+    );
+
+
+const partImage =
+    document.getElementById(
+        "partImage"
+    );
+
 
 const counter =
-    document.getElementById("counter");
+    document.getElementById(
+        "counter"
+    );
+
 
 const prev =
-    document.getElementById("prev");
+    document.getElementById(
+        "prev"
+    );
+
 
 const next =
-    document.getElementById("next");
+    document.getElementById(
+        "next"
+    );
+
 
 const partInfo =
-    document.getElementById("partInfo");
+    document.getElementById(
+        "partInfo"
+    );
+
 
 const history =
-    document.getElementById("history");
+    document.getElementById(
+        "history"
+    );
+
 
 const uses =
-    document.getElementById("uses");
+    document.getElementById(
+        "uses"
+    );
+
+
+const lockButton =
+    document.getElementById(
+        "lockButton"
+    );
+
 
 const modal =
-    document.getElementById("modal");
+    document.getElementById(
+        "modal"
+    );
+
 
 const modalBox =
-    document.getElementById("modalBox");
+    document.getElementById(
+        "modalBox"
+    );
+
 
 const modalTitle =
-    document.getElementById("modalTitle");
+    document.getElementById(
+        "modalTitle"
+    );
+
 
 const modalData =
-    document.getElementById("modalData");
+    document.getElementById(
+        "modalData"
+    );
+
 
 const modalText =
-    document.getElementById("modalText");
+    document.getElementById(
+        "modalText"
+    );
+
 
 const close =
-    document.getElementById("close");
+    document.getElementById(
+        "close"
+    );
+
 
 const card =
-    document.getElementById("card");
+    document.getElementById(
+        "card"
+    );
 
 
 
 /* =========================================================
-   MOSTRAR PIEZA
+   SONIDOS
+
+   No requieren archivos MP3.
+   Se crean directamente con Web Audio.
+========================================================= */
+
+let audioContext = null;
+
+
+function obtenerAudio(){
+
+    if(!audioContext){
+
+        audioContext =
+            new(
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+
+    }
+
+
+    if(
+        audioContext.state ===
+        "suspended"
+    ){
+
+        audioContext.resume();
+
+    }
+
+
+    return audioContext;
+
+}
+
+
+
+/* Tono básico */
+
+function tono(
+    frecuencia,
+    duracion,
+    volumen,
+    tipo,
+    retraso = 0
+){
+
+    try{
+
+        const ctx =
+            obtenerAudio();
+
+
+        const osc =
+            ctx.createOscillator();
+
+
+        const gain =
+            ctx.createGain();
+
+
+        osc.type =
+            tipo || "sine";
+
+
+        osc.frequency.value =
+            frecuencia;
+
+
+        const inicio =
+            ctx.currentTime +
+            retraso;
+
+
+        const fin =
+            inicio +
+            duracion;
+
+
+        gain.gain.setValueAtTime(
+            0.0001,
+            inicio
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            volumen,
+            inicio + 0.01
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.0001,
+            fin
+        );
+
+
+        osc.connect(gain);
+
+        gain.connect(
+            ctx.destination
+        );
+
+
+        osc.start(inicio);
+
+        osc.stop(fin + 0.02);
+
+    }
+
+    catch(error){
+
+        /* Si un navegador bloquea sonido,
+           la interfaz sigue funcionando. */
+
+    }
+
+}
+
+
+
+/* Flecha */
+
+function sonidoFlecha(){
+
+    tono(
+        440,
+        .045,
+        .045,
+        "square"
+    );
+
+
+    tono(
+        620,
+        .055,
+        .035,
+        "square",
+        .045
+    );
+
+}
+
+
+
+/* Abrir pieza */
+
+function sonidoAbrir(){
+
+    tono(
+        620,
+        .06,
+        .035,
+        "sine"
+    );
+
+
+    tono(
+        860,
+        .10,
+        .035,
+        "sine",
+        .045
+    );
+
+}
+
+
+
+/* Bloquear */
+
+function sonidoBloquear(){
+
+    tono(
+        260,
+        .055,
+        .055,
+        "square"
+    );
+
+
+    tono(
+        150,
+        .10,
+        .045,
+        "square",
+        .055
+    );
+
+}
+
+
+
+/* Desbloquear */
+
+function sonidoDesbloquear(){
+
+    tono(
+        250,
+        .055,
+        .045,
+        "square"
+    );
+
+
+    tono(
+        520,
+        .11,
+        .040,
+        "sine",
+        .050
+    );
+
+}
+
+
+
+/* Contador */
+
+function sonidoContador(valor){
+
+    if(valor === 0){
+
+        tono(
+            185,
+            .14,
+            .05,
+            "square"
+        );
+
+        return;
+
+    }
+
+
+    tono(
+        510,
+        .055,
+        .035,
+        "sine"
+    );
+
+}
+
+
+
+/* =========================================================
+   PRE-CARGAR IMÁGENES
+
+   Ayuda a evitar parpadeos al cambiar de pieza.
+========================================================= */
+
+function precargarImagenes(){
+
+    piezas.forEach(function(p){
+
+        const fondo =
+            new Image();
+
+        fondo.src =
+            p.fondo;
+
+
+        if(p.pieza){
+
+            const objeto =
+                new Image();
+
+            objeto.src =
+                p.pieza;
+
+        }
+
+    });
+
+}
+
+
+precargarImagenes();
+
+
+
+/* =========================================================
+   MOSTRAR
 ========================================================= */
 
 function mostrar(){
 
-    const p = piezas[actual];
+    const p =
+        piezas[actual];
 
-    image.src = p.imagen;
 
-    image.alt = p.nombre;
+    /* Fondo */
 
+    backgroundImage.src =
+        p.fondo;
+
+
+    /* Pieza */
+
+    if(p.pieza){
+
+        partImage.src =
+            p.pieza;
+
+
+        partImage.alt =
+            p.nombre;
+
+
+        partFloatWrap.style.display =
+            "block";
+
+    }
+
+    else{
+
+        partImage.src =
+            "";
+
+
+        partFloatWrap.style.display =
+            "none";
+
+    }
+
+
+    /* Ninguna */
 
     if(p.max === null){
 
-        counter.textContent = "";
+        counter.textContent =
+            "";
 
-        counter.classList.add("hidden");
+
+        counter.classList.add(
+            "hidden"
+        );
+
+
+        lockButton.classList.add(
+            "hidden"
+        );
+
+
+        /*
+           NINGUNA siempre queda libre.
+        */
+
+        bloqueado =
+            false;
+
+
+        actualizarBloqueo();
+
 
         return;
+
     }
 
+
+    /* Candado */
+
+    lockButton.classList.remove(
+        "hidden"
+    );
+
+
+    /* Infinito */
 
     if(p.max === Infinity){
 
-        counter.textContent = "∞";
+        counter.textContent =
+            "∞";
 
-        counter.classList.remove("hidden");
 
-        return;
+        counter.classList.remove(
+            "hidden"
+        );
+
+    }
+
+    else{
+
+        counter.textContent =
+            contadores[p.id];
+
+
+        counter.classList.remove(
+            "hidden"
+        );
+
     }
 
 
-    counter.textContent =
-        contadores[p.id];
+    actualizarBloqueo();
 
-    counter.classList.remove("hidden");
+}
+
+
+
+/* =========================================================
+   ESTADO DEL CANDADO
+========================================================= */
+
+function actualizarBloqueo(){
+
+    if(bloqueado){
+
+        lockButton.textContent =
+            "🔒";
+
+
+        lockButton.classList.add(
+            "locked"
+        );
+
+
+        lockButton.setAttribute(
+            "aria-label",
+            "Liberar pieza"
+        );
+
+
+        prev.disabled =
+            true;
+
+
+        next.disabled =
+            true;
+
+    }
+
+    else{
+
+        lockButton.textContent =
+            "🔓";
+
+
+        lockButton.classList.remove(
+            "locked"
+        );
+
+
+        lockButton.setAttribute(
+            "aria-label",
+            "Fijar pieza"
+        );
+
+
+        prev.disabled =
+            false;
+
+
+        next.disabled =
+            false;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   CANDADO
+========================================================= */
+
+function cambiarCandado(){
+
+    const p =
+        piezas[actual];
+
+
+    if(
+        p.id ===
+        "ninguna"
+    ){
+
+        return;
+
+    }
+
+
+    bloqueado =
+        !bloqueado;
+
+
+    if(bloqueado){
+
+        sonidoBloquear();
+
+    }
+
+    else{
+
+        sonidoDesbloquear();
+
+    }
+
+
+    actualizarBloqueo();
+
 }
 
 
@@ -1496,18 +2549,42 @@ function mostrar(){
 function siguiente(){
 
     if(
-        modal.classList.contains("show")
+        bloqueado ||
+        modal.classList.contains(
+            "show"
+        )
     ){
+
         return;
+
     }
+
 
     actual++;
 
-    if(actual >= piezas.length){
-        actual = 0;
+
+    if(
+        actual >=
+        piezas.length
+    ){
+
+        actual =
+            0;
+
     }
 
+
+    /*
+       Al cambiar de pieza,
+       el nuevo elemento comienza libre.
+    */
+
+    bloqueado =
+        false;
+
+
     mostrar();
+
 }
 
 
@@ -1519,43 +2596,66 @@ function siguiente(){
 function anterior(){
 
     if(
-        modal.classList.contains("show")
+        bloqueado ||
+        modal.classList.contains(
+            "show"
+        )
     ){
+
         return;
+
     }
+
 
     actual--;
 
+
     if(actual < 0){
-        actual = piezas.length - 1;
+
+        actual =
+            piezas.length - 1;
+
     }
 
+
+    bloqueado =
+        false;
+
+
     mostrar();
+
 }
 
 
 
 /* =========================================================
-   CAMBIAR USOS
+   CONTADOR
 ========================================================= */
 
 function cambiarUsos(){
 
     if(
-        modal.classList.contains("show")
+        modal.classList.contains(
+            "show"
+        )
     ){
+
         return;
+
     }
 
 
-    const p = piezas[actual];
+    const p =
+        piezas[actual];
 
 
     if(
         p.max === null ||
         p.max === Infinity
     ){
+
         return;
+
     }
 
 
@@ -1567,10 +2667,13 @@ function cambiarUsos(){
 
         valor--;
 
-    }else{
+    }
+
+    else{
 
         valor =
             p.max;
+
     }
 
 
@@ -1578,13 +2681,55 @@ function cambiarUsos(){
         valor;
 
 
+    sonidoContador(
+        valor
+    );
+
+
     mostrar();
+
 }
 
 
 
 /* =========================================================
-   ABRIR REGLAS
+   PULSO DE LA PIEZA
+========================================================= */
+
+function animarPieza(){
+
+    if(
+        !piezas[actual].pieza
+    ){
+
+        return;
+
+    }
+
+
+    partImage.classList.remove(
+        "pulse"
+    );
+
+
+    /*
+       Fuerza al navegador a reiniciar
+       la animación.
+    */
+
+    void partImage.offsetWidth;
+
+
+    partImage.classList.add(
+        "pulse"
+    );
+
+}
+
+
+
+/* =========================================================
+   REGLAS
 ========================================================= */
 
 function abrirReglas(){
@@ -1593,9 +2738,19 @@ function abrirReglas(){
         piezas[actual];
 
 
-    if(p.id === "ninguna"){
+    if(
+        p.id ===
+        "ninguna"
+    ){
+
         return;
+
     }
+
+
+    sonidoAbrir();
+
+    animarPieza();
 
 
     modalTitle.textContent =
@@ -1603,6 +2758,7 @@ function abrirReglas(){
 
 
     modalData.textContent =
+
         "COMPAÑÍA: " +
         p.empresa +
 
@@ -1617,16 +2773,32 @@ function abrirReglas(){
         p.reglas;
 
 
-    modalText.scrollTop = 0;
+    modalText.scrollTop =
+        0;
 
 
-    modal.classList.add("show");
+    /*
+       Retraso mínimo para que el pulso
+       se alcance a percibir antes del modal.
+    */
+
+    setTimeout(
+        function(){
+
+            modal.classList.add(
+                "show"
+            );
+
+        },
+        90
+    );
+
 }
 
 
 
 /* =========================================================
-   ABRIR HISTORIA
+   HISTORIA
 ========================================================= */
 
 function abrirHistoria(){
@@ -1635,12 +2807,21 @@ function abrirHistoria(){
         piezas[actual];
 
 
-    if(p.id === "ninguna"){
+    if(
+        p.id ===
+        "ninguna"
+    ){
+
         return;
+
     }
 
 
+    sonidoAbrir();
+
+
     modalTitle.textContent =
+
         "HISTORIA — " +
         p.nombre;
 
@@ -1653,10 +2834,14 @@ function abrirHistoria(){
         p.historia;
 
 
-    modalText.scrollTop = 0;
+    modalText.scrollTop =
+        0;
 
 
-    modal.classList.add("show");
+    modal.classList.add(
+        "show"
+    );
+
 }
 
 
@@ -1667,26 +2852,56 @@ function abrirHistoria(){
 
 function cerrarModal(){
 
-    modal.classList.remove("show");
+    modal.classList.remove(
+        "show"
+    );
+
 }
 
 
 
 /* =========================================================
-   BOTONES
+   BOTONES DE NAVEGACIÓN
 ========================================================= */
 
 prev.addEventListener(
     "click",
-    anterior
+    function(){
+
+        if(bloqueado){
+            return;
+        }
+
+
+        sonidoFlecha();
+
+        anterior();
+
+    }
 );
 
 
 next.addEventListener(
     "click",
-    siguiente
+    function(){
+
+        if(bloqueado){
+            return;
+        }
+
+
+        sonidoFlecha();
+
+        siguiente();
+
+    }
 );
 
+
+
+/* =========================================================
+   PIEZA
+========================================================= */
 
 partInfo.addEventListener(
     "click",
@@ -1694,17 +2909,49 @@ partInfo.addEventListener(
 );
 
 
+
+/* =========================================================
+   HISTORIA
+========================================================= */
+
 history.addEventListener(
     "click",
     abrirHistoria
 );
 
 
+
+/* =========================================================
+   USOS
+========================================================= */
+
 uses.addEventListener(
     "click",
     cambiarUsos
 );
 
+
+
+/* =========================================================
+   CANDADO
+========================================================= */
+
+lockButton.addEventListener(
+    "click",
+    function(e){
+
+        e.stopPropagation();
+
+        cambiarCandado();
+
+    }
+);
+
+
+
+/* =========================================================
+   CERRAR MODAL
+========================================================= */
 
 close.addEventListener(
     "click",
@@ -1713,20 +2960,23 @@ close.addEventListener(
         e.stopPropagation();
 
         cerrarModal();
+
     }
 );
 
 
 
 /* =========================================================
-   CERRAR AL TOCAR EL FONDO
+   CERRAR TOCANDO FUERA
 ========================================================= */
 
 modal.addEventListener(
     "click",
     function(e){
 
-        if(e.target === modal){
+        if(
+            e.target === modal
+        ){
 
             cerrarModal();
 
@@ -1734,7 +2984,6 @@ modal.addEventListener(
 
     }
 );
-
 
 
 modalBox.addEventListener(
@@ -1749,31 +2998,35 @@ modalBox.addEventListener(
 
 
 /* =========================================================
-   SCROLL TÁCTIL DE LA INFORMACIÓN
+   SCROLL TÁCTIL DEL TEXTO
 
-   La interfaz completa está girada -90°.
-
-   Por eso en algunos móviles el gesto que visualmente
-   corresponde a "subir/bajar" llega al navegador como un
-   desplazamiento horizontal.
-
-   Este código admite AMBOS sentidos.
-
+   Debido a la rotación -90°, aceptamos movimiento
+   horizontal o vertical y usamos el eje dominante.
 ========================================================= */
 
-let textoTouchX = 0;
+let textoTouchX =
+    0;
 
-let textoTouchY = 0;
 
-let textoScrollInicial = 0;
+let textoTouchY =
+    0;
+
+
+let textoScrollInicial =
+    0;
+
 
 
 modalText.addEventListener(
     "touchstart",
     function(e){
 
-        if(e.touches.length !== 1){
+        if(
+            e.touches.length !== 1
+        ){
+
             return;
+
         }
 
 
@@ -1783,6 +3036,7 @@ modalText.addEventListener(
 
         textoTouchX =
             t.clientX;
+
 
         textoTouchY =
             t.clientY;
@@ -1806,8 +3060,12 @@ modalText.addEventListener(
     "touchmove",
     function(e){
 
-        if(e.touches.length !== 1){
+        if(
+            e.touches.length !== 1
+        ){
+
             return;
+
         }
 
 
@@ -1816,26 +3074,16 @@ modalText.addEventListener(
 
 
         const dx =
+
             t.clientX -
             textoTouchX;
 
 
         const dy =
+
             t.clientY -
             textoTouchY;
 
-
-        /*
-          Como el panel está girado, usamos el movimiento
-          dominante.
-
-          Si el dedo se mueve principalmente horizontalmente,
-          ese movimiento se convierte en desplazamiento
-          vertical del texto.
-
-          Si el navegador/device lo entrega verticalmente,
-          también funciona.
-        */
 
         let movimiento;
 
@@ -1845,15 +3093,12 @@ modalText.addEventListener(
             Math.abs(dy)
         ){
 
-            /*
-              Giro -90°.
-              Deslizar hacia la izquierda hace avanzar.
-            */
-
             movimiento =
                 dx;
 
-        }else{
+        }
+
+        else{
 
             movimiento =
                 dy;
@@ -1862,6 +3107,7 @@ modalText.addEventListener(
 
 
         modalText.scrollTop =
+
             textoScrollInicial -
             movimiento;
 
@@ -1907,10 +3153,7 @@ modalText.addEventListener(
 
 
 /* =========================================================
-   RUEDA DEL MOUSE / TRACKPAD EN PC
-
-   Debido al giro del panel, admitimos rueda vertical
-   y horizontal.
+   RUEDA DEL MOUSE / TRACKPAD
 ========================================================= */
 
 modalText.addEventListener(
@@ -1928,6 +3171,7 @@ modalText.addEventListener(
 
             movimiento =
                 e.deltaX;
+
         }
 
 
@@ -1948,14 +3192,16 @@ modalText.addEventListener(
 
 
 /* =========================================================
-   SWIPE PARA CAMBIAR DE PIEZA
-
-   Solo funciona cuando la ventana está cerrada.
+   SWIPE PARA CAMBIAR PIEZA
 ========================================================= */
 
-let inicioX = 0;
+let inicioX =
+    0;
 
-let inicioY = 0;
+
+let inicioY =
+    0;
+
 
 
 card.addEventListener(
@@ -1963,9 +3209,14 @@ card.addEventListener(
     function(e){
 
         if(
-            modal.classList.contains("show")
+            bloqueado ||
+            modal.classList.contains(
+                "show"
+            )
         ){
+
             return;
+
         }
 
 
@@ -1993,9 +3244,14 @@ card.addEventListener(
     function(e){
 
         if(
-            modal.classList.contains("show")
+            bloqueado ||
+            modal.classList.contains(
+                "show"
+            )
         ){
+
             return;
+
         }
 
 
@@ -2004,21 +3260,16 @@ card.addEventListener(
 
 
         const dx =
+
             t.clientX -
             inicioX;
 
 
         const dy =
+
             t.clientY -
             inicioY;
 
-
-        /*
-          El panel está girado -90°.
-          Por eso el gesto visual de cambio de pieza se
-          corresponde principalmente con el eje vertical
-          original.
-        */
 
         if(
             Math.abs(dy) > 65 &&
@@ -2026,11 +3277,16 @@ card.addEventListener(
             Math.abs(dx)
         ){
 
+            sonidoFlecha();
+
+
             if(dy < 0){
 
                 anterior();
 
-            }else{
+            }
+
+            else{
 
                 siguiente();
 
@@ -2047,7 +3303,7 @@ card.addEventListener(
 
 
 /* =========================================================
-   TECLADO
+   TECLADO EN PC
 ========================================================= */
 
 document.addEventListener(
@@ -2056,42 +3312,73 @@ document.addEventListener(
 
 
         if(
-            modal.classList.contains("show")
+            modal.classList.contains(
+                "show"
+            )
         ){
 
-            if(e.key === "Escape"){
+            if(
+                e.key ===
+                "Escape"
+            ){
 
                 cerrarModal();
 
             }
 
 
-            if(e.key === "ArrowDown"){
+            if(
+                e.key ===
+                "ArrowDown"
+            ){
 
-                modalText.scrollTop += 60;
+                modalText.scrollTop +=
+                    60;
 
             }
 
 
-            if(e.key === "ArrowUp"){
+            if(
+                e.key ===
+                "ArrowUp"
+            ){
 
-                modalText.scrollTop -= 60;
+                modalText.scrollTop -=
+                    60;
 
             }
 
 
             return;
+
         }
 
 
-        if(e.key === "ArrowRight"){
+        if(bloqueado){
+
+            return;
+
+        }
+
+
+        if(
+            e.key ===
+            "ArrowRight"
+        ){
+
+            sonidoFlecha();
 
             siguiente();
 
         }
 
 
-        if(e.key === "ArrowLeft"){
+        if(
+            e.key ===
+            "ArrowLeft"
+        ){
+
+            sonidoFlecha();
 
             anterior();
 
@@ -2110,5 +3397,7 @@ mostrar();
 
 </script>
 
+
 </body>
+
 </html>
