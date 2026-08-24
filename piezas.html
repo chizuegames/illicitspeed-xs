@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
 
 <meta charset="UTF-8">
 
 <meta
-    name="viewport"
-    content="width=device-width,
-    initial-scale=1.0,
-    maximum-scale=1.0,
-    user-scalable=no"
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 >
 
 <title>Partes - IllicitSpeed XS</title>
@@ -22,70 +18,70 @@
 ========================================================= */
 
 *{
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
 html,
 body{
-    margin:0;
-    padding:0;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:transparent;
-    font-family:Arial, Helvetica, sans-serif;
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:transparent;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
-    display:flex;
-    align-items:center;
-    justify-content:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 
 /* =========================================================
-   CONTENEDOR GENERAL
+   CONTENEDOR
 ========================================================= */
 
 .stage{
-    position:relative;
+  position:relative;
 
-    width:min(
-        100vw,
-        calc(100vh * 1.585)
-    );
+  width:min(
+    100vw,
+    calc(100vh * 1.585)
+  );
 
-    height:min(
-        100vh,
-        calc(100vw / 1.585)
-    );
+  height:min(
+    100vh,
+    calc(100vw / 1.585)
+  );
 
-    overflow:hidden;
-    user-select:none;
+  overflow:hidden;
+  user-select:none;
 }
 
 
 /* =========================================================
-   TARJETA GIRADA A LA DERECHA
+   FICHA GIRADA
 ========================================================= */
 
 .card{
-    position:absolute;
+  position:absolute;
 
-    left:50%;
-    top:50%;
+  left:50%;
+  top:50%;
 
-    width:63.095%;
-    height:158.49%;
+  width:63.095%;
+  height:158.49%;
 
-    transform:
-        translate(-50%, -50%)
-        rotate(-90deg);
+  transform:
+    translate(-50%, -50%)
+    rotate(-90deg);
 
-    transform-origin:center;
+  transform-origin:center;
 
-    overflow:hidden;
+  overflow:hidden;
 }
 
 
@@ -94,388 +90,397 @@ body{
 ========================================================= */
 
 .background-image{
-    position:absolute;
-    inset:0;
+  position:absolute;
+  inset:0;
 
-    width:100%;
-    height:100%;
+  width:100%;
+  height:100%;
 
-    object-fit:fill;
+  object-fit:fill;
 
-    pointer-events:none;
-    user-select:none;
+  pointer-events:none;
+  user-select:none;
 
-    z-index:1;
+  z-index:1;
 
-    /*
-       Palpito muy sutil.
-       No cambia la posición del fondo,
-       solo su intensidad luminosa.
-    */
-    animation:
-        backgroundHeartbeat
-        3.6s
-        ease-in-out
-        infinite;
+  animation:
+    backgroundHeartbeat
+    3.8s
+    ease-in-out
+    infinite;
 }
 
 
-/* Palpito doble suave */
+/* =========================================================
+   PALPITO DEL FONDO
+========================================================= */
 
 @keyframes backgroundHeartbeat{
 
-    0%,
-    7%,
-    13%,
-    20%,
-    100%{
-        filter:
-            brightness(1)
-            saturate(1);
-    }
+  0%,
+  8%,
+  14%,
+  22%,
+  100%{
+    filter:
+      brightness(1)
+      saturate(1);
+  }
 
-    4%{
-        filter:
-            brightness(1.055)
-            saturate(1.045);
-    }
+  4%{
+    filter:
+      brightness(1.05)
+      saturate(1.04);
+  }
 
-    10%{
-        filter:
-            brightness(1.035)
-            saturate(1.025);
-    }
+  11%{
+    filter:
+      brightness(1.03)
+      saturate(1.02);
+  }
+
 }
 
 
 /* =========================================================
    PIEZA FLOTANTE
 
-   IMPORTANTE:
-   Ya NO ocupa toda la imagen.
-   Solo vive dentro de la zona central.
+   Zona central reducida para que los PNG A
+   no aparezcan gigantes.
 ========================================================= */
 
 .part-float-wrap{
-    position:absolute;
+  position:absolute;
 
-    left:23%;
-    top:20%;
+  left:32%;
+  top:31%;
 
-    width:54%;
-    height:34%;
+  width:36%;
+  height:24%;
 
-    z-index:3;
+  z-index:3;
 
-    pointer-events:none;
+  pointer-events:none;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-    animation:
-        floatingPart
-        3.1s
-        ease-in-out
-        infinite;
-}
-
-
-/* Pieza propiamente dicha */
-
-.part-image{
-    width:100%;
-    height:100%;
-
-    object-fit:contain;
-    object-position:center;
-
-    pointer-events:none;
-    user-select:none;
-
-    transform-origin:center;
-
-    filter:
-        drop-shadow(
-            0 5px 8px
-            rgba(0,0,0,.32)
-        );
+  animation:
+    floatingPart
+    4.4s
+    ease-in-out
+    infinite;
 }
 
 
 /* =========================================================
-   FLOTACIÓN
+   LEVITACIÓN
 
-   Debido al giro de la tarjeta,
-   translateX se percibe verticalmente.
+   Como toda la ficha está rotada -90°,
+   translateX se percibe como desplazamiento
+   vertical en pantalla.
+
+   El recorrido es deliberadamente pequeño.
 ========================================================= */
 
 @keyframes floatingPart{
 
-    0%{
-        transform:
-            translateX(-3px);
-    }
+  0%{
+    transform:
+      translateX(2px)
+      scale(1);
+  }
 
-    50%{
-        transform:
-            translateX(5px);
-    }
+  50%{
+    transform:
+      translateX(-3px)
+      scale(1.004);
+  }
 
-    100%{
-        transform:
-            translateX(-3px);
-    }
+  100%{
+    transform:
+      translateX(2px)
+      scale(1);
+  }
+
 }
 
 
 /* =========================================================
-   PULSO AL TOCAR LA PIEZA
+   IMAGEN DE LA PIEZA
+========================================================= */
+
+.part-image{
+  width:100%;
+  height:100%;
+
+  object-fit:contain;
+  object-position:center;
+
+  pointer-events:none;
+  user-select:none;
+
+  transform-origin:center;
+
+  filter:
+    drop-shadow(
+      0 5px 8px
+      rgba(0,0,0,.32)
+    );
+}
+
+
+/* =========================================================
+   PULSO AL TOCAR
 ========================================================= */
 
 .part-image.pulse{
-    animation:
-        partPulse
-        .30s
-        ease-out;
+  animation:
+    partPulse
+    .30s
+    ease-out;
 }
-
 
 @keyframes partPulse{
 
-    0%{
-        transform:scale(1);
-    }
+  0%{
+    transform:scale(1);
+  }
 
-    45%{
-        transform:scale(1.055);
+  45%{
+    transform:scale(1.05);
 
-        filter:
-            drop-shadow(
-                0 0 13px
-                rgba(255,255,255,.72)
-            );
-    }
+    filter:
+      drop-shadow(
+        0 0 13px
+        rgba(255,255,255,.72)
+      );
+  }
 
-    100%{
-        transform:scale(1);
-    }
+  100%{
+    transform:scale(1);
+  }
+
 }
 
 
 /* =========================================================
-   BOTONES INVISIBLES
+   ZONAS TÁCTILES
 ========================================================= */
 
 .tap{
-    position:absolute;
+  position:absolute;
 
-    z-index:10;
+  z-index:10;
 
-    border:0;
-    background:transparent;
+  border:0;
+  background:transparent;
 
-    margin:0;
-    padding:0;
+  margin:0;
+  padding:0;
 
-    cursor:pointer;
+  cursor:pointer;
 }
 
 
 /* Flecha izquierda */
 
 .arrow-left{
-    left:0%;
-    bottom:3%;
+  left:0%;
+  bottom:3%;
 
-    width:22%;
-    height:19%;
+  width:22%;
+  height:19%;
 }
 
 
 /* Flecha derecha */
 
 .arrow-right{
-    right:0%;
-    bottom:3%;
+  right:0%;
+  bottom:3%;
 
-    width:22%;
-    height:19%;
+  width:22%;
+  height:19%;
 }
 
 
 /* Pieza */
 
 .part-touch{
-    left:20%;
-    top:14%;
+  left:20%;
+  top:14%;
 
-    width:60%;
-    height:45%;
+  width:60%;
+  height:45%;
 }
 
 
 /* Historia */
 
 .history-touch{
-    left:0%;
-    top:34%;
+  left:0%;
+  top:34%;
 
-    width:22%;
-    height:22%;
+  width:22%;
+  height:22%;
 }
 
 
 /* Usos */
 
 .uses-touch{
-    right:0%;
-    top:34%;
+  right:0%;
+  top:34%;
 
-    width:22%;
-    height:22%;
+  width:22%;
+  height:22%;
 }
 
 
 /* =========================================================
    FLECHAS BLOQUEADAS
-
-   Como las flechas están dibujadas en el fondo,
-   añadimos una sombra encima cuando están desactivadas.
 ========================================================= */
 
 .arrow-left:disabled::after,
 .arrow-right:disabled::after{
-    content:"";
 
-    position:absolute;
-    inset:0;
+  content:"";
 
-    background:
-        rgba(0,0,0,.48);
+  position:absolute;
+  inset:0;
 
-    border-radius:10px;
+  background:
+    rgba(0,0,0,.48);
+
+  border-radius:10px;
+
 }
 
 
 /* =========================================================
    CANDADO
 
-   right + bottom, debido al giro -90º,
-   aparece visualmente ARRIBA A LA DERECHA.
+   Con la ficha rotada, esta posición aparece
+   visualmente ARRIBA A LA DERECHA.
 ========================================================= */
 
 .lock-button{
-    position:absolute;
+  position:absolute;
 
-    right:3%;
-    bottom:3%;
+  right:3%;
+  top:3%;
 
-    z-index:45;
+  z-index:45;
 
-    width:10.5%;
-    aspect-ratio:1 / 1;
+  width:10.5%;
+  aspect-ratio:1 / 1;
 
-    border:
-        2px solid
-        rgba(255,255,255,.55);
+  border:
+    2px solid
+    rgba(255,255,255,.55);
 
-    border-radius:50%;
+  border-radius:50%;
 
-    background:
-        rgba(8,12,18,.62);
+  background:
+    rgba(8,12,18,.62);
 
-    color:white;
+  color:white;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-    cursor:pointer;
+  cursor:pointer;
 
-    font-size:
-        clamp(
-            17px,
-            3.8vw,
-            36px
-        );
+  font-size:
+    clamp(
+      17px,
+      3.8vw,
+      36px
+    );
 
-    box-shadow:
-        0 3px 12px
-        rgba(0,0,0,.6),
+  box-shadow:
+    0 3px 12px
+    rgba(0,0,0,.6),
 
-        inset 0 0 12px
-        rgba(255,255,255,.08);
+    inset 0 0 12px
+    rgba(255,255,255,.08);
 
-    transition:
-        transform .16s ease,
-        background .2s ease,
-        box-shadow .2s ease;
+  transition:
+    transform .16s ease,
+    background .2s ease,
+    box-shadow .2s ease;
 
-    touch-action:manipulation;
+  touch-action:manipulation;
 }
 
 
 .lock-button:active{
-    transform:
-        scale(.88);
+  transform:scale(.88);
 }
 
 
 .lock-button.locked{
-    background:
-        rgba(15,75,35,.78);
 
-    box-shadow:
-        0 0 10px
-        rgba(110,255,145,.78),
+  background:
+    rgba(15,75,35,.78);
 
-        0 0 22px
-        rgba(110,255,145,.32);
+  box-shadow:
+    0 0 10px
+    rgba(110,255,145,.78),
+
+    0 0 22px
+    rgba(110,255,145,.32);
+
 }
 
 
 .lock-button.hidden{
-    display:none;
+  display:none;
 }
 
 
 /* =========================================================
-   CONTADOR
+   CONTADOR DE USOS
+
+   Movido ligeramente respecto a la versión anterior
+   para entrar mejor en el círculo gráfico.
 ========================================================= */
 
 .counter{
-    position:absolute;
+  position:absolute;
 
-    right:1%;
-    top:34%;
+  right:1.8%;
+  top:39%;
 
-    width:20%;
-    height:17%;
+  width:20%;
+  height:17%;
 
-    z-index:9;
+  z-index:9;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-    color:white;
+  color:white;
 
-    font-size:42px;
-    font-weight:900;
-    font-style:italic;
+  font-size:42px;
+  font-weight:900;
+  font-style:italic;
 
-    text-shadow:
-        0 3px 2px rgba(0,0,0,.90),
-        0 0 8px rgba(255,255,255,.80),
-        0 0 16px rgba(255,255,255,.35);
+  text-shadow:
+    0 3px 2px rgba(0,0,0,.90),
+    0 0 8px rgba(255,255,255,.80),
+    0 0 16px rgba(255,255,255,.35);
 
-    pointer-events:none;
+  pointer-events:none;
 }
 
 
 .counter.hidden{
-    display:none;
+  display:none;
 }
 
 
@@ -484,66 +489,70 @@ body{
 ========================================================= */
 
 .modal{
-    position:absolute;
-    inset:0;
+  position:absolute;
 
-    z-index:1000;
+  inset:0;
 
-    display:none;
+  z-index:1000;
 
-    align-items:center;
-    justify-content:center;
+  display:none;
 
-    padding:5%;
+  align-items:center;
+  justify-content:center;
 
-    background:
-        rgba(0,0,0,.83);
+  padding:5%;
 
-    touch-action:none;
+  background:
+    rgba(0,0,0,.83);
+
+  touch-action:none;
 }
 
 
 .modal.show{
-    display:flex;
+  display:flex;
 }
 
 
 /* =========================================================
-   CAJA DEL MODAL
+   CAJA DE INFORMACIÓN
 ========================================================= */
 
 .modal-box{
-    position:relative;
+  position:relative;
 
-    width:92%;
-    height:86%;
-    max-height:86%;
+  width:92%;
+  height:86%;
+  max-height:86%;
 
-    display:flex;
-    flex-direction:column;
+  display:flex;
+  flex-direction:column;
 
-    overflow:hidden;
+  overflow:hidden;
 
-    border-radius:18px;
+  border-radius:18px;
 
-    border:
-        2px solid
-        rgba(255,255,255,.28);
+  border:
+    2px solid
+    rgba(255,255,255,.28);
 
-    background:
-        linear-gradient(
-            180deg,
-            rgba(40,46,55,.98),
-            rgba(12,15,20,.98)
-        );
+  background:
+    linear-gradient(
+      180deg,
+      rgba(40,46,55,.98),
+      rgba(12,15,20,.98)
+    );
 
-    box-shadow:
-        0 12px 35px rgba(0,0,0,.70),
-        inset 0 0 25px rgba(255,255,255,.04);
+  box-shadow:
+    0 12px 35px
+    rgba(0,0,0,.70),
 
-    color:white;
+    inset 0 0 25px
+    rgba(255,255,255,.04);
 
-    touch-action:none;
+  color:white;
+
+  touch-action:none;
 }
 
 
@@ -552,162 +561,166 @@ body{
 ========================================================= */
 
 .modal-top{
-    position:relative;
+  position:relative;
 
-    flex:0 0 auto;
+  flex:0 0 auto;
 
-    padding:
-        15px
-        54px
-        10px
-        16px;
+  padding:
+    15px
+    54px
+    10px
+    16px;
 
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.18);
-}
-
-
-/* Título */
-
-.modal-title{
-    margin:0;
-
-    font-size:
-        clamp(
-            16px,
-            2.25vw,
-            24px
-        );
-
-    font-weight:900;
-    font-style:italic;
-
-    line-height:1.08;
-}
-
-
-/* Datos */
-
-.modal-data{
-    margin-top:7px;
-
-    color:#d1d8df;
-
-    font-size:
-        clamp(
-            11px,
-            1.55vw,
-            15px
-        );
-
-    font-weight:700;
-
-    line-height:1.35;
-
-    white-space:pre-line;
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.18);
 }
 
 
 /* =========================================================
-   BOTÓN CERRAR
+   TÍTULO
+========================================================= */
+
+.modal-title{
+  margin:0;
+
+  font-size:
+    clamp(
+      16px,
+      2.25vw,
+      24px
+    );
+
+  font-weight:900;
+  font-style:italic;
+
+  line-height:1.08;
+}
+
+
+/* =========================================================
+   DATOS
+========================================================= */
+
+.modal-data{
+  margin-top:7px;
+
+  color:#d1d8df;
+
+  font-size:
+    clamp(
+      11px,
+      1.55vw,
+      15px
+    );
+
+  font-weight:700;
+
+  line-height:1.35;
+
+  white-space:pre-line;
+}
+
+
+/* =========================================================
+   CERRAR
 ========================================================= */
 
 .close{
-    position:absolute;
+  position:absolute;
 
-    right:9px;
-    top:9px;
+  right:9px;
+  top:9px;
 
-    width:34px;
-    height:34px;
+  width:34px;
+  height:34px;
 
-    padding:0;
+  padding:0;
 
-    border:
-        2px solid
-        rgba(255,255,255,.40);
+  border:
+    2px solid
+    rgba(255,255,255,.40);
 
-    border-radius:50%;
+  border-radius:50%;
 
-    background:
-        rgba(255,255,255,.12);
+  background:
+    rgba(255,255,255,.12);
 
-    color:white;
+  color:white;
 
-    font-size:21px;
-    font-weight:900;
+  font-size:21px;
+  font-weight:900;
 
-    line-height:1;
+  line-height:1;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-    cursor:pointer;
+  cursor:pointer;
 
-    z-index:20;
+  z-index:20;
 
-    touch-action:manipulation;
+  touch-action:manipulation;
 }
 
 
 /* =========================================================
-   TEXTO DEL MODAL
+   TEXTO
 ========================================================= */
 
 .modal-text{
-    position:relative;
+  position:relative;
 
-    flex:1 1 0;
+  flex:1 1 0;
 
-    min-height:0;
+  min-height:0;
 
-    padding:
-        15px
-        16px
-        25px;
+  padding:
+    15px
+    16px
+    25px;
 
-    overflow-y:auto;
-    overflow-x:hidden;
+  overflow-y:auto;
+  overflow-x:hidden;
 
-    -webkit-overflow-scrolling:touch;
+  -webkit-overflow-scrolling:touch;
 
-    overscroll-behavior:contain;
+  overscroll-behavior:contain;
 
-    touch-action:none;
+  touch-action:none;
 
-    font-size:
-        clamp(
-            12px,
-            1.75vw,
-            16.5px
-        );
+  font-size:
+    clamp(
+      12px,
+      1.75vw,
+      16.5px
+    );
 
-    line-height:1.45;
+  line-height:1.45;
 
-    white-space:pre-line;
+  white-space:pre-line;
 
-    user-select:text;
+  user-select:text;
 }
 
 
 .modal-text::-webkit-scrollbar{
-    width:7px;
+  width:7px;
 }
 
 
 .modal-text::-webkit-scrollbar-track{
-    background:
-        rgba(255,255,255,.04);
+  background:
+    rgba(255,255,255,.04);
 }
 
 
 .modal-text::-webkit-scrollbar-thumb{
-    background:
-        rgba(255,255,255,.30);
+  background:
+    rgba(255,255,255,.30);
 
-    border-radius:10px;
+  border-radius:10px;
 }
 
 
@@ -717,127 +730,128 @@ body{
 
 @media(max-height:600px){
 
-    .modal{
-        padding:4%;
-    }
+  .modal{
+    padding:4%;
+  }
 
 
-    .modal-box{
-        width:94%;
-        height:88%;
-        max-height:88%;
-    }
+  .modal-box{
+    width:94%;
+    height:88%;
+    max-height:88%;
+  }
 
 
-    .modal-top{
-        padding:
-            11px
-            45px
-            7px
-            11px;
-    }
+  .modal-top{
+    padding:
+      11px
+      45px
+      7px
+      11px;
+  }
 
 
-    .modal-title{
-        font-size:15px;
-    }
+  .modal-title{
+    font-size:15px;
+  }
 
 
-    .modal-data{
-        margin-top:5px;
+  .modal-data{
+    margin-top:5px;
 
-        font-size:10px;
+    font-size:10px;
 
-        line-height:1.27;
-    }
-
-
-    .modal-text{
-        font-size:11.5px;
-
-        line-height:1.39;
-
-        padding:
-            11px
-            12px
-            19px;
-    }
+    line-height:1.27;
+  }
 
 
-    .close{
-        width:29px;
-        height:29px;
+  .modal-text{
+    font-size:11.5px;
 
-        right:7px;
-        top:7px;
+    line-height:1.39;
 
-        font-size:18px;
-    }
-
-
-    .counter{
-        font-size:27px;
-    }
-}
+    padding:
+      11px
+      12px
+      19px;
+  }
 
 
-/* Pantallas todavía más pequeñas */
+  .close{
+    width:29px;
+    height:29px;
 
-@media(max-height:430px){
+    right:7px;
+    top:7px;
 
-    .modal-top{
-        padding:
-            8px
-            40px
-            6px
-            10px;
-    }
+    font-size:18px;
+  }
 
 
-    .modal-title{
-        font-size:13px;
-    }
+  .counter{
+    font-size:27px;
+  }
 
-
-    .modal-data{
-        font-size:9px;
-    }
-
-
-    /*
-       Nunca baja de 8.
-    */
-
-    .modal-text{
-        font-size:10.5px;
-        line-height:1.33;
-    }
-
-
-    .close{
-        width:26px;
-        height:26px;
-
-        font-size:16px;
-    }
-
-
-    .counter{
-        font-size:23px;
-    }
 }
 
 
 /* =========================================================
-   ACCESIBILIDAD
+   CELULARES MUY PEQUEÑOS
+========================================================= */
+
+@media(max-height:430px){
+
+  .modal-top{
+    padding:
+      8px
+      40px
+      6px
+      10px;
+  }
+
+
+  .modal-title{
+    font-size:13px;
+  }
+
+
+  .modal-data{
+    font-size:9px;
+  }
+
+
+  .modal-text{
+    font-size:10.5px;
+    line-height:1.33;
+  }
+
+
+  .close{
+    width:26px;
+    height:26px;
+
+    font-size:16px;
+  }
+
+
+  .counter{
+    font-size:23px;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCIR ANIMACIONES SI EL DISPOSITIVO LO PIDE
 ========================================================= */
 
 @media(prefers-reduced-motion:reduce){
 
-    .part-float-wrap,
-    .background-image{
-        animation:none;
-    }
+  .part-float-wrap,
+  .background-image{
+    animation:none;
+  }
+
 }
 
 </style>
@@ -845,175 +859,174 @@ body{
 </head>
 
 
-
 <body>
 
 
 <div
-    class="stage"
-    id="stage"
+  class="stage"
+  id="stage"
 >
 
 
-    <div
-        class="card"
-        id="card"
+  <div
+    class="card"
+    id="card"
+  >
+
+
+    <!-- FONDO -->
+
+    <img
+      id="backgroundImage"
+      class="background-image"
+      src="./piezas/F15.png"
+      alt=""
     >
 
 
-        <!-- FONDO -->
+    <!-- PIEZA -->
 
-        <img
-            id="backgroundImage"
-            class="background-image"
-            src="./piezas/F15.png"
-            alt=""
-        >
+    <div
+      id="partFloatWrap"
+      class="part-float-wrap"
+      style="display:none;"
+    >
 
+      <img
+        id="partImage"
+        class="part-image"
+        src=""
+        alt=""
+      >
 
-        <!-- PIEZA TRANSPARENTE -->
-
-        <div
-            id="partFloatWrap"
-            class="part-float-wrap"
-            style="display:none;"
-        >
-
-            <img
-                id="partImage"
-                class="part-image"
-                src=""
-                alt=""
-            >
-
-        </div>
+    </div>
 
 
-        <!-- CANDADO -->
+    <!-- CANDADO -->
 
-        <button
-            id="lockButton"
-            class="lock-button hidden"
-            aria-label="Fijar pieza"
-        >
-            🔓
-        </button>
-
-
-        <!-- FLECHAS -->
-
-        <button
-            id="prev"
-            class="tap arrow-left"
-            aria-label="Pieza anterior"
-        >
-        </button>
+    <button
+      id="lockButton"
+      class="lock-button hidden"
+      aria-label="Fijar pieza"
+    >
+      🔓
+    </button>
 
 
-        <button
-            id="next"
-            class="tap arrow-right"
-            aria-label="Siguiente pieza"
-        >
-        </button>
+    <!-- FLECHAS -->
+
+    <button
+      id="prev"
+      class="tap arrow-left"
+      aria-label="Pieza anterior"
+    >
+    </button>
 
 
-        <!-- INFORMACIÓN -->
-
-        <button
-            id="partInfo"
-            class="tap part-touch"
-            aria-label="Información de la pieza"
-        >
-        </button>
+    <button
+      id="next"
+      class="tap arrow-right"
+      aria-label="Siguiente pieza"
+    >
+    </button>
 
 
-        <!-- HISTORIA -->
+    <!-- PIEZA / INFORMACIÓN -->
 
-        <button
-            id="history"
-            class="tap history-touch"
-            aria-label="Historia de la pieza"
-        >
-        </button>
-
-
-        <!-- USOS -->
-
-        <button
-            id="uses"
-            class="tap uses-touch"
-            aria-label="Cambiar usos"
-        >
-        </button>
+    <button
+      id="partInfo"
+      class="tap part-touch"
+      aria-label="Información de la pieza"
+    >
+    </button>
 
 
-        <!-- CONTADOR -->
+    <!-- HISTORIA -->
 
-        <div
-            id="counter"
-            class="counter hidden"
-        >
-        </div>
-
-
-        <!-- MODAL -->
-
-        <div
-            id="modal"
-            class="modal"
-        >
+    <button
+      id="history"
+      class="tap history-touch"
+      aria-label="Historia de la pieza"
+    >
+    </button>
 
 
-            <div
-                id="modalBox"
-                class="modal-box"
-            >
+    <!-- USOS -->
+
+    <button
+      id="uses"
+      class="tap uses-touch"
+      aria-label="Cambiar usos"
+    >
+    </button>
 
 
-                <div class="modal-top">
+    <!-- CONTADOR -->
+
+    <div
+      id="counter"
+      class="counter hidden"
+    >
+    </div>
 
 
-                    <button
-                        id="close"
-                        class="close"
-                        aria-label="Cerrar"
-                    >
-                        ×
-                    </button>
+    <!-- MODAL -->
+
+    <div
+      id="modal"
+      class="modal"
+    >
 
 
-                    <h2
-                        id="modalTitle"
-                        class="modal-title"
-                    >
-                    </h2>
+      <div
+        id="modalBox"
+        class="modal-box"
+      >
 
 
-                    <div
-                        id="modalData"
-                        class="modal-data"
-                    >
-                    </div>
+        <div class="modal-top">
 
 
-                </div>
+          <button
+            id="close"
+            class="close"
+            aria-label="Cerrar"
+          >
+            ×
+          </button>
 
 
-                <div
-                    id="modalText"
-                    class="modal-text"
-                >
-                </div>
+          <h2
+            id="modalTitle"
+            class="modal-title"
+          >
+          </h2>
 
 
-            </div>
+          <div
+            id="modalData"
+            class="modal-data"
+          >
+          </div>
 
 
         </div>
+
+
+        <div
+          id="modalText"
+          class="modal-text"
+        >
+        </div>
+
+
+      </div>
 
 
     </div>
+
+
+  </div>
 
 
 </div>
@@ -1023,48 +1036,48 @@ body{
 <script>
 
 /* =========================================================
-   PIEZAS
+   DATOS DE LAS PIEZAS
 ========================================================= */
 
 const piezas = [
 
 {
-    id:"ninguna",
-    nombre:"NINGUNA",
+  id:"ninguna",
+  nombre:"NINGUNA",
 
-    fondo:"./piezas/F15.png",
-    pieza:null,
+  fondo:"./piezas/F15.png",
+  pieza:null,
 
-    empresa:"",
-    precio:"",
-    durabilidad:"",
+  empresa:"",
+  precio:"",
+  durabilidad:"",
 
-    max:null,
+  max:null,
 
-    reglas:"",
-    historia:""
+  reglas:"",
+  historia:""
 },
 
 
-/* DRIFTING - F8 / A8 */
+/* DRIFTING */
 
 {
-    id:"drifting",
+  id:"drifting",
 
-    nombre:"LLANTAS DRIFTING",
+  nombre:"LLANTAS DRIFTING",
 
-    fondo:"./piezas/F8.png",
-    pieza:"./piezas/A8.png",
+  fondo:"./piezas/F8.png",
+  pieza:"./piezas/A8.png",
 
-    empresa:"DesertTail",
+  empresa:"DesertTail",
 
-    precio:"PC 2",
+  precio:"PC 2",
 
-    durabilidad:"4 daños evitados",
+  durabilidad:"4 daños evitados",
 
-    max:4,
+  max:4,
 
-    reglas:
+  reglas:
 `Cuando una curva vaya a causarte daño por haber avanzado más espacios de los permitidos, puedes activar Llantas Drifting.
 
 Debes pagar 1E por cada punto de daño que fueras a recibir.
@@ -1077,7 +1090,7 @@ Para activarla debes disponer tanto de la energía como de la durabilidad necesa
 
 Cuando haya evitado un total de 4 daños, la pieza se destruye.`,
 
-    historia:
+  historia:
 `Esta tecnología fue desarrollada para adaptarse al estilo de conducción de los corredores de DesertTail, quienes suelen mantener velocidades altas y asumir mayores riesgos al entrar en las curvas.
 
 Sus ingenieros crearon un recubrimiento especial para las llantas inspirado en la estructura de las patas de los guepardos.
@@ -1090,25 +1103,25 @@ Sin embargo, el recubrimiento se degrada progresivamente con cada maniobra extre
 },
 
 
-/* ÓXIDO - F5 / A5 */
+/* ÓXIDO NITROSO */
 
 {
-    id:"nitro",
+  id:"nitro",
 
-    nombre:"ÓXIDO NITROSO",
+  nombre:"ÓXIDO NITROSO",
 
-    fondo:"./piezas/F5.png",
-    pieza:"./piezas/A5.png",
+  fondo:"./piezas/F5.png",
+  pieza:"./piezas/A5.png",
 
-    empresa:"Lynx Spirit",
+  empresa:"Lynx Spirit",
 
-    precio:"PC 2",
+  precio:"PC 2",
 
-    durabilidad:"3 usos",
+  durabilidad:"3 usos",
 
-    max:3,
+  max:3,
 
-    reglas:
+  reglas:
 `Durante tu movimiento puedes gastar 2E y 1 uso de Óxido Nitroso para aumentar tu movimiento según la marcha actual.
 
 1.ª y 2.ª marcha: +1 espacio.
@@ -1125,7 +1138,7 @@ Esta subida es adicional al cambio realizado al inicio del turno y nunca permite
 
 Después del tercer uso, la pieza se destruye.`,
 
-    historia:
+  historia:
 `A pesar de su nombre comercial, el Óxido Nitroso utilizado en las carreras no corresponde exactamente al compuesto conocido antiguamente por los humanos.
 
 Se trata de un gas extraído y refinado en Gradión, preparado para reaccionar directamente con el sistema energético del vehículo.
@@ -1138,25 +1151,25 @@ El piloto puede decidir cuándo utilizarlo, pero el sistema de inyección se det
 },
 
 
-/* TODO TERRENO - F1 / A1 */
+/* TODO TERRENO */
 
 {
-    id:"todoterreno",
+  id:"todoterreno",
 
-    nombre:"LLANTAS TODO TERRENO",
+  nombre:"LLANTAS TODO TERRENO",
 
-    fondo:"./piezas/F1.png",
-    pieza:"./piezas/A1.png",
+  fondo:"./piezas/F1.png",
+  pieza:"./piezas/A1.png",
 
-    empresa:"IronHorn",
+  empresa:"IronHorn",
 
-    precio:"PC 2",
+  precio:"PC 2",
 
-    durabilidad:"4 usos",
+  durabilidad:"4 usos",
 
-    max:4,
+  max:4,
 
-    reglas:
+  reglas:
 `Cuando uno o más vehículos impidan que realices un adelantamiento por los espacios normales de la carretera, puedes gastar 1 uso de Llantas Todo Terreno para realizar la maniobra por fuera de la pista.
 
 Durante ese adelantamiento ignoras el daño que recibirías específicamente por salir de la carretera.
@@ -1167,7 +1180,7 @@ No elimina otros efectos especiales provocados por el terreno, el clima o el tra
 
 Después del cuarto uso, la pieza se destruye.`,
 
-    historia:
+  historia:
 `Las Llantas Todo Terreno no sustituyen las ruedas originales del vehículo.
 
 Son un recubrimiento adaptable, ligero y retráctil instalado sobre las llantas convencionales.
@@ -1180,25 +1193,25 @@ Esta tecnología fue desarrollada por Orion, quien buscaba permitir que un vehí
 },
 
 
-/* SENSOR - F2 / A2 */
+/* SENSOR */
 
 {
-    id:"sensor",
+  id:"sensor",
 
-    nombre:"SENSOR DE IMPULSO",
+  nombre:"SENSOR DE IMPULSO",
 
-    fondo:"./piezas/F2.png",
-    pieza:"./piezas/A2.png",
+  fondo:"./piezas/F2.png",
+  pieza:"./piezas/A2.png",
 
-    empresa:"SharkWave",
+  empresa:"SharkWave",
 
-    precio:"PC 2",
+  precio:"PC 2",
 
-    durabilidad:"Ilimitada",
+  durabilidad:"Ilimitada",
 
-    max:Infinity,
+  max:Infinity,
 
-    reglas:
+  reglas:
 `Al finalizar tu movimiento, si un vehículo se encuentra a 1 o 2 espacios delante de ti, puedes gastar 1E para activar el Sensor de Impulso.
 
 Avanza hasta quedar inmediatamente detrás de ese vehículo.
@@ -1209,7 +1222,7 @@ Si el dado no mostró Rebufo, no puedes pagar energía para generar un Rebufo ad
 
 La pieza tiene usos ilimitados.`,
 
-    historia:
+  historia:
 `El Sensor de Impulso está inspirado en la extraordinaria sensibilidad eléctrica de los tiburones para detectar presas cercanas.
 
 El dispositivo identifica alteraciones electromagnéticas y aerodinámicas producidas por los vehículos que circulan delante.
@@ -1222,25 +1235,25 @@ Si las condiciones son adecuadas, el piloto puede convertir ese acercamiento en 
 },
 
 
-/* SOBORNO - F14 / A14 */
+/* SOBORNO */
 
 {
-    id:"soborno",
+  id:"soborno",
 
-    nombre:"SOBORNO",
+  nombre:"SOBORNO",
 
-    fondo:"./piezas/F14.png",
-    pieza:"./piezas/A14.png",
+  fondo:"./piezas/F14.png",
+  pieza:"./piezas/A14.png",
 
-    empresa:"TuskForce",
+  empresa:"TuskForce",
 
-    precio:"PC 1",
+  precio:"PC 1",
 
-    durabilidad:"1 uso",
+  durabilidad:"1 uso",
 
-    max:1,
+  max:1,
 
-    reglas:
+  reglas:
 `Cuando una unidad de policía consiga alcanzarte y vaya a aplicar una detención o sanción, puedes gastar 3E para activar Soborno.
 
 La intervención queda completamente cancelada.
@@ -1251,7 +1264,7 @@ Soborno tiene un único uso.
 
 Después de utilizarlo, la pieza se destruye.`,
 
-    historia:
+  historia:
 `Oficialmente, esta pieza no existe.
 
 El llamado Soborno es una modificación clandestina que circula por debajo de cuerda entre corredores, mecánicos y algunos técnicos relacionados con TuskForce.
@@ -1264,25 +1277,25 @@ El código solo funciona una vez antes de ser identificado y bloqueado por la re
 },
 
 
-/* TURBO - F6 / A6 */
+/* TURBO */
 
 {
-    id:"turbo",
+  id:"turbo",
 
-    nombre:"TURBO",
+  nombre:"TURBO",
 
-    fondo:"./piezas/F6.png",
-    pieza:"./piezas/A6.png",
+  fondo:"./piezas/F6.png",
+  pieza:"./piezas/A6.png",
 
-    empresa:"Lupus Dominion",
+  empresa:"Lupus Dominion",
 
-    precio:"PC 3",
+  precio:"PC 3",
 
-    durabilidad:"Ilimitada",
+  durabilidad:"Ilimitada",
 
-    max:Infinity,
+  max:Infinity,
 
-    reglas:
+  reglas:
 `Cuando el dado de movimiento muestre el símbolo de llama, Turbo se activa automáticamente.
 
 El bono depende de tu marcha actual.
@@ -1299,7 +1312,7 @@ Después de completar tu movimiento puedes subir opcionalmente 1 marcha.
 
 Turbo no consume energía y tiene usos ilimitados.`,
 
-    historia:
+  historia:
 `El Turbo moderno fue desarrollado por Tim después de la muerte de su esposa.
 
 A diferencia del Óxido Nitroso, este sistema no intenta forzar directamente al Tri-Phase Core.
@@ -1314,25 +1327,25 @@ El Core produce el impulso por sí mismo y el Turbo simplemente está preparado 
 },
 
 
-/* FORZAR MARCHA - F4 / A4 */
+/* FORZAR MARCHA */
 
 {
-    id:"forzar",
+  id:"forzar",
 
-    nombre:"PALANCA DE FORZAR MARCHA",
+  nombre:"PALANCA DE FORZAR MARCHA",
 
-    fondo:"./piezas/F4.png",
-    pieza:"./piezas/A4.png",
+  fondo:"./piezas/F4.png",
+  pieza:"./piezas/A4.png",
 
-    empresa:"AetherWing",
+  empresa:"AetherWing",
 
-    precio:"PC 2",
+  precio:"PC 2",
 
-    durabilidad:"3 usos",
+  durabilidad:"3 usos",
 
-    max:3,
+  max:3,
 
-    reglas:
+  reglas:
 `Al inicio de tu turno, cuando vayas a realizar tu cambio de marcha, puedes gastar 2E y 1 uso de Palanca de Forzar Marcha.
 
 En lugar de subir una marcha, puedes subir dos, saltándote la marcha intermedia.
@@ -1351,7 +1364,7 @@ No permite bajar marchas ni superar la 6.ª.
 
 Después del tercer uso, la pieza se destruye.`,
 
-    historia:
+  historia:
 `Los conductores de AetherWing tienen una conocida tendencia a intentar tomar la delantera desde los primeros tramos de una carrera.
 
 Durante años, esta filosofía provocó que muchos vehículos fueran exigidos demasiado pronto y llegaran a las fases decisivas con transmisiones dañadas.
@@ -1364,25 +1377,25 @@ Así, los pilotos de AetherWing pudieron conservar su agresivo estilo de salida 
 },
 
 
-/* BATERÍA - F3 / A3 */
+/* BATERÍA */
 
 {
-    id:"bateria",
+  id:"bateria",
 
-    nombre:"BATERÍA DE RESPALDO",
+  nombre:"BATERÍA DE RESPALDO",
 
-    fondo:"./piezas/F3.png",
-    pieza:"./piezas/A3.png",
+  fondo:"./piezas/F3.png",
+  pieza:"./piezas/A3.png",
 
-    empresa:"Kitsume",
+  empresa:"Kitsume",
 
-    precio:"PC 2",
+  precio:"PC 2",
 
-    durabilidad:"4E almacenadas",
+  durabilidad:"4E almacenadas",
 
-    max:4,
+  max:4,
 
-    reglas:
+  reglas:
 `La Batería de Respaldo contiene una reserva independiente de 4E.
 
 Una vez durante tu turno puedes transferir a tu vehículo la cantidad de energía que quieras de la batería.
@@ -1395,7 +1408,7 @@ La energía que no utilices permanece almacenada para turnos posteriores.
 
 Cuando sus 4E hayan sido utilizadas, la pieza se destruye.`,
 
-    historia:
+  historia:
 `La Batería de Respaldo es una pieza pensada para conductores astutos y previsores.
 
 Su filosofía es sencilla: no siempre importa disponer de mucha energía, sino tenerla exactamente en el momento adecuado.
@@ -1410,25 +1423,25 @@ Su ventaja está en permitir que cada corredor decida cuándo necesita un poco m
 },
 
 
-/* VOLANTE - F10 / A10 */
+/* VOLANTE */
 
 {
-    id:"volante",
+  id:"volante",
 
-    nombre:"VOLANTE DE FLUJO",
+  nombre:"VOLANTE DE FLUJO",
 
-    fondo:"./piezas/F10.png",
-    pieza:"./piezas/A10.png",
+  fondo:"./piezas/F10.png",
+  pieza:"./piezas/A10.png",
 
-    empresa:"Chizue",
+  empresa:"Chizue",
 
-    precio:"PC 2",
+  precio:"PC 2",
 
-    durabilidad:"4 usos",
+  durabilidad:"4 usos",
 
-    max:4,
+  max:4,
 
-    reglas:
+  reglas:
 `Durante tu movimiento puedes gastar 1E y 1 uso de Volante de Flujo.
 
 Esto te permite abandonar el carril en el que comenzaste tu movimiento, desplazarte hacia otro carril y posteriormente regresar al carril inicial durante ese mismo movimiento.
@@ -1443,7 +1456,7 @@ La pieza no concede espacios adicionales de movimiento.
 
 Después del cuarto uso, se destruye.`,
 
-    historia:
+  historia:
 `Esta tecnología nació de la necesidad de Chizue de conseguir que un automóvil pudiera zigzaguear con una agilidad similar a la de una lagartija.
 
 Los cambios violentos de dirección normalmente someten los ejes, la suspensión y el sistema de dirección a fuerzas capaces de dañar el vehículo.
@@ -1454,25 +1467,25 @@ Gracias a ello, el piloto puede abandonar su trayectoria, cambiar de carril y re
 },
 
 
-/* FREEZING - F7 / A7 */
+/* FREEZING */
 
 {
-    id:"freezing",
+  id:"freezing",
 
-    nombre:"FREEZING",
+  nombre:"FREEZING",
 
-    fondo:"./piezas/F7.png",
-    pieza:"./piezas/A7.png",
+  fondo:"./piezas/F7.png",
+  pieza:"./piezas/A7.png",
 
-    empresa:"Noctua",
+  empresa:"Noctua",
 
-    precio:"PC 1",
+  precio:"PC 1",
 
-    durabilidad:"2 usos",
+  durabilidad:"2 usos",
 
-    max:2,
+  max:2,
 
-    reglas:
+  reglas:
 `Cuando llegue tu turno puedes gastar 1 uso de Freezing para retrasar voluntariamente tu actuación dentro de esa ronda.
 
 Puedes permitir gratuitamente que juegue el corredor que se encuentre inmediatamente después de ti en el orden de turno.
@@ -1485,7 +1498,7 @@ No puedes guardar el turno para la ronda siguiente.
 
 Después del segundo uso, la pieza se destruye.`,
 
-    historia:
+  historia:
 `Freezing nació como respuesta a la inmediatez.
 
 Actuar primero no siempre significa tener ventaja.
@@ -1502,25 +1515,25 @@ Permite elegir un mejor momento para moverse.`
 },
 
 
-/* LUCES - F13 / A13 */
+/* LUCES */
 
 {
-    id:"luces",
+  id:"luces",
 
-    nombre:"LUCES ALTAS",
+  nombre:"LUCES ALTAS",
 
-    fondo:"./piezas/F13.png",
-    pieza:"./piezas/A13.png",
+  fondo:"./piezas/F13.png",
+  pieza:"./piezas/A13.png",
 
-    empresa:"Raccoon Motors",
+  empresa:"Raccoon Motors",
 
-    precio:"PC 2",
+  precio:"PC 2",
 
-    durabilidad:"4 usos",
+  durabilidad:"4 usos",
 
-    max:4,
+  max:4,
 
-    reglas:
+  reglas:
 `Puedes gastar 2E y 1 uso de Luces Altas para afectar exclusivamente al vehículo que se encuentre inmediatamente delante de ti.
 
 Si el objetivo es otro corredor, su próximo movimiento se reduce en 1 espacio.
@@ -1531,7 +1544,7 @@ El efecto desaparece después de aplicarse una vez.
 
 Después del cuarto uso, la pieza se destruye.`,
 
-    historia:
+  historia:
 `Estas luces fueron creadas originalmente para competir en pistas oscuras, túneles y zonas de visibilidad reducida.
 
 Sus proyectores adaptativos podían atravesar niebla, polvo y oscuridad con una intensidad mucho mayor que un sistema convencional.
@@ -1546,25 +1559,25 @@ Desde entonces, pocos pilotos consideran estas luces únicamente un sistema de i
 },
 
 
-/* DEFENSA - F11 / A11 */
+/* DEFENSA */
 
 {
-    id:"defensa",
+  id:"defensa",
 
-    nombre:"DEFENSA ANTI-CHOQUES",
+  nombre:"DEFENSA ANTI-CHOQUES",
 
-    fondo:"./piezas/F11.png",
-    pieza:"./piezas/A11.png",
+  fondo:"./piezas/F11.png",
+  pieza:"./piezas/A11.png",
 
-    empresa:"CrownKat",
+  empresa:"CrownKat",
 
-    precio:"PC 2",
+  precio:"PC 2",
 
-    durabilidad:"2 daños",
+  durabilidad:"2 daños",
 
-    max:2,
+  max:2,
 
-    reglas:
+  reglas:
 `Defensa Anti-choques puede absorber un total de 2 puntos de daño provocados por choques.
 
 Cada vez que recibas daño por un choque puedes asignar uno o más de esos puntos a la pieza en lugar de recibirlos en tu vehículo.
@@ -1575,7 +1588,7 @@ Si un choque produce más daño del que la pieza puede absorber, tu vehículo re
 
 Después de absorber un total de 2 daños, se destruye.`,
 
-    historia:
+  historia:
 `Esta defensa fue creada como respuesta a los extraordinarios reflejos felinos de Salem.
 
 Salem era capaz de reaccionar ante un impacto y colocar el vehículo en una posición que reducía considerablemente la fuerza de la colisión.
@@ -1590,25 +1603,25 @@ Evita que produzca más daño del necesario.`
 },
 
 
-/* SALTO - F12 / A12 */
+/* SALTO */
 
 {
-    id:"salto",
+  id:"salto",
 
-    nombre:"AMORTIGUADOR DE SALTO",
+  nombre:"AMORTIGUADOR DE SALTO",
 
-    fondo:"./piezas/F12.png",
-    pieza:"./piezas/A12.png",
+  fondo:"./piezas/F12.png",
+  pieza:"./piezas/A12.png",
 
-    empresa:"EcoMiska",
+  empresa:"EcoMiska",
 
-    precio:"PC 1",
+  precio:"PC 1",
 
-    durabilidad:"2 usos",
+  durabilidad:"2 usos",
 
-    max:2,
+  max:2,
 
-    reglas:
+  reglas:
 `Cuando un vehículo situado directamente delante de ti impida tu avance, puedes gastar 2E y 1 uso de Amortiguador de Salto.
 
 Puedes saltar y rebasar exactamente 1 vehículo.
@@ -1623,7 +1636,7 @@ Cada activación permite saltar solamente 1 vehículo.
 
 Después del segundo uso, la pieza se destruye.`,
 
-    historia:
+  historia:
 `La idea fue propuesta por Yuuky, quien siempre ha defendido que los automóviles deberían ser capaces de realizar adelantamientos aéreos.
 
 Su razonamiento era sencillo:
@@ -1640,25 +1653,25 @@ Yuuky descubrió además que el sistema podía permitir un adelantamiento inclus
 },
 
 
-/* TRIPHASE - F9 / A9 */
+/* TRIPHASE */
 
 {
-    id:"triphase",
+  id:"triphase",
 
-    nombre:"HACK TRIPHASE CORE",
+  nombre:"HACK TRIPHASE CORE",
 
-    fondo:"./piezas/F9.png",
-    pieza:"./piezas/A9.png",
+  fondo:"./piezas/F9.png",
+  pieza:"./piezas/A9.png",
 
-    empresa:"Fusion Future",
+  empresa:"Fusion Future",
 
-    precio:"PC 2",
+  precio:"PC 2",
 
-    durabilidad:"2 usos",
+  durabilidad:"2 usos",
 
-    max:2,
+  max:2,
 
-    reglas:
+  reglas:
 `Al inicio de cualquiera de tus turnos puedes gastar 1 uso de Hack Triphase Core.
 
 Durante ese turno puedes utilizar temporalmente la 6.ª marcha sin importar la marcha en la que se encuentre actualmente tu vehículo.
@@ -1669,7 +1682,7 @@ Al finalizar el turno vuelves automáticamente a la marcha que tenías antes de 
 
 Después del segundo uso, la pieza se destruye.`,
 
-    historia:
+  historia:
 `Hack Triphase Core es una programación especial diseñada para engañar temporalmente al Tri-Phase Core.
 
 Durante unos instantes, el sistema altera las restricciones de la transmisión y hace que el Core interprete que el vehículo se encuentra preparado para trabajar en sexta marcha, incluso cuando mecánicamente debería encontrarse en una relación inferior.
@@ -1699,12 +1712,15 @@ const contadores = {};
 
 piezas.forEach(function(p){
 
-    if(
-        p.max !== null &&
-        p.max !== Infinity
-    ){
-        contadores[p.id] = p.max;
-    }
+  if(
+    p.max !== null &&
+    p.max !== Infinity
+  ){
+
+    contadores[p.id] =
+      p.max;
+
+  }
 
 });
 
@@ -1714,55 +1730,55 @@ piezas.forEach(function(p){
 ========================================================= */
 
 const backgroundImage =
-    document.getElementById("backgroundImage");
+  document.getElementById("backgroundImage");
 
 const partFloatWrap =
-    document.getElementById("partFloatWrap");
+  document.getElementById("partFloatWrap");
 
 const partImage =
-    document.getElementById("partImage");
+  document.getElementById("partImage");
 
 const counter =
-    document.getElementById("counter");
+  document.getElementById("counter");
 
 const prev =
-    document.getElementById("prev");
+  document.getElementById("prev");
 
 const next =
-    document.getElementById("next");
+  document.getElementById("next");
 
 const partInfo =
-    document.getElementById("partInfo");
+  document.getElementById("partInfo");
 
 const history =
-    document.getElementById("history");
+  document.getElementById("history");
 
 const uses =
-    document.getElementById("uses");
+  document.getElementById("uses");
 
 const lockButton =
-    document.getElementById("lockButton");
+  document.getElementById("lockButton");
 
 const modal =
-    document.getElementById("modal");
+  document.getElementById("modal");
 
 const modalBox =
-    document.getElementById("modalBox");
+  document.getElementById("modalBox");
 
 const modalTitle =
-    document.getElementById("modalTitle");
+  document.getElementById("modalTitle");
 
 const modalData =
-    document.getElementById("modalData");
+  document.getElementById("modalData");
 
 const modalText =
-    document.getElementById("modalText");
+  document.getElementById("modalText");
 
 const close =
-    document.getElementById("close");
+  document.getElementById("close");
 
 const card =
-    document.getElementById("card");
+  document.getElementById("card");
 
 
 /* =========================================================
@@ -1774,248 +1790,252 @@ let audioContext = null;
 
 function obtenerAudio(){
 
-    if(!audioContext){
+  if(!audioContext){
 
-        audioContext =
-            new(
-                window.AudioContext ||
-                window.webkitAudioContext
-            )();
+    audioContext =
+      new(
+        window.AudioContext ||
+        window.webkitAudioContext
+      )();
 
-    }
-
-
-    if(
-        audioContext.state ===
-        "suspended"
-    ){
-        audioContext.resume();
-    }
+  }
 
 
-    return audioContext;
+  if(
+    audioContext.state ===
+    "suspended"
+  ){
+
+    audioContext.resume();
+
+  }
+
+
+  return audioContext;
+
 }
 
 
 function tono(
-    frecuencia,
-    duracion,
-    volumen,
-    tipo,
-    retraso = 0
+  frecuencia,
+  duracion,
+  volumen,
+  tipo,
+  retraso = 0
 ){
 
-    try{
+  try{
 
-        const ctx =
-            obtenerAudio();
-
-
-        const osc =
-            ctx.createOscillator();
+    const ctx =
+      obtenerAudio();
 
 
-        const gain =
-            ctx.createGain();
+    const osc =
+      ctx.createOscillator();
 
 
-        osc.type =
-            tipo || "sine";
+    const gain =
+      ctx.createGain();
 
 
-        osc.frequency.value =
-            frecuencia;
+    osc.type =
+      tipo || "sine";
 
 
-        const inicio =
-            ctx.currentTime +
-            retraso;
+    osc.frequency.value =
+      frecuencia;
 
 
-        const fin =
-            inicio +
-            duracion;
+    const inicio =
+      ctx.currentTime +
+      retraso;
 
 
-        gain.gain.setValueAtTime(
-            0.0001,
-            inicio
-        );
+    const fin =
+      inicio +
+      duracion;
 
 
-        gain.gain.exponentialRampToValueAtTime(
-            volumen,
-            inicio + 0.01
-        );
-
-
-        gain.gain.exponentialRampToValueAtTime(
-            0.0001,
-            fin
-        );
-
-
-        osc.connect(gain);
-
-        gain.connect(
-            ctx.destination
-        );
-
-
-        osc.start(inicio);
-
-        osc.stop(
-            fin + 0.02
-        );
-
-    }
-
-    catch(error){}
-
-}
-
-
-/* Flechas */
-
-function sonidoFlecha(){
-
-    tono(
-        440,
-        .045,
-        .04,
-        "square"
+    gain.gain.setValueAtTime(
+      0.0001,
+      inicio
     );
 
-    tono(
-        620,
-        .055,
-        .032,
-        "square",
-        .045
+
+    gain.gain.exponentialRampToValueAtTime(
+      volumen,
+      inicio + 0.01
     );
 
-}
 
-
-/* Abrir pieza / historia */
-
-function sonidoAbrir(){
-
-    tono(
-        610,
-        .06,
-        .035,
-        "sine"
+    gain.gain.exponentialRampToValueAtTime(
+      0.0001,
+      fin
     );
 
-    tono(
-        870,
-        .10,
-        .034,
-        "sine",
-        .045
+
+    osc.connect(gain);
+
+    gain.connect(
+      ctx.destination
     );
 
-}
 
+    osc.start(inicio);
 
-/* Bloquear */
-
-function sonidoBloquear(){
-
-    tono(
-        260,
-        .055,
-        .052,
-        "square"
+    osc.stop(
+      fin + 0.02
     );
 
-    tono(
-        145,
-        .11,
-        .046,
-        "square",
-        .055
-    );
+  }
 
-}
-
-
-/* Desbloquear */
-
-function sonidoDesbloquear(){
-
-    tono(
-        250,
-        .055,
-        .043,
-        "square"
-    );
-
-    tono(
-        530,
-        .11,
-        .038,
-        "sine",
-        .05
-    );
-
-}
-
-
-/* Contador */
-
-function sonidoContador(valor){
-
-    if(valor === 0){
-
-        tono(
-            180,
-            .15,
-            .052,
-            "square"
-        );
-
-        return;
-    }
-
-
-    tono(
-        510,
-        .055,
-        .035,
-        "sine"
-    );
+  catch(error){}
 
 }
 
 
 /* =========================================================
-   PRECARGAR IMÁGENES
+   SONIDOS
+========================================================= */
+
+function sonidoFlecha(){
+
+  tono(
+    440,
+    .045,
+    .04,
+    "square"
+  );
+
+
+  tono(
+    620,
+    .055,
+    .032,
+    "square",
+    .045
+  );
+
+}
+
+
+function sonidoAbrir(){
+
+  tono(
+    610,
+    .06,
+    .035,
+    "sine"
+  );
+
+
+  tono(
+    870,
+    .10,
+    .034,
+    "sine",
+    .045
+  );
+
+}
+
+
+function sonidoBloquear(){
+
+  tono(
+    260,
+    .055,
+    .052,
+    "square"
+  );
+
+
+  tono(
+    145,
+    .11,
+    .046,
+    "square",
+    .055
+  );
+
+}
+
+
+function sonidoDesbloquear(){
+
+  tono(
+    250,
+    .055,
+    .043,
+    "square"
+  );
+
+
+  tono(
+    530,
+    .11,
+    .038,
+    "sine",
+    .05
+  );
+
+}
+
+
+function sonidoContador(valor){
+
+  if(valor === 0){
+
+    tono(
+      180,
+      .15,
+      .052,
+      "square"
+    );
+
+    return;
+
+  }
+
+
+  tono(
+    510,
+    .055,
+    .035,
+    "sine"
+  );
+
+}
+
+
+/* =========================================================
+   PRECARGA
 ========================================================= */
 
 function precargarImagenes(){
 
-    piezas.forEach(function(p){
+  piezas.forEach(function(p){
 
-        const fondo =
-            new Image();
-
-        fondo.src =
-            p.fondo;
+    const fondo =
+      new Image();
 
 
-        if(p.pieza){
+    fondo.src =
+      p.fondo;
 
-            const objeto =
-                new Image();
 
-            objeto.src =
-                p.pieza;
+    if(p.pieza){
 
-        }
+      const objeto =
+        new Image();
 
-    });
+
+      objeto.src =
+        p.pieza;
+
+    }
+
+  });
 
 }
 
@@ -2024,259 +2044,274 @@ precargarImagenes();
 
 
 /* =========================================================
-   MOSTRAR PIEZA
+   MOSTRAR
 ========================================================= */
 
 function mostrar(){
 
-    const p =
-        piezas[actual];
+  const p =
+    piezas[actual];
 
 
-    backgroundImage.src =
-        p.fondo;
+  backgroundImage.src =
+    p.fondo;
 
 
-    if(p.pieza){
+  if(p.pieza){
 
-        partImage.src =
-            p.pieza;
-
-
-        partImage.alt =
-            p.nombre;
+    partImage.src =
+      p.pieza;
 
 
-        partFloatWrap.style.display =
-            "flex";
-
-    }
-
-    else{
-
-        partImage.src =
-            "";
+    partImage.alt =
+      p.nombre;
 
 
-        partFloatWrap.style.display =
-            "none";
+    partFloatWrap.style.display =
+      "flex";
 
-    }
+  }
 
+  else{
 
-    if(p.max === null){
-
-        counter.textContent =
-            "";
-
-
-        counter.classList.add(
-            "hidden"
-        );
+    partImage.src =
+      "";
 
 
-        lockButton.classList.add(
-            "hidden"
-        );
+    partFloatWrap.style.display =
+      "none";
+
+  }
 
 
-        bloqueado =
-            false;
+  if(p.max === null){
+
+    counter.textContent =
+      "";
 
 
-        actualizarBloqueo();
-
-        return;
-    }
-
-
-    lockButton.classList.remove(
-        "hidden"
+    counter.classList.add(
+      "hidden"
     );
 
 
-    if(p.max === Infinity){
-
-        counter.textContent =
-            "∞";
-
-
-        counter.classList.remove(
-            "hidden"
-        );
-
-    }
-
-    else{
-
-        counter.textContent =
-            contadores[p.id];
+    lockButton.classList.add(
+      "hidden"
+    );
 
 
-        counter.classList.remove(
-            "hidden"
-        );
-
-    }
+    bloqueado =
+      false;
 
 
     actualizarBloqueo();
+
+    return;
+
+  }
+
+
+  lockButton.classList.remove(
+    "hidden"
+  );
+
+
+  if(p.max === Infinity){
+
+    counter.textContent =
+      "∞";
+
+
+    counter.classList.remove(
+      "hidden"
+    );
+
+  }
+
+  else{
+
+    counter.textContent =
+      contadores[p.id];
+
+
+    counter.classList.remove(
+      "hidden"
+    );
+
+  }
+
+
+  actualizarBloqueo();
 
 }
 
 
 /* =========================================================
-   BLOQUEO
+   CANDADO
 ========================================================= */
 
 function actualizarBloqueo(){
 
-    if(bloqueado){
+  if(bloqueado){
 
-        lockButton.textContent =
-            "🔒";
-
-
-        lockButton.classList.add(
-            "locked"
-        );
+    lockButton.textContent =
+      "🔒";
 
 
-        lockButton.setAttribute(
-            "aria-label",
-            "Liberar pieza"
-        );
+    lockButton.classList.add(
+      "locked"
+    );
 
 
-        prev.disabled =
-            true;
+    lockButton.setAttribute(
+      "aria-label",
+      "Liberar pieza"
+    );
 
 
-        next.disabled =
-            true;
-
-    }
-
-    else{
-
-        lockButton.textContent =
-            "🔓";
+    prev.disabled =
+      true;
 
 
-        lockButton.classList.remove(
-            "locked"
-        );
+    next.disabled =
+      true;
+
+  }
+
+  else{
+
+    lockButton.textContent =
+      "🔓";
 
 
-        lockButton.setAttribute(
-            "aria-label",
-            "Fijar pieza"
-        );
+    lockButton.classList.remove(
+      "locked"
+    );
 
 
-        prev.disabled =
-            false;
+    lockButton.setAttribute(
+      "aria-label",
+      "Fijar pieza"
+    );
 
 
-        next.disabled =
-            false;
+    prev.disabled =
+      false;
 
-    }
+
+    next.disabled =
+      false;
+
+  }
 
 }
 
 
 function cambiarCandado(){
 
-    if(
-        piezas[actual].id ===
-        "ninguna"
-    ){
-        return;
-    }
+  if(
+    piezas[actual].id ===
+    "ninguna"
+  ){
+
+    return;
+
+  }
 
 
-    bloqueado =
-        !bloqueado;
+  bloqueado =
+    !bloqueado;
 
 
-    if(bloqueado){
+  if(bloqueado){
 
-        sonidoBloquear();
+    sonidoBloquear();
 
-    }
+  }
 
-    else{
+  else{
 
-        sonidoDesbloquear();
+    sonidoDesbloquear();
 
-    }
+  }
 
 
-    actualizarBloqueo();
+  actualizarBloqueo();
 
 }
 
 
 /* =========================================================
-   CAMBIAR PIEZA
+   NAVEGACIÓN
 ========================================================= */
 
 function siguiente(){
 
-    if(
-        bloqueado ||
-        modal.classList.contains("show")
-    ){
-        return;
-    }
+  if(
+    bloqueado ||
+    modal.classList.contains(
+      "show"
+    )
+  ){
+
+    return;
+
+  }
 
 
-    actual++;
+  actual++;
 
 
-    if(
-        actual >= piezas.length
-    ){
-        actual = 0;
-    }
+  if(
+    actual >=
+    piezas.length
+  ){
+
+    actual =
+      0;
+
+  }
 
 
-    bloqueado =
-        false;
+  bloqueado =
+    false;
 
 
-    mostrar();
+  mostrar();
 
 }
 
 
 function anterior(){
 
-    if(
-        bloqueado ||
-        modal.classList.contains("show")
-    ){
-        return;
-    }
+  if(
+    bloqueado ||
+    modal.classList.contains(
+      "show"
+    )
+  ){
+
+    return;
+
+  }
 
 
-    actual--;
+  actual--;
 
 
-    if(actual < 0){
+  if(actual < 0){
 
-        actual =
-            piezas.length - 1;
+    actual =
+      piezas.length - 1;
 
-    }
-
-
-    bloqueado =
-        false;
+  }
 
 
-    mostrar();
+  bloqueado =
+    false;
+
+
+  mostrar();
 
 }
 
@@ -2287,140 +2322,152 @@ function anterior(){
 
 function cambiarUsos(){
 
-    if(
-        modal.classList.contains("show")
-    ){
-        return;
-    }
+  if(
+    modal.classList.contains(
+      "show"
+    )
+  ){
+
+    return;
+
+  }
 
 
-    const p =
-        piezas[actual];
+  const p =
+    piezas[actual];
 
 
-    if(
-        p.max === null ||
-        p.max === Infinity
-    ){
-        return;
-    }
+  if(
+    p.max === null ||
+    p.max === Infinity
+  ){
+
+    return;
+
+  }
 
 
-    let valor =
-        contadores[p.id];
+  let valor =
+    contadores[p.id];
 
 
-    if(valor > 0){
+  if(valor > 0){
 
-        valor--;
+    valor--;
 
-    }
+  }
 
-    else{
+  else{
 
-        valor =
-            p.max;
+    valor =
+      p.max;
 
-    }
-
-
-    contadores[p.id] =
-        valor;
+  }
 
 
-    sonidoContador(valor);
+  contadores[p.id] =
+    valor;
 
 
-    mostrar();
+  sonidoContador(
+    valor
+  );
+
+
+  mostrar();
 
 }
 
 
 /* =========================================================
-   ANIMAR PIEZA
+   PULSO DE LA PIEZA
 ========================================================= */
 
 function animarPieza(){
 
-    if(
-        !piezas[actual].pieza
-    ){
-        return;
-    }
+  if(
+    !piezas[actual].pieza
+  ){
+
+    return;
+
+  }
 
 
-    partImage.classList.remove(
-        "pulse"
-    );
+  partImage.classList.remove(
+    "pulse"
+  );
 
 
-    void partImage.offsetWidth;
+  void partImage.offsetWidth;
 
 
-    partImage.classList.add(
-        "pulse"
-    );
+  partImage.classList.add(
+    "pulse"
+  );
 
 }
 
 
 /* =========================================================
-   REGLAS
+   INFORMACIÓN
 ========================================================= */
 
 function abrirReglas(){
 
-    const p =
-        piezas[actual];
+  const p =
+    piezas[actual];
 
 
-    if(
-        p.id ===
-        "ninguna"
-    ){
-        return;
-    }
+  if(
+    p.id ===
+    "ninguna"
+  ){
+
+    return;
+
+  }
 
 
-    sonidoAbrir();
+  sonidoAbrir();
 
-    animarPieza();
-
-
-    modalTitle.textContent =
-        p.nombre;
+  animarPieza();
 
 
-    modalData.textContent =
-
-        "COMPAÑÍA: " +
-        p.empresa +
-
-        "\nPRECIO: " +
-        p.precio +
-
-        "\nDURABILIDAD: " +
-        p.durabilidad;
+  modalTitle.textContent =
+    p.nombre;
 
 
-    modalText.textContent =
-        p.reglas;
+  modalData.textContent =
+
+    "COMPAÑÍA: " +
+    p.empresa +
+
+    "\nPRECIO: " +
+    p.precio +
+
+    "\nDURABILIDAD: " +
+    p.durabilidad;
 
 
-    modalText.scrollTop =
-        0;
+  modalText.textContent =
+    p.reglas;
 
 
-    setTimeout(
-        function(){
+  modalText.scrollTop =
+    0;
 
-            modal.classList.add(
-                "show"
-            );
 
-        },
-        90
-    );
+  setTimeout(
+    function(){
+
+      modal.classList.add(
+        "show"
+      );
+
+    },
+    90
+  );
 
 }
 
@@ -2431,42 +2478,44 @@ function abrirReglas(){
 
 function abrirHistoria(){
 
-    const p =
-        piezas[actual];
+  const p =
+    piezas[actual];
 
 
-    if(
-        p.id ===
-        "ninguna"
-    ){
-        return;
-    }
+  if(
+    p.id ===
+    "ninguna"
+  ){
+
+    return;
+
+  }
 
 
-    sonidoAbrir();
+  sonidoAbrir();
 
 
-    modalTitle.textContent =
+  modalTitle.textContent =
 
-        "HISTORIA — " +
-        p.nombre;
-
-
-    modalData.textContent =
-        p.empresa;
+    "HISTORIA — " +
+    p.nombre;
 
 
-    modalText.textContent =
-        p.historia;
+  modalData.textContent =
+    p.empresa;
 
 
-    modalText.scrollTop =
-        0;
+  modalText.textContent =
+    p.historia;
 
 
-    modal.classList.add(
-        "show"
-    );
+  modalText.scrollTop =
+    0;
+
+
+  modal.classList.add(
+    "show"
+  );
 
 }
 
@@ -2477,9 +2526,9 @@ function abrirHistoria(){
 
 function cerrarModal(){
 
-    modal.classList.remove(
-        "show"
-    );
+  modal.classList.remove(
+    "show"
+  );
 
 }
 
@@ -2489,226 +2538,243 @@ function cerrarModal(){
 ========================================================= */
 
 prev.addEventListener(
-    "click",
-    function(){
+  "click",
+  function(){
 
-        if(bloqueado){
-            return;
-        }
+    if(bloqueado){
 
-        sonidoFlecha();
-
-        anterior();
+      return;
 
     }
+
+
+    sonidoFlecha();
+
+    anterior();
+
+  }
 );
 
 
 next.addEventListener(
-    "click",
-    function(){
+  "click",
+  function(){
 
-        if(bloqueado){
-            return;
-        }
+    if(bloqueado){
 
-        sonidoFlecha();
-
-        siguiente();
+      return;
 
     }
+
+
+    sonidoFlecha();
+
+    siguiente();
+
+  }
 );
 
 
 partInfo.addEventListener(
-    "click",
-    abrirReglas
+  "click",
+  abrirReglas
 );
 
 
 history.addEventListener(
-    "click",
-    abrirHistoria
+  "click",
+  abrirHistoria
 );
 
 
 uses.addEventListener(
-    "click",
-    cambiarUsos
+  "click",
+  cambiarUsos
 );
 
 
 lockButton.addEventListener(
-    "click",
-    function(e){
+  "click",
+  function(e){
 
-        e.stopPropagation();
+    e.stopPropagation();
 
-        cambiarCandado();
+    cambiarCandado();
 
-    }
+  }
 );
 
 
 close.addEventListener(
-    "click",
-    function(e){
+  "click",
+  function(e){
 
-        e.stopPropagation();
+    e.stopPropagation();
 
-        cerrarModal();
+    cerrarModal();
 
-    }
+  }
 );
 
 
 modal.addEventListener(
-    "click",
-    function(e){
+  "click",
+  function(e){
 
-        if(
-            e.target === modal
-        ){
-            cerrarModal();
-        }
+    if(
+      e.target ===
+      modal
+    ){
+
+      cerrarModal();
 
     }
+
+  }
 );
 
 
 modalBox.addEventListener(
-    "click",
-    function(e){
+  "click",
+  function(e){
 
-        e.stopPropagation();
+    e.stopPropagation();
 
-    }
+  }
 );
 
 
 /* =========================================================
-   SCROLL TÁCTIL DEL TEXTO
+   SCROLL TÁCTIL
 ========================================================= */
 
 let textoTouchX =
-    0;
+  0;
 
 let textoTouchY =
-    0;
+  0;
 
 let textoScrollInicial =
-    0;
+  0;
 
 
 modalText.addEventListener(
-    "touchstart",
-    function(e){
+  "touchstart",
+  function(e){
 
-        if(
-            e.touches.length !== 1
-        ){
-            return;
-        }
+    if(
+      e.touches.length !==
+      1
+    ){
 
+      return;
 
-        const t =
-            e.touches[0];
-
-
-        textoTouchX =
-            t.clientX;
-
-
-        textoTouchY =
-            t.clientY;
-
-
-        textoScrollInicial =
-            modalText.scrollTop;
-
-
-        e.stopPropagation();
-
-    },
-    {
-        passive:false
     }
+
+
+    const t =
+      e.touches[0];
+
+
+    textoTouchX =
+      t.clientX;
+
+
+    textoTouchY =
+      t.clientY;
+
+
+    textoScrollInicial =
+      modalText.scrollTop;
+
+
+    e.stopPropagation();
+
+  },
+  {
+    passive:false
+  }
 );
 
 
 modalText.addEventListener(
-    "touchmove",
-    function(e){
+  "touchmove",
+  function(e){
 
-        if(
-            e.touches.length !== 1
-        ){
-            return;
-        }
+    if(
+      e.touches.length !==
+      1
+    ){
 
+      return;
 
-        const t =
-            e.touches[0];
-
-
-        const dx =
-            t.clientX -
-            textoTouchX;
-
-
-        const dy =
-            t.clientY -
-            textoTouchY;
-
-
-        let movimiento;
-
-
-        if(
-            Math.abs(dx) >
-            Math.abs(dy)
-        ){
-
-            movimiento =
-                dx;
-
-        }
-
-        else{
-
-            movimiento =
-                dy;
-
-        }
-
-
-        modalText.scrollTop =
-
-            textoScrollInicial -
-            movimiento;
-
-
-        e.preventDefault();
-
-        e.stopPropagation();
-
-    },
-    {
-        passive:false
     }
+
+
+    const t =
+      e.touches[0];
+
+
+    const dx =
+
+      t.clientX -
+      textoTouchX;
+
+
+    const dy =
+
+      t.clientY -
+      textoTouchY;
+
+
+    let movimiento;
+
+
+    if(
+      Math.abs(dx) >
+      Math.abs(dy)
+    ){
+
+      movimiento =
+        dx;
+
+    }
+
+    else{
+
+      movimiento =
+        dy;
+
+    }
+
+
+    modalText.scrollTop =
+
+      textoScrollInicial -
+      movimiento;
+
+
+    e.preventDefault();
+
+    e.stopPropagation();
+
+  },
+  {
+    passive:false
+  }
 );
 
 
 modalText.addEventListener(
-    "touchend",
-    function(e){
+  "touchend",
+  function(e){
 
-        e.stopPropagation();
+    e.stopPropagation();
 
-    },
-    {
-        passive:true
-    }
+  },
+  {
+    passive:true
+  }
 );
 
 
@@ -2717,207 +2783,229 @@ modalText.addEventListener(
 ========================================================= */
 
 modalText.addEventListener(
-    "wheel",
-    function(e){
+  "wheel",
+  function(e){
 
-        let movimiento =
-            e.deltaY;
-
-
-        if(
-            Math.abs(e.deltaX) >
-            Math.abs(e.deltaY)
-        ){
-
-            movimiento =
-                e.deltaX;
-
-        }
+    let movimiento =
+      e.deltaY;
 
 
-        modalText.scrollTop +=
-            movimiento;
+    if(
+      Math.abs(e.deltaX) >
+      Math.abs(e.deltaY)
+    ){
 
+      movimiento =
+        e.deltaX;
 
-        e.preventDefault();
-
-        e.stopPropagation();
-
-    },
-    {
-        passive:false
     }
+
+
+    modalText.scrollTop +=
+      movimiento;
+
+
+    e.preventDefault();
+
+    e.stopPropagation();
+
+  },
+  {
+    passive:false
+  }
 );
 
 
 /* =========================================================
-   SWIPE PARA CAMBIAR PIEZA
+   SWIPE ENTRE PIEZAS
 ========================================================= */
 
 let inicioX =
-    0;
+  0;
 
 let inicioY =
-    0;
+  0;
 
 
 card.addEventListener(
-    "touchstart",
-    function(e){
+  "touchstart",
+  function(e){
 
-        if(
-            bloqueado ||
-            modal.classList.contains("show")
-        ){
-            return;
-        }
+    if(
+      bloqueado ||
+      modal.classList.contains(
+        "show"
+      )
+    ){
 
+      return;
 
-        const t =
-            e.changedTouches[0];
-
-
-        inicioX =
-            t.clientX;
-
-
-        inicioY =
-            t.clientY;
-
-    },
-    {
-        passive:true
     }
+
+
+    const t =
+      e.changedTouches[0];
+
+
+    inicioX =
+      t.clientX;
+
+
+    inicioY =
+      t.clientY;
+
+  },
+  {
+    passive:true
+  }
 );
 
 
 card.addEventListener(
-    "touchend",
-    function(e){
+  "touchend",
+  function(e){
 
-        if(
-            bloqueado ||
-            modal.classList.contains("show")
-        ){
-            return;
-        }
+    if(
+      bloqueado ||
+      modal.classList.contains(
+        "show"
+      )
+    ){
 
+      return;
 
-        const t =
-            e.changedTouches[0];
-
-
-        const dx =
-            t.clientX -
-            inicioX;
-
-
-        const dy =
-            t.clientY -
-            inicioY;
-
-
-        if(
-            Math.abs(dy) > 65 &&
-            Math.abs(dy) >
-            Math.abs(dx)
-        ){
-
-            sonidoFlecha();
-
-
-            if(dy < 0){
-
-                anterior();
-
-            }
-
-            else{
-
-                siguiente();
-
-            }
-
-        }
-
-    },
-    {
-        passive:true
     }
+
+
+    const t =
+      e.changedTouches[0];
+
+
+    const dx =
+
+      t.clientX -
+      inicioX;
+
+
+    const dy =
+
+      t.clientY -
+      inicioY;
+
+
+    if(
+      Math.abs(dy) > 65 &&
+      Math.abs(dy) >
+      Math.abs(dx)
+    ){
+
+      sonidoFlecha();
+
+
+      if(dy < 0){
+
+        anterior();
+
+      }
+
+      else{
+
+        siguiente();
+
+      }
+
+    }
+
+  },
+  {
+    passive:true
+  }
 );
 
 
 /* =========================================================
-   TECLADO PC
+   TECLADO
 ========================================================= */
 
 document.addEventListener(
-    "keydown",
-    function(e){
-
-        if(
-            modal.classList.contains("show")
-        ){
-
-            if(
-                e.key ===
-                "Escape"
-            ){
-                cerrarModal();
-            }
+  "keydown",
+  function(e){
 
 
-            if(
-                e.key ===
-                "ArrowDown"
-            ){
-                modalText.scrollTop +=
-                    60;
-            }
+    if(
+      modal.classList.contains(
+        "show"
+      )
+    ){
+
+      if(
+        e.key ===
+        "Escape"
+      ){
+
+        cerrarModal();
+
+      }
 
 
-            if(
-                e.key ===
-                "ArrowUp"
-            ){
-                modalText.scrollTop -=
-                    60;
-            }
+      if(
+        e.key ===
+        "ArrowDown"
+      ){
+
+        modalText.scrollTop +=
+          60;
+
+      }
 
 
-            return;
-        }
+      if(
+        e.key ===
+        "ArrowUp"
+      ){
+
+        modalText.scrollTop -=
+          60;
+
+      }
 
 
-        if(bloqueado){
-            return;
-        }
-
-
-        if(
-            e.key ===
-            "ArrowRight"
-        ){
-
-            sonidoFlecha();
-
-            siguiente();
-
-        }
-
-
-        if(
-            e.key ===
-            "ArrowLeft"
-        ){
-
-            sonidoFlecha();
-
-            anterior();
-
-        }
+      return;
 
     }
+
+
+    if(bloqueado){
+
+      return;
+
+    }
+
+
+    if(
+      e.key ===
+      "ArrowRight"
+    ){
+
+      sonidoFlecha();
+
+      siguiente();
+
+    }
+
+
+    if(
+      e.key ===
+      "ArrowLeft"
+    ){
+
+      sonidoFlecha();
+
+      anterior();
+
+    }
+
+  }
 );
 
 
@@ -2930,5 +3018,4 @@ mostrar();
 </script>
 
 </body>
-
 </html>
