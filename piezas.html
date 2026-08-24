@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Partes - IllicitSpeed XS</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:transparent;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* =========================================
+   CONTENEDOR GENERAL HORIZONTAL
+   La ficha original es vertical pero aquí
+   se muestra girada 90 grados.
+========================================= */
+
+.stage{
+    position:relative;
+
+    width:min(100vw, calc(100vh * 1.585));
+    height:min(100vh, calc(100vw / 1.585));
+
+    overflow:hidden;
+    user-select:none;
+    touch-action:manipulation;
+}
+
+/*
+   La imagen original mide aproximadamente
+   530 x 840.
+   Al rotarla ocupa 840 x 530.
+*/
+
+.card{
+    position:absolute;
+    left:50%;
+    top:50%;
+
+    width:63.095%;
+    height:158.49%;
+
+    transform:
+        translate(-50%,-50%)
+        rotate(90deg);
+
+    transform-origin:center;
+}
+
+.card-image{
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:fill;
+
+    pointer-events:none;
+    user-select:none;
+}
+
+/* =========================================
+   ZONAS TÁCTILES
+========================================= */
+
+.tap{
+    position:absolute;
+    z-index:10;
+
+    border:0;
+    background:transparent;
+
+    margin:0;
+    padding:0;
+
+    cursor:pointer;
+}
+
+/* Flecha izquierda */
+
+.arrow-left{
+    left:0%;
+    bottom:3%;
+    width:22%;
+    height:19%;
+}
+
+/* Flecha derecha */
+
+.arrow-right{
+    right:0%;
+    bottom:3%;
+    width:22%;
+    height:19%;
+}
+
+/* Pieza central:
+   abre información de funcionamiento */
+
+.part-touch{
+    left:20%;
+    top:15%;
+    width:60%;
+    height:45%;
+}
+
+/* Historia */
+
+.history-touch{
+    left:0%;
+    top:34%;
+    width:22%;
+    height:22%;
+}
+
+/* Usos */
+
+.uses-touch{
+    right:0%;
+    top:34%;
+    width:22%;
+    height:22%;
+}
+
+/* =========================================
+   CONTADOR DE USOS
+========================================= */
+
+.counter{
+    position:absolute;
+
+    right:1%;
+    top:34%;
+
+    width:20%;
+    height:17%;
+
+    z-index:9;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:white;
+
+    font-size:42px;
+    font-weight:900;
+    font-style:italic;
+
+    text-shadow:
+        0 3px 2px rgba(0,0,0,.9),
+        0 0 8px rgba(255,255,255,.8),
+        0 0 16px rgba(255,255,255,.35);
+
+    pointer-events:none;
+}
+
+.counter.hidden{
+    display:none;
+}
+
+/* =========================================
+   VENTANA DE INFORMACIÓN
+
+   Está DENTRO de la ficha para que también
+   quede girada 90 grados.
+========================================= */
+
+.modal{
+    position:absolute;
+    inset:0;
+
+    z-index:100;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:6%;
+
+    background:rgba(0,0,0,.76);
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    position:relative;
+
+    width:92%;
+    max-height:88%;
+
+    display:flex;
+    flex-direction:column;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    border:2px solid rgba(255,255,255,.28);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(40,46,55,.98),
+            rgba(12,15,20,.98)
+        );
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.7),
+        inset 0 0 25px rgba(255,255,255,.04);
+
+    color:white;
+}
+
+.modal-top{
+    position:relative;
+
+    flex:0 0 auto;
+
+    padding:25px 70px 17px 24px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.18);
+}
+
+.modal-title{
+    margin:0;
+
+    font-size:31px;
+    font-weight:900;
+    font-style:italic;
+
+    line-height:1.05;
+}
+
+.modal-data{
+    margin-top:10px;
+
+    color:#d1d8df;
+
+    font-size:17px;
+    font-weight:700;
+
+    line-height:1.4;
+
+    white-space:pre-line;
+}
+
+/* X */
+
+.close{
+    position:absolute;
+
+    right:16px;
+    top:15px;
+
+    width:48px;
+    height:48px;
+
+    border:2px solid rgba(255,255,255,.4);
+    border-radius:50%;
+
+    background:rgba(255,255,255,.12);
+
+    color:white;
+
+    font-size:31px;
+    font-weight:900;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+}
+
+/* Texto desplazable */
+
+.modal-text{
+    flex:1 1 auto;
+
+    min-height:0;
+
+    padding:23px 26px 30px;
+
+    overflow-y:auto;
+
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+
+    font-size:20px;
+    line-height:1.55;
+
+    white-space:pre-line;
+}
+
+/* Scroll */
+
+.modal-text::-webkit-scrollbar{
+    width:8px;
+}
+
+.modal-text::-webkit-scrollbar-thumb{
+    background:rgba(255,255,255,.28);
+    border-radius:8px;
+}
+
+
+/* Ajustes cuando Sites nos da poco espacio */
+
+@media(max-height:500px){
+
+    .modal-title{
+        font-size:25px;
+    }
+
+    .modal-data{
+        font-size:15px;
+    }
+
+    .modal-text{
+        font-size:17px;
+    }
+
+    .counter{
+        font-size:34px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="stage" id="stage">
+
+    <div class="card" id="card">
+
+        <img
+            id="partImage"
+            class="card-image"
+            src="./piezas/P15.png"
+            alt="Parte de vehículo"
+        >
+
+        <!-- Zonas interactivas -->
+
+        <button
+            id="prev"
+            class="tap arrow-left"
+            aria-label="Pieza anterior">
+        </button>
+
+        <button
+            id="next"
+            class="tap arrow-right"
+            aria-label="Siguiente pieza">
+        </button>
+
+        <button
+            id="partInfo"
+            class="tap part-touch"
+            aria-label="Información de la pieza">
+        </button>
+
+        <button
+            id="history"
+            class="tap history-touch"
+            aria-label="Historia de la pieza">
+        </button>
+
+        <button
+            id="uses"
+            class="tap uses-touch"
+            aria-label="Cambiar usos">
+        </button>
+
+
+        <!-- Número de usos -->
+
+        <div id="counter" class="counter hidden"></div>
+
+
+        <!-- Ventana de información -->
+
+        <div id="modal" class="modal">
+
+            <div class="modal-box">
+
+                <div class="modal-top">
+
+                    <button
+                        id="close"
+                        class="close"
+                        aria-label="Cerrar">
+                        ×
+                    </button>
+
+                    <h2
+                        id="modalTitle"
+                        class="modal-title">
+                    </h2>
+
+                    <div
+                        id="modalData"
+                        class="modal-data">
+                    </div>
+
+                </div>
+
+                <div
+                    id="modalText"
+                    class="modal-text">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* ======================================================
+   PIEZAS
+
+   IMPORTANTE:
+   Los archivos se usan tal como los subiste:
+   P1.png ... P15.png
+====================================================== */
+
+const piezas = [
+
+    /* PANTALLA INICIAL */
+
+    {
+        id:"ninguna",
+        nombre:"NINGUNA",
+        imagen:"./piezas/P15.png",
+        empresa:"",
+        precio:"",
+        durabilidad:"",
+        max:null,
+        reglas:"",
+        historia:""
+    },
+
+
+    /* 1 - DRIFTING */
+
+    {
+        id:"drifting",
+        nombre:"LLANTAS DRIFTING",
+        imagen:"./piezas/P8.png",
+        empresa:"DesertTail",
+        precio:"PC 2",
+        durabilidad:"4 daños evitados",
+        max:4,
+
+        reglas:
+`Cuando una curva vaya a causarte daño por haber avanzado más espacios de los permitidos, puedes activar Llantas Drifting.
+
+Debes pagar 1E por cada punto de daño que fueras a recibir.
+
+Si pagas la energía necesaria, evitas por completo ese daño.
+
+Cada punto de daño evitado reduce en 1 la durabilidad de la pieza.
+
+Para activarla debes disponer tanto de la energía como de la durabilidad necesarias para evitar todo el daño.
+
+Cuando la pieza haya evitado un total de 4 daños, se destruye.`,
+
+        historia:
+`Esta tecnología fue desarrollada para adaptarse al estilo de conducción de los corredores de DesertTail, quienes suelen mantener velocidades altas y asumir mayores riesgos al entrar en las curvas.
+
+Sus ingenieros crearon un recubrimiento especial para las llantas inspirado en la estructura de las patas de los guepardos.
+
+El material modifica temporalmente la adherencia de la rueda y permite que el vehículo realice un deslizamiento más controlado, distribuyendo las fuerzas laterales antes de que lleguen a los ejes.
+
+Esto permite tomar curvas a velocidades que normalmente provocarían daños graves en la suspensión.
+
+Sin embargo, el recubrimiento se degrada progresivamente con cada maniobra extrema.`
+    },
+
+
+    /* 2 - ÓXIDO NITROSO */
+
+    {
+        id:"nitro",
+        nombre:"ÓXIDO NITROSO",
+        imagen:"./piezas/P5.png",
+        empresa:"Lynx Spirit",
+        precio:"PC 2",
+        durabilidad:"3 usos",
+        max:3,
+
+        reglas:
+`Durante tu movimiento puedes gastar 2E y 1 uso de Óxido Nitroso para aumentar tu movimiento según la marcha actual.
+
+1.ª y 2.ª marcha: +1 espacio.
+
+3.ª y 4.ª marcha: +2 espacios.
+
+5.ª y 6.ª marcha: +3 espacios.
+
+El movimiento adicional se suma al resultado obtenido con el dado.
+
+Después de completar todo tu movimiento puedes subir opcionalmente 1 marcha.
+
+Esta subida es adicional al cambio realizado al inicio del turno y nunca permite superar la 6.ª marcha.
+
+Después del tercer uso, la pieza se destruye.`,
+
+        historia:
+`A pesar de su nombre comercial, el Óxido Nitroso utilizado en las carreras no corresponde exactamente al compuesto conocido antiguamente por los humanos.
+
+Se trata de un gas extraído y refinado en Gradión, preparado para reaccionar directamente con el sistema energético del vehículo.
+
+Durante unos segundos, el compuesto es inyectado en el Tri-Phase Core, provocando una sobreestimulación controlada de su componente mental.
+
+Esta reacción aumenta momentáneamente la actividad del Core y genera un impulso inmediato y controlado en el vehículo.
+
+El piloto puede decidir cuándo utilizarlo, pero el sistema de inyección se deteriora rápidamente con cada activación.`
+    },
+
+
+    /* 3 - TODO TERRENO */
+
+    {
+        id:"todoterreno",
+        nombre:"LLANTAS TODO TERRENO",
+        imagen:"./piezas/P1.png",
+        empresa:"IronHorn",
+        precio:"PC 2",
+        durabilidad:"4 usos",
+        max:4,
+
+        reglas:
+`Cuando uno o más vehículos impidan que realices un adelantamiento por los espacios normales de la carretera, puedes gastar 1 uso de Llantas Todo Terreno para realizar la maniobra por fuera de la pista.
+
+Durante ese adelantamiento ignoras el daño que recibirías específicamente por salir de la carretera.
+
+La pieza protege únicamente esta maniobra.
+
+No elimina otros efectos especiales provocados por el terreno, el clima o el tramo.
+
+Después del cuarto uso, la pieza se destruye.`,
+
+        historia:
+`Las Llantas Todo Terreno no sustituyen las ruedas originales del vehículo.
+
+Son un recubrimiento adaptable, ligero y retráctil instalado sobre las llantas convencionales.
+
+Durante la conducción normal, sus canales permanecen comprimidos para no afectar el desempeño sobre carretera.
+
+Cuando el vehículo entra en superficies más complicadas, el recubrimiento se expande, aumentando el área de contacto y ayudando a absorber los impactos del terreno.
+
+Esta tecnología fue desarrollada por Orion, quien buscaba permitir que un vehículo pudiera abandonar temporalmente la carretera sin castigar innecesariamente su estructura.`
+    },
+
+
+    /* 4 - SENSOR */
+
+    {
+        id:"sensor",
+        nombre:"SENSOR DE IMPULSO",
+        imagen:"./piezas/P2.png",
+        empresa:"SharkWave",
+        precio:"PC 2",
+        durabilidad:"Ilimitada",
+        max:Infinity,
+
+        reglas:
+`Al finalizar tu movimiento, si un vehículo se encuentra a 1 o 2 espacios delante de ti, puedes gastar 1E para activar el Sensor de Impulso.
+
+Avanza hasta quedar inmediatamente detrás de ese vehículo.
+
+Si el dado utilizado durante ese movimiento mostró el símbolo de Rebufo, después de acercarte mediante el Sensor de Impulso puedes utilizar ese Rebufo para rebasarlo.
+
+Si el dado no mostró Rebufo, no puedes pagar energía para generar un Rebufo adicional después de utilizar esta pieza.
+
+La pieza tiene usos ilimitados.`,
+
+        historia:
+`El Sensor de Impulso está inspirado en la extraordinaria sensibilidad eléctrica de los tiburones para detectar presas cercanas.
+
+El dispositivo identifica alteraciones electromagnéticas y aerodinámicas producidas por los vehículos que circulan delante.
+
+Cuando localiza un objetivo cercano, analiza la turbulencia dejada a su paso y aprovecha parte de la energía del aire para reducir la resistencia del vehículo equipado.
+
+El resultado es un impulso breve que permite alcanzar rápidamente al corredor que va delante.
+
+Si las condiciones son adecuadas, el piloto puede convertir ese acercamiento en un Rebufo.`
+    },
+
+
+    /* 5 - SOBORNO */
+
+    {
+        id:"soborno",
+        nombre:"SOBORNO",
+        imagen:"./piezas/P14.png",
+        empresa:"TuskForce",
+        precio:"PC 1",
+        durabilidad:"1 uso",
+        max:1,
+
+        reglas:
+`Cuando una unidad de policía consiga alcanzarte y vaya a aplicar una detención o sanción, puedes gastar 3E para activar Soborno.
+
+La intervención queda completamente cancelada.
+
+La unidad de policía desaparece inmediatamente de la pista y no aplica ninguna sanción a tu vehículo.
+
+Soborno tiene un único uso.
+
+Después de utilizarlo, la pieza se destruye.`,
+
+        historia:
+`Oficialmente, esta pieza no existe.
+
+El llamado Soborno es una modificación clandestina que circula por debajo de cuerda entre corredores, mecánicos y algunos técnicos relacionados con TuskForce.
+
+El dispositivo transmite durante unos segundos una autorización fraudulenta al sistema de identificación de los robots policiales.
+
+La unidad interpreta que la persecución ha sido cancelada desde la central y abandona inmediatamente la intervención.
+
+El código solo funciona una vez antes de ser identificado y bloqueado por la red de TuskForce.`
+    },
+
+
+    /* 6 - TURBO */
+
+    {
+        id:"turbo",
+        nombre:"TURBO",
+        imagen:"./piezas/P6.png",
+        empresa:"Lupus Dominion",
+        precio:"PC 3",
+        durabilidad:"Ilimitada",
+        max:Infinity,
+
+        reglas:
+`Cuando el dado de movimiento muestre el símbolo de llama, Turbo se activa automáticamente.
+
+El bono depende de tu marcha actual.
+
+1.ª y 2.ª marcha: +1 espacio.
+
+3.ª y 4.ª marcha: +2 espacios.
+
+5.ª y 6.ª marcha: +3 espacios.
+
+El movimiento adicional se suma al resultado normal del dado.
+
+Después de completar tu movimiento puedes subir opcionalmente 1 marcha.
+
+Turbo no consume energía y tiene usos ilimitados.`,
+
+        historia:
+`El Turbo moderno fue desarrollado por Tim después de la muerte de su esposa.
+
+A diferencia del Óxido Nitroso, este sistema no intenta forzar directamente al Tri-Phase Core.
+
+Tim descubrió que determinados aumentos en la actividad del cubo emocional provocaban respuestas energéticas espontáneas capaces de ser aprovechadas por el vehículo.
+
+El Turbo canaliza esos excedentes cuando aparecen.
+
+Por esta razón es extremadamente potente, pero también impredecible: el conductor no decide exactamente cuándo se activa.
+
+El Core produce el impulso por sí mismo y el Turbo simplemente está preparado para aprovecharlo.`
+    },
+
+
+    /* 7 - FORZAR MARCHA */
+
+    {
+        id:"forzar",
+        nombre:"PALANCA DE FORZAR MARCHA",
+        imagen:"./piezas/P4.png",
+        empresa:"AetherWing",
+        precio:"PC 2",
+        durabilidad:"3 usos",
+        max:3,
+
+        reglas:
+`Al inicio de tu turno, cuando vayas a realizar tu cambio de marcha, puedes gastar 2E y 1 uso de Palanca de Forzar Marcha.
+
+En lugar de subir una marcha, puedes subir dos, saltándote la marcha intermedia.
+
+Ejemplos:
+
+2.ª → 4.ª
+
+3.ª → 5.ª
+
+4.ª → 6.ª
+
+Esta maniobra sustituye el cambio normal de marcha de ese turno.
+
+No permite bajar marchas ni superar la 6.ª.
+
+Después del tercer uso, la pieza se destruye.`,
+
+        historia:
+`Los conductores de AetherWing tienen una conocida tendencia a intentar tomar la delantera desde los primeros tramos de una carrera.
+
+Durante años, esta filosofía provocó que muchos vehículos fueran exigidos demasiado pronto y llegaran a las fases decisivas con transmisiones dañadas.
+
+Palanca de Forzar Marcha nació como respuesta a este problema.
+
+El sistema sincroniza temporalmente la transmisión, el motor y el Core para permitir que el vehículo salte una relación de marcha de manera controlada.
+
+Así, los pilotos de AetherWing pudieron conservar su agresivo estilo de salida sin destruir sus vehículos antes de tiempo.`
+    },
+
+
+    /* 8 - BATERÍA */
+
+    {
+        id:"bateria",
+        nombre:"BATERÍA DE RESPALDO",
+        imagen:"./piezas/P3.png",
+        empresa:"Kitsume",
+        precio:"PC 2",
+        durabilidad:"4E almacenadas",
+        max:4,
+
+        reglas:
+`La Batería de Respaldo contiene una reserva independiente de 4E.
+
+Una vez durante tu turno puedes transferir a tu vehículo la cantidad de energía que quieras de la batería.
+
+Puedes transferir 1E, varias unidades o toda la energía restante.
+
+Nunca puedes superar el máximo de energía permitido para tu vehículo.
+
+La energía que no utilices permanece almacenada para turnos posteriores.
+
+Cuando sus 4E hayan sido utilizadas, la pieza se destruye.`,
+
+        historia:
+`La Batería de Respaldo es una pieza pensada para conductores astutos y previsores.
+
+Su filosofía es sencilla: no siempre importa disponer de mucha energía, sino tenerla exactamente en el momento adecuado.
+
+El dispositivo almacena una pequeña reserva independiente que el piloto puede administrar poco a poco durante la carrera.
+
+Su desarrollo se aceleró como respuesta a Toshio, pues existía preocupación de que su enorme capacidad energética pudiera desequilibrar las competiciones.
+
+La batería no pretende igualar esa potencia.
+
+Su ventaja está en permitir que cada corredor decida cuándo necesita un poco más.`
+    },
+
+
+    /* 9 - VOLANTE DE FLUJO */
+
+    {
+        id:"volante",
+        nombre:"VOLANTE DE FLUJO",
+        imagen:"./piezas/P10.png",
+        empresa:"Chizue",
+        precio:"PC 2",
+        durabilidad:"4 usos",
+        max:4,
+
+        reglas:
+`Durante tu movimiento puedes gastar 1E y 1 uso de Volante de Flujo.
+
+Esto te permite abandonar el carril en el que comenzaste tu movimiento, desplazarte hacia otro carril y posteriormente regresar al carril inicial durante ese mismo movimiento.
+
+Por ejemplo:
+
+Carril inicial → otro carril → carril inicial.
+
+La pieza no concede espacios adicionales de movimiento.
+
+Únicamente permite realizar ese cambio adicional de trayectoria.
+
+Después del cuarto uso, se destruye.`,
+
+        historia:
+`Esta tecnología nació de la necesidad de Chizue de conseguir que un automóvil pudiera zigzaguear con una agilidad similar a la de una lagartija.
+
+Los cambios violentos de dirección normalmente someten los ejes, la suspensión y el sistema de dirección a fuerzas capaces de dañar el vehículo.
+
+Volante de Flujo utiliza un sistema de compensación que redistribuye estas cargas durante unos instantes.
+
+Gracias a ello, el piloto puede abandonar su trayectoria, cambiar de carril y regresar rápidamente al punto original realizando movimientos imposibles para la mayoría de los vehículos.`
+    },
+
+
+    /* 10 - FREEZING */
+
+    {
+        id:"freezing",
+        nombre:"FREEZING",
+        imagen:"./piezas/P7.png",
+        empresa:"Noctua",
+        precio:"PC 1",
+        durabilidad:"2 usos",
+        max:2,
+
+        reglas:
+`Cuando llegue tu turno puedes gastar 1 uso de Freezing para retrasar voluntariamente tu actuación dentro de esa ronda.
+
+Puedes permitir gratuitamente que juegue el corredor que se encuentre inmediatamente después de ti en el orden de turno.
+
+Por cada corredor adicional que quieras dejar actuar antes que tú, debes gastar 1E.
+
+Debes realizar tu turno antes de que termine la ronda.
+
+No puedes guardar el turno para la ronda siguiente.
+
+Después del segundo uso, la pieza se destruye.`,
+
+        historia:
+`Freezing nació como respuesta a la inmediatez.
+
+Actuar primero no siempre significa tener ventaja.
+
+A veces, la mejor decisión es esperar.
+
+Retrasar una maniobra puede permitir que aparezca un vehículo delante para aprovechar un Rebufo, que se libere un carril bloqueado o incluso que una unidad policial decida perseguir a otro corredor.
+
+Los pilotos que utilizan Freezing convierten la paciencia en una herramienta de competición.
+
+La pieza no hace que el automóvil sea más rápido.
+
+Permite elegir un mejor momento para moverse.`
+    },
+
+
+    /* 11 - LUCES ALTAS */
+
+    {
+        id:"luces",
+        nombre:"LUCES ALTAS",
+        imagen:"./piezas/P13.png",
+        empresa:"Raccoon Motors",
+        precio:"PC 2",
+        durabilidad:"4 usos",
+        max:4,
+
+        reglas:
+`Puedes gastar 2E y 1 uso de Luces Altas para afectar exclusivamente al vehículo que se encuentre inmediatamente delante de ti.
+
+Si el objetivo es otro corredor, su próximo movimiento se reduce en 1 espacio.
+
+Si el vehículo situado inmediatamente delante es una unidad de policía, esa unidad pierde su próxima activación.
+
+El efecto desaparece después de aplicarse una vez.
+
+Después del cuarto uso, la pieza se destruye.`,
+
+        historia:
+`Estas luces fueron creadas originalmente para competir en pistas oscuras, túneles y zonas de visibilidad reducida.
+
+Sus proyectores adaptativos podían atravesar niebla, polvo y oscuridad con una intensidad mucho mayor que un sistema convencional.
+
+Entonces Kumi encontró otras maneras de utilizarlas.
+
+Orientadas correctamente, podían saturar momentáneamente los sensores de un vehículo cercano y dificultar su reacción.
+
+Contra los robots policiales, la intensidad podía incluso obligar a sus sistemas ópticos a detenerse para recalibrar.
+
+Desde entonces, pocos pilotos consideran estas luces únicamente un sistema de iluminación.`
+    },
+
+
+    /* 12 - DEFENSA */
+
+    {
+        id:"defensa",
+        nombre:"DEFENSA ANTI-CHOQUES",
+        imagen:"./piezas/P11.png",
+        empresa:"CrownKat",
+        precio:"PC 2",
+        durabilidad:"2 daños",
+        max:2,
+
+        reglas:
+`Defensa Anti-choques puede absorber un total de 2 puntos de daño provocados por choques.
+
+Cada vez que recibas daño por un choque puedes asignar uno o más de esos puntos a la pieza en lugar de recibirlos en tu vehículo.
+
+Cada daño absorbido reduce en 1 su durabilidad.
+
+Si un choque produce más daño del que la pieza puede absorber, tu vehículo recibe el daño restante.
+
+Después de absorber un total de 2 daños, se destruye.`,
+
+        historia:
+`Esta defensa fue creada como respuesta a los extraordinarios reflejos felinos de Salem.
+
+Salem era capaz de reaccionar ante un impacto y colocar el vehículo en una posición que reducía considerablemente la fuerza de la colisión.
+
+Para otros pilotos, intentar realizar la misma maniobra normalmente provocaba todavía más daño.
+
+Los ingenieros desarrollaron entonces un sistema que detecta una colisión instantes antes del impacto y refuerza temporalmente las zonas de la carrocería que recibirán la mayor carga.
+
+La defensa no evita el choque.
+
+Evita que produzca más daño del necesario.`
+    },
+
+
+    /* 13 - AMORTIGUADOR */
+
+    {
+        id:"salto",
+        nombre:"AMORTIGUADOR DE SALTO",
+        imagen:"./piezas/P12.png",
+        empresa:"EcoMiska",
+        precio:"PC 1",
+        durabilidad:"2 usos",
+        max:2,
+
+        reglas:
+`Cuando un vehículo situado directamente delante de ti impida tu avance, puedes gastar 2E y 1 uso de Amortiguador de Salto.
+
+Puedes saltar y rebasar exactamente 1 vehículo.
+
+Debes colocarte en el primer espacio válido inmediatamente delante del vehículo saltado.
+
+El salto no concede movimiento adicional.
+
+Simplemente permite atravesar el espacio ocupado durante tu movimiento normal.
+
+Cada activación permite saltar solamente 1 vehículo.
+
+Después del segundo uso, la pieza se destruye.`,
+
+        historia:
+`La idea fue propuesta por Yuuky, quien siempre ha defendido que los automóviles deberían ser capaces de realizar adelantamientos aéreos.
+
+Su razonamiento era sencillo:
+
+Si un vehículo puede adelantar por los lados, ¿por qué no hacerlo por encima?
+
+El Amortiguador de Salto combina una suspensión de respuesta extremadamente rápida con un sistema de impulso capaz de levantar momentáneamente el vehículo.
+
+No está diseñado para realizar grandes saltos.
+
+Su objetivo es superar a un único vehículo cuando este bloquea completamente el camino.
+
+Yuuky descubrió además que el sistema podía permitir un adelantamiento incluso cuando un Rebufo generaba suficiente velocidad pero no existía un espacio lateral disponible.`
+    },
+
+
+    /* 14 - TRIPHASE */
+
+    {
+        id:"triphase",
+        nombre:"HACK TRIPHASE CORE",
+        imagen:"./piezas/P9.png",
+        empresa:"Fusion Future",
+        precio:"PC 2",
+        durabilidad:"2 usos",
+        max:2,
+
+        reglas:
+`Al inicio de cualquiera de tus turnos puedes gastar 1 uso de Hack Triphase Core.
+
+Durante ese turno puedes utilizar temporalmente la 6.ª marcha sin importar la marcha en la que se encuentre actualmente tu vehículo.
+
+Todos los efectos que dependan de tu marcha consideran que te encuentras en 6.ª durante ese turno.
+
+Al finalizar el turno vuelves automáticamente a la marcha que tenías antes de activar el Hack.
+
+Después del segundo uso, la pieza se destruye.`,
+
+        historia:
+`Hack Triphase Core es una programación especial diseñada para engañar temporalmente al Tri-Phase Core.
+
+Durante unos instantes, el sistema altera las restricciones de la transmisión y hace que el Core interprete que el vehículo se encuentra preparado para trabajar en sexta marcha, incluso cuando mecánicamente debería encontrarse en una relación inferior.
+
+Es una de las mejores piezas creadas por el Doc.
+
+También es una de las que menos recomienda utilizar de forma excesiva.
+
+Después de varias activaciones, el Core comienza a reconocer las inconsistencias entre la información recibida y el estado real del vehículo.
+
+Sus propios sistemas de seguridad terminan bloqueando el procedimiento.`
+    }
+
+];
+
+
+/* ======================================================
+   ESTADO
+====================================================== */
+
+let actual = 0;
+
+const contadores = {};
+
+
+/* Cada pieza empieza con su durabilidad máxima */
+
+piezas.forEach(p => {
+
+    if(
+        p.max !== null &&
+        p.max !== Infinity
+    ){
+        contadores[p.id] = p.max;
+    }
+
+});
+
+
+/* ======================================================
+   ELEMENTOS
+====================================================== */
+
+const image =
+    document.getElementById("partImage");
+
+const counter =
+    document.getElementById("counter");
+
+const prev =
+    document.getElementById("prev");
+
+const next =
+    document.getElementById("next");
+
+const partInfo =
+    document.getElementById("partInfo");
+
+const history =
+    document.getElementById("history");
+
+const uses =
+    document.getElementById("uses");
+
+
+const modal =
+    document.getElementById("modal");
+
+const modalTitle =
+    document.getElementById("modalTitle");
+
+const modalData =
+    document.getElementById("modalData");
+
+const modalText =
+    document.getElementById("modalText");
+
+const close =
+    document.getElementById("close");
+
+
+/* ======================================================
+   MOSTRAR PIEZA
+====================================================== */
+
+function mostrar(){
+
+    const p = piezas[actual];
+
+    image.src = p.imagen;
+    image.alt = p.nombre;
+
+
+    /* Ninguna */
+
+    if(p.max === null){
+
+        counter.textContent = "";
+        counter.classList.add("hidden");
+
+        return;
+    }
+
+
+    /* Infinito */
+
+    if(p.max === Infinity){
+
+        counter.textContent = "∞";
+        counter.classList.remove("hidden");
+
+        return;
+    }
+
+
+    /* Número */
+
+    counter.textContent =
+        contadores[p.id];
+
+    counter.classList.remove("hidden");
+
+}
+
+
+/* ======================================================
+   CAMBIAR PIEZA
+====================================================== */
+
+function siguiente(){
+
+    actual++;
+
+    if(actual >= piezas.length){
+        actual = 0;
+    }
+
+    mostrar();
+
+}
+
+
+function anterior(){
+
+    actual--;
+
+    if(actual < 0){
+        actual = piezas.length - 1;
+    }
+
+    mostrar();
+
+}
+
+
+/* ======================================================
+   USOS
+
+   Ejemplo:
+   4 → 3 → 2 → 1 → 0 → 4
+====================================================== */
+
+function cambiarUsos(){
+
+    const p = piezas[actual];
+
+    if(
+        p.max === null ||
+        p.max === Infinity
+    ){
+        return;
+    }
+
+
+    let valor =
+        contadores[p.id];
+
+
+    if(valor > 0){
+
+        valor--;
+
+    }else{
+
+        valor = p.max;
+
+    }
+
+
+    contadores[p.id] = valor;
+
+    mostrar();
+
+}
+
+
+/* ======================================================
+   INFORMACIÓN
+====================================================== */
+
+function abrirReglas(){
+
+    const p = piezas[actual];
+
+    if(p.id === "ninguna"){
+        return;
+    }
+
+
+    modalTitle.textContent =
+        p.nombre;
+
+
+    modalData.textContent =
+        "COMPAÑÍA: " + p.empresa +
+        "\nPRECIO: " + p.precio +
+        "\nDURABILIDAD: " + p.durabilidad;
+
+
+    modalText.textContent =
+        p.reglas;
+
+
+    modalText.scrollTop = 0;
+
+    modal.classList.add("show");
+
+}
+
+
+function abrirHistoria(){
+
+    const p = piezas[actual];
+
+    if(p.id === "ninguna"){
+        return;
+    }
+
+
+    modalTitle.textContent =
+        "HISTORIA — " + p.nombre;
+
+
+    modalData.textContent =
+        p.empresa;
+
+
+    modalText.textContent =
+        p.historia;
+
+
+    modalText.scrollTop = 0;
+
+    modal.classList.add("show");
+
+}
+
+
+function cerrarModal(){
+
+    modal.classList.remove("show");
+
+}
+
+
+/* ======================================================
+   BOTONES
+====================================================== */
+
+prev.addEventListener(
+    "click",
+    anterior
+);
+
+
+next.addEventListener(
+    "click",
+    siguiente
+);
+
+
+partInfo.addEventListener(
+    "click",
+    abrirReglas
+);
+
+
+history.addEventListener(
+    "click",
+    abrirHistoria
+);
+
+
+uses.addEventListener(
+    "click",
+    cambiarUsos
+);
+
+
+close.addEventListener(
+    "click",
+    cerrarModal
+);
+
+
+/* Tocar fuera de la caja también cierra */
+
+modal.addEventListener(
+    "click",
+    function(e){
+
+        if(e.target === modal){
+            cerrarModal();
+        }
+
+    }
+);
+
+
+/* ======================================================
+   SWIPE CON EL DEDO
+
+   Además de las flechas, se puede deslizar.
+====================================================== */
+
+let inicioX = 0;
+let inicioY = 0;
+
+
+document
+.getElementById("card")
+.addEventListener(
+    "touchstart",
+    function(e){
+
+        if(modal.classList.contains("show")){
+            return;
+        }
+
+        const t =
+            e.changedTouches[0];
+
+        inicioX =
+            t.clientX;
+
+        inicioY =
+            t.clientY;
+
+    },
+    {passive:true}
+);
+
+
+document
+.getElementById("card")
+.addEventListener(
+    "touchend",
+    function(e){
+
+        if(modal.classList.contains("show")){
+            return;
+        }
+
+        const t =
+            e.changedTouches[0];
+
+        const dx =
+            t.clientX - inicioX;
+
+        const dy =
+            t.clientY - inicioY;
+
+
+        /*
+          Debido a que la interfaz está
+          girada 90°, el movimiento visual
+          horizontal corresponde principalmente
+          al eje vertical original.
+        */
+
+        if(
+            Math.abs(dy) > 65 &&
+            Math.abs(dy) > Math.abs(dx)
+        ){
+
+            if(dy < 0){
+                siguiente();
+            }else{
+                anterior();
+            }
+
+        }
+
+    },
+    {passive:true}
+);
+
+
+/* ======================================================
+   TECLADO EN PC
+====================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        if(
+            modal.classList.contains("show")
+        ){
+
+            if(e.key === "Escape"){
+                cerrarModal();
+            }
+
+            return;
+        }
+
+
+        if(e.key === "ArrowRight"){
+            siguiente();
+        }
+
+
+        if(e.key === "ArrowLeft"){
+            anterior();
+        }
+
+    }
+);
+
+
+/* ======================================================
+   INICIO
+====================================================== */
+
+mostrar();
+
+</script>
+
+</body>
+</html>
